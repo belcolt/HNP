@@ -1,4 +1,18 @@
-﻿
+﻿@*
+    Priority:
+
+    - P2 = Prototype 2
+    - P3 = Prototype 3
+
+    TO DO (COPY WHAT'S IN THE [ ] AND CTRL + F TO FIND THE SECTION):
+
+    - Announcements Panel [ANCMT]: (P2) List of the latest announcements, new ones the user hasn't clicked on in bold (or if it's easier, with the text *NEW* next to the description/title, and be sure to use the badge to show how many new ones there are). Would like to use paging here, that way they can see all the unexpired Announcements without the panel taking up too much real-estate.
+
+    - Death Notices [DTH_NTC]: (P2) ONLY SHOW THE DATE OF THE NOTICE. Same thing as the other panel: nneed an indicator to showing newly added notices, a badge to show how many, and a we'll use a paging system here as well.
+
+    If you've finished one of these points, place a *DONE* at the beginning of the point.
+*@
+
 @{
     ViewBag.Title = "Announcements";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +21,57 @@
 
     <h2>Announcements</h2>
 
+    @*[ANCMT]*@
+    <div class="panel panel-default col-lg-6">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            Announcements <span class="badge">3</span>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAnnouncement">
+                Add...
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="modalAnnouncement" tabindex="-1" role="dialog" aria-labelledby="myModalAnnouncement" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Add New Announcement</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">Title/Description</span>
+                                <input type="text" class="form-control" placeholder="Enter text here..." aria-describedby="sizing-addon2">
+                            </div>
+                            <br />
+                            <button type="button" class="btn btn-default">Attach file</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default">Add</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-link">February 24th, 2015 - Annual General Meeting</button>
+                </li>
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-link"><b>February 26th, 2015 - 5 Car Draw</b></button>
+                </li>
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-link"><b>Updated Health and Safety Policy</b></button>
+                </li>
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-link"><b>Updated Funding Report</b></button>
+                </li>
+            </ul>
+        </div>
+    </div>
 
+    @*[DTH_NTC]*@
     <div class="panel panel-default col-lg-6">
         <!-- Default panel contents -->
         <div class="panel-heading">
@@ -93,54 +157,5 @@
                 <td><button type="button" class="btn btn-link">READ MORE...</button></td>
             </tr>
         </table>
-    </div>
-
-    <div class="panel panel-default col-lg-6">
-        <!-- Default panel contents -->
-        <div class="panel-heading">
-            Announcements <span class="badge">3</span>
-            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAnnouncement">
-                Add...
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="modalAnnouncement" tabindex="-1" role="dialog" aria-labelledby="myModalAnnouncement" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Add New Announcement</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="sizing-addon2">Title/Description</span>
-                                <input type="text" class="form-control" placeholder="Enter text here..." aria-describedby="sizing-addon2">
-                            </div>
-                            <br />
-                            <button type="button" class="btn btn-default">Attach file</button>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default">Add</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-        </div>
-        <div class="panel-body">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <button type="button" class="btn btn-link">February 24th, 2015 - Annual General Meeting</button>
-                </li>
-                <li class="list-group-item">
-                    <button type="button" class="btn btn-link"><b>February 26th, 2015 - 5 Car Draw</b></button>
-                </li>
-                <li class="list-group-item">
-                    <button type="button" class="btn btn-link"><b>Updated Health and Safety Policy</b></button>
-                </li>
-                <li class="list-group-item">
-                    <button type="button" class="btn btn-link"><b>Updated Funding Report</b></button>
-                </li>
-            </ul>
-        </div>
     </div>
 </div>

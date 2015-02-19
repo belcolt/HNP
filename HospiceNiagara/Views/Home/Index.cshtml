@@ -1,10 +1,28 @@
-﻿
+﻿@*
+    Priority:
+
+    - P2 = Prototype 2
+    - P3 = Prototype 3
+
+    TO DO (COPY WHAT'S IN THE [ ] AND CTRL + F TO FIND THE SECTION):
+
+    - Welcome Message/Link [WLCM]: (P3) WE WILL NEED TO ASK JESSICA WHAT EXACTLY THE LINK ON THIS MESSAGE WILL DO (ex: downloads a PDF, links to a whole seperate page entirely, etc). If a new Staff/Volunteer/Board member logs in, this welcome link needs to be visible until they click on this link.
+
+    - Announcements Panel [ANCMT]: (P2) Will be the same as the panel on the announcements page itself: list of the latest announcements, new ones the user hasn't clicked on in bold (or if it's easier, with the text *NEW* next to the description/title, and be sure to use the badge to show how many new ones there are). Would like to use paging here, that way they can see all the unexpired Announcements without the panel taking up too much real-estate.
+
+    - Upcoming Meetings [UCMG_MTGS]: (P2) Basic layout, simply and RSVP button and the title of the meeting. They should be able to click on the title which will take them to the meetings page with the details view of the specific meeting pre-load. Need an indicator to showing newly added meetings, a badge to show how many, and a we'll use a paging system here as well.
+
+    - Death Notices [DTH_NTC]: (P2) ONLY SHOW THE DATE OF THE NOTICE. Same thing as the other two panels: nneed an indicator to showing newly added notices, a badge to show how many, and a we'll use a paging system here as well.
+
+    If you've finished one of these points, place a *DONE* at the beginning of the point.
+*@
+
+
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
+@*[WLCM]*@
 <div class="alert alert-info" role="alert">Welcome New Staff/Volunteer/Board member! Click <a>here</a> for some information </div>
 
 <div class="row">
@@ -14,6 +32,7 @@
         <p class="lead">You have successfully logged into the Hospice Niagara Portal. The various tabs at the top will take you where you want to go!</p>
     </div>
 
+    @*[ANCMT]*@
     <div class="panel panel-default col-md-6">
         <div class="panel-heading">
             <h1 class="panel-title"><a href="#">Announcements</a> <span class="badge">3</span></h1>
@@ -25,6 +44,7 @@
 </div>
 
 <div class="row">
+    @*[UCMG_MTGS]*@
     <div class="panel panel-default col-lg-6">
         <div class="panel-heading">
             <h1 class="panel-title"><a href="#">Upcoming Meetings</a> <span class="badge">2</span></h1>
@@ -34,6 +54,7 @@
         </div>
     </div>
 
+    @*[DTH_NTC]*@
     <div class="panel panel-default col-lg-6">
         <div class="panel-heading">
             <h1 class="panel-title"><a href="#">Death Notices</a> <span class="badge">1</span></h1>
