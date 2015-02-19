@@ -1,0 +1,53 @@
+﻿body{
+    background-color: #B5C98F !important;
+}
+
+.well{
+    background-color: #FFFFFF !important;
+}
+
+.navbar-color {
+    background-color: #B5C98F !important;
+}
+
+#content.compact-page {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: 200px;
+}
+
+#content {
+margin: 0 -10px;
+clear: both;
+}
+
+.min {
+width: 300px;
+}
+
+#logo img{
+    margin-left: -25px;
+    height:130px;
+    width:130px;
+}
+
+#content.compact-page #logo {
+text-align: center;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+color: black;
+}
+
+.navbar-inverse .navbar-brand {
+color: black;
+}
+
+#logowelcome{
+    width:150px;
+    height:150px;
+    padding-bottom:15px;
+}
+

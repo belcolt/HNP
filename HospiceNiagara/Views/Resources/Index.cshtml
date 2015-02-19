@@ -1,0 +1,1220 @@
+﻿
+@{
+    ViewBag.Title = "Resources";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-offset-1">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+            </span>
+            <input type="text" class="form-control" placeholder="Search for a resource...">
+        </div><!-- /input-group -->
+    </div>
+</div><!-- /.row -->
+<br />    
+<div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#OrgRsrc" aria-controls="OrgRsrc" role="tab" data-toggle="tab">Organizational Resources</a></li>
+        @* Only Admin and Staff members can see this. *@
+        <li role="presentation"><a href="#StfRsrc" aria-controls="StfRsrc" role="tab" data-toggle="tab">Staff Resources</a></li>
+        @* Only Admin, Board and Staff-Leadership members can see this. *@
+        <li role="presentation"><a href="#BrdRsrc" aria-controls="BrdRsrc" role="tab" data-toggle="tab">Board Resources</a></li>
+        <li role="presentation"><a href="#VlntRsrc" aria-controls="VlntRsrc" role="tab" data-toggle="tab">Volunteer Resources</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="OrgRsrc">
+            <div class="row">
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalOrgRsrc">
+                    Add, Remove, or Edit Resource(s)
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalOrgRsrc" tabindex="-1" role="dialog" aria-labelledby="myModalOrgRsrc" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Add, Remove, or Edit Resource(s)</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-3">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Select Type <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <button type="button" class="btn btn-default col-lg-2">Attach file</button>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Enter file title/description here...">
+                                    </div><!-- /input-group -->
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-2">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Form <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="Health and Safety">
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-2">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Memo <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="Memo">
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
+            <div class="row">
+                <div class="panel panel-default col-lg-6">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Resources</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Forms</th>
+                                <td>
+                                    <ul>
+                                        <li>Health and Safety</li>
+                                        <li>Incident Report</li>
+                                        <li>Mileage & Expense</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Strategic Plan</th>
+                                <td>Plan</td>
+                            </tr>
+                            <tr>
+                                <th>Quality Improvement Plan</th>
+                                <td>Plan</td>
+                            </tr>
+                            <tr>
+                                <th>Memos</th>
+                                <td>Memos</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel panel-default col-lg-6">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Events</h1>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>5 Car Draw</th>
+                                <td>Volunteer Ticket Seller Information Sheet</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Links to Hospice Niagara Related Websites</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel panel-default col-lg-6">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Hospice Niagara Sites</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a href="http://www.hospiceniagara.ca" class="list-group-item">Hospice Niagara Website</a>
+                                    <a href="http://www.hospiceniagara.ca/resources/default/index/" class="list-group-item">Hospice Niagara Newsletter</a>
+                                    <a href="http://www.hpceducation.ca" class="list-group-item">HPC Education Website</a>
+                                    <a href="https://www.hospiceniagara.ca/donations/donate.php" class="list-group-item">Hospice Niagara Online Donation Website</a>
+                                    <a href="https://www.facebook.com/pages/Hospice-Niagara/157424072710?ref=ts" class="list-group-item">Facebook Account</a>
+                                    <a href="https://twitter.com/HospiceNiagara" class="list-group-item">Twitter Account</a>
+                                    <a href="http://www.hikeforhospiceniagara.ca" class="list-group-item">HN Hike for Hospice Website</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default col-lg-6">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Community Partner Sites</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a href="http://www.hpco.ca" class="list-group-item">Hospice Palliative Care Ontario</a>
+                                    <a href="http://www.hnhblhin.on.ca/home.aspx" class="list-group-item">HNHB LHIN</a>
+                                    <a href="http://www.health.gov.on.ca/en/" class="list-group-item">MOHLTC</a>
+                                    <a href="http://healthcareathome.ca/hnhb/en" class="list-group-item">HNHB CCAC</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="StfRsrc">
+            <div class="row">
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalStfRsrc">
+                    Add, Remove, or Edit Resource(s)
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalStfRsrc" tabindex="-1" role="dialog" aria-labelledby="myModalStfRsrc" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Add, Remove, or Edit Resource(s)</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-3">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Select Type <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <button type="button" class="btn btn-default col-lg-2">Attach file</button>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Enter file title/description here...">
+                                    </div><!-- /input-group -->
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-2">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Form <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="Health and Safety">
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-2">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Memo <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="Memo">
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
+            <div class="panel panel-default col-lg-6">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Resources</h1>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Operational Policies</th>
+                            <td>
+                                <ul>
+                                    <li>File</li>
+                                    <li>File</li>
+                                    <li>File</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Orientation Documents</th>
+                            <td>Documents</td>
+                        </tr>
+                        <tr>
+                            <th>Memos</th>
+                            <td>Memos</td>
+                        </tr>
+                        <tr>
+                            <th>Staff Meeting Minutes</th>
+                            <td>
+                                <ul>
+                                    <li>Residential</li>
+                                    <li>Admin</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Emergency Call Chart</th>
+                            <td>Call Chart</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-default col-lg-6">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Staff Related Links</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="http://www.infoanywhere.com" class="list-group-item">InfoAnywhere</a>
+                        <a href="https://css.hr.ccim.on.ca/HospiceNiagara" class="list-group-item">QHR Net</a>
+                        <a href="https://portal.microsoftonline.com" class="list-group-item">Office 365 Web Login</a>
+                        <a href="http://www.greenshield.ca" class="list-group-item">Green Shield (Group Plan Benefits)</a>
+                        <a href="http://sumac.com/training/" class="list-group-item">Sumac Training</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="BrdRsrc">
+            <div class="row">
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalBrdRsrc">
+                    Add, Remove, or Edit Resource(s)
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalBrdRsrc" tabindex="-1" role="dialog" aria-labelledby="myModalBrdRsrc" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Add, Remove, or Edit Resource(s)</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-3">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Select Type <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <button type="button" class="btn btn-default col-lg-2">Attach file</button>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Enter file title/description here...">
+                                    </div><!-- /input-group -->
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-2">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Form <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="Health and Safety">
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-2">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Memo <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="Memo">
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
+            <div class="panel panel-default col-lg-12">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Resources</h1>
+                </div>
+                <div class="row">
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Board Minutes</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordionOne" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionOne" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                December 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionOne" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                November 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionOne" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                October 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Board Packages</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordionTwo" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingFour">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                December 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingFive">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                                November 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingSix">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionTwo" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                                October 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Audited Financials</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordionThree" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingSeven">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                2014/2015
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingEight">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                2013/2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingNine">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                2012/2013
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Board Orientation Documents</h1>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Item Listed</li>
+                                <li>Item Listed</li>
+                                <li>Item Listed</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Board Contact List</h1>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Contact</li>
+                                <li>Contact</li>
+                                <li>Contact</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Governance Policies</h1>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Policy</li>
+                                <li>Policy</li>
+                                <li>Policy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-default col-lg-3">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Audit & Finance Committee</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordionThree" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingSeven">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                December 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingEight">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                November 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingNine">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                October 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-3">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Community Relations Committee</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordionThree" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingSeven">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                December 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingEight">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                November 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingNine">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                October 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-3">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Governance Committee</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordionThree" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingSeven">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                December 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingEight">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                November 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingNine">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                October 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-3">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Operations and Quality Improvement Committee</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordionThree" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingSeven">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                                December 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseSeven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingEight">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                                November 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseEight" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEight">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingNine">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionThree" href="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                                October 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseNine" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingNine">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="VlntRsrc">
+            <div class="row">
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalVlntRsrc">
+                    Add, Remove, or Edit Resource(s)
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalVlntRsrc" tabindex="-1" role="dialog" aria-labelledby="myModalVlntRsrc" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Add, Remove, or Edit Resource(s)</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-3">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Select Type <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <button type="button" class="btn btn-default col-lg-2">Attach file</button>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" placeholder="Enter file title/description here...">
+                                    </div><!-- /input-group -->
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-2">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Form <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="Health and Safety">
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="row">
+                                    <!-- Single button -->
+                                    <div class="btn-group col-lg-2">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            Memo <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#">Form</a></li>
+                                            <li><a href="#">Strategic Plan</a></li>
+                                            <li><a href="#">Quality Improvement Plan</a></li>
+                                            <li><a href="#">Memo</a></li>
+                                            <li><a href="#">Event</a></li>
+                                            <li><a href="#">Hospice Niagara Site</a></li>
+                                            <li><a href="#">Community Partner Site</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Add New Type...</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-group col-lg-6">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                        </span>
+                                        <input type="text" class="form-control" value="Memo">
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Save</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
+            <div class="panel panel-default col-lg-12">
+                <div class="panel-heading">
+                    <h1 class="panel-title">Resources</h1>
+                </div>
+                <div class="row">
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Town Hall Meeting Minutes</h1>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>December 2014</li>
+                                <li>June 2014</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Memos</h1>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Smoking (Nov 30, 2014)</li>
+                                <li>Parking (Nov 15, 2014)</li>
+                                <li>Etc.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Volunteer Orientation Documents</h1>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Listed</li>
+                                <li>Listed</li>
+                                <li>Listed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Volunteer Updates</h1>
+                        </div>
+                        <div class="panel-body">
+                            <div class="panel-group" id="accordionFour" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTen">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionFour" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                                December 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingEleven">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionFour" href="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                                September 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseEleven" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingEleven">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingTwelve">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordionFour" href="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+                                                July 2014
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwelve" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwelve">
+                                        <div class="panel-body">
+                                            <ul>
+                                                <li>File</li>
+                                                <li>File</li>
+                                                <li>File</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Policies</h1>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Policy</li>
+                                <li>Policy</li>
+                                <li>Policy</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-default col-lg-4">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Other Volunteer Resources</h1>
+                        </div>
+                        <div class="panel-body">
+                            <ul>
+                                <li>Application</li>
+                                <li>Presentation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @* Insert Volunteer Chart Here *@
+            </div>
+        </div>
+    </div>
+</div>
+

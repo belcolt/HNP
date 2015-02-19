@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "Announcements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-12">
+
+    <h2>Announcements</h2>
+
+
+    <div class="panel panel-default col-lg-6">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            Death Notices <span class="badge">1</span>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalDeathNotice">
+                Add...
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="modalDeathNotice" tabindex="-1" role="dialog" aria-labelledby="myModalDeathNotice" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Add New Death Notice</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">Name</span>
+                                <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">Date</span>
+                                <input type="text" class="form-control" placeholder="Date" aria-describedby="sizing-addon2">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">Location</span>
+                                <input type="text" class="form-control" placeholder="Location" aria-describedby="sizing-addon2">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">Notes</span>
+                                <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default">Add</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="panel-body">
+            
+        </div>
+
+        <!-- Table -->
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Location</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td>*NEW* Joe Smith</td>
+                <td>December 16, 2014</td>
+                <td>Community Client</td>
+                <td>Volunteer: Ted Tennant</td>
+            </tr>
+            <tr>
+                <td>Raches Jones</td>
+                <td>December 14, 2014</td>
+                <td>The Stable Center</td>
+                <td>Room 4</td>
+            </tr>
+            <tr>
+                <td>Mary Brown</td>
+                <td>December 8, 2014</td>
+                <td>NN Outreach Team</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Sally Williams</td>
+                <td>November 30, 2014</td>
+                <td>NS Outreach Team</td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <td><button type="button" class="btn btn-link">READ MORE...</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="panel panel-default col-lg-6">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            Announcements <span class="badge">3</span>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAnnouncement">
+                Add...
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="modalAnnouncement" tabindex="-1" role="dialog" aria-labelledby="myModalAnnouncement" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Add New Announcement</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="sizing-addon2">Title/Description</span>
+                                <input type="text" class="form-control" placeholder="Enter text here..." aria-describedby="sizing-addon2">
+                            </div>
+                            <br />
+                            <button type="button" class="btn btn-default">Attach file</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default">Add</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-link">February 24th, 2015 - Annual General Meeting</button>
+                </li>
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-link"><b>February 26th, 2015 - 5 Car Draw</b></button>
+                </li>
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-link"><b>Updated Health and Safety Policy</b></button>
+                </li>
+                <li class="list-group-item">
+                    <button type="button" class="btn btn-link"><b>Updated Funding Report</b></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
