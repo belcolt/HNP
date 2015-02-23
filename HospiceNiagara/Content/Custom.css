@@ -34,15 +34,15 @@ width: 300px;
 }
 
 #content.compact-page #logo {
-text-align: center;
+    text-align: center;
 }
 
 .navbar-inverse .navbar-nav>li>a {
-color: black;
+    color: black;
 }
 
 .navbar-inverse .navbar-brand {
-color: black;
+    color: black;
 }
 
 #logowelcome{
@@ -51,3 +51,13 @@ color: black;
     padding-bottom:15px;
 }
 
+.panel{
+    padding:0;
+    border-top: 0.5px solid #a5c39b;
+    border-right: 0.5px solid #a5c39b;
+}
+
+.row{
+    margin-right:0;
+    margin-left:0;
+}
