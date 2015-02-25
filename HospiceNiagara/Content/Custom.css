@@ -61,3 +61,13 @@ width: 300px;
     margin-right:0;
     margin-left:0;
 }
+
+.panel-default > .panel-heading {
+    background-color: #a5c39b;
+    color: white;
+}
+
+.jumbotron {
+    background-image: url('Exterior-frontdoor.jpg');
+    color:white;
+}
