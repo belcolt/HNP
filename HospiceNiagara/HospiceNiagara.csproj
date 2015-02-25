@@ -194,6 +194,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom.css" />
+    <Content Include="Content\Exterior-frontdoor.jpg" />
     <Content Include="Content\logoblacknobg.gif" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\font-awesome-4.3.0\css\font-awesome.css" />
