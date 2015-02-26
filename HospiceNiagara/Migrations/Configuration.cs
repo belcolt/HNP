@@ -25,7 +25,7 @@ namespace HospiceNiagara.Migrations
                 new ResourceType{Description="Schedule-PetTherapy"},
                 new ResourceType{Description="Schedule-WelcomeDesk"},
                 new ResourceType{Description="Schedule-WellandDayHospice"},
-                new ResourceType{Description="Annoucement-Memo"}
+                new ResourceType{Description="Announcement-Memo"}
             };
             resourceTypes.ForEach(r => context.ResourceTypes.Add(r));
             context.SaveChanges();
