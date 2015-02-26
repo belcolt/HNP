@@ -41,7 +41,7 @@ namespace HospiceNiagara.Controllers
             int fileLength = Request.Files[0].ContentLength;
             var resource = new Resource();
             var rType = (from rt in db.ResourceTypes
-                         where rt.Description == "Announcement-Memo"
+                         where rt.Description == "Annoucement-Memo"
                          select rt).Single();
 
             if (!(fileName == "" || fileLength == 0))
@@ -70,6 +70,41 @@ namespace HospiceNiagara.Controllers
                 return RedirectToAction("Index");
             }
             return View(db.Announcements.ToList());
+        }
+
+        // GET: Resources/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Announcement announcement = db.Announcements.Find(id);
+            if (announcement == null)
+            {
+                return HttpNotFound();
+            }
+            //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
+            //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
+            return View("Index");
+        }
+
+        // POST: Resources/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "ID,Content")] Announcement announcement)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(announcement).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
+            //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
+            return View("Index");
         }
     }
 }

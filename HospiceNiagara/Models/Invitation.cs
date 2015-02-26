@@ -17,8 +17,7 @@ namespace HospiceNiagara.Models
 
         [DefaultValue(false)]
         public bool HasResponded { get; set; }
-
-
+        
         //keys
         [Required]
         public int ContactID { get; set; }

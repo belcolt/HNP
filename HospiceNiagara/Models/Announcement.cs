@@ -11,6 +11,7 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
+        [DisplayName("Title/Description")]
         public string Content { get; set; }
 
         [Required]
