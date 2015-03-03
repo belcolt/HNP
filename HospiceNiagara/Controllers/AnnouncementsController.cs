@@ -39,20 +39,23 @@ namespace HospiceNiagara.Controllers
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
             int fileLength = Request.Files[0].ContentLength;
-            var resource = new Resource();
+           
+            //hard coded until select list added
             var rType = (from rt in db.ResourceTypes
                          where rt.Description == "Annoucement-Memo"
                          select rt).Single();
 
+            //announcement dates and resource  initializing
+            announcement.Date = DateTime.Now;
+            var resource = new Resource { DateAdded = DateTime.Today, ResourceTypeID = rType.ID };
+            
+            //fileread and associate file with resource
             if (!(fileName == "" || fileLength == 0))
             {
                 Stream fileStream = Request.Files[0].InputStream;
                 byte[] fileData = new byte[fileLength];
                 fileStream.Read(fileData, 0, fileLength);
                 //resource type already existent
-                announcement.Date = DateTime.Now;
-                resource.DateAdded = DateTime.Today;
-                resource.ResourceType = rType;
                 resource.FileStore = new FileStore
                 {
                     FileContent = fileData,
@@ -61,7 +64,8 @@ namespace HospiceNiagara.Controllers
                 };
             }
 
-            //var resource = db.ResourceFileStoreCreate(announcement.Content);
+            //add resource, assign ID to announcement's resource
+            db.Resources.Add(resource);
             announcement.ResourceID = resource.ID;
             if (ModelState.IsValid)
             {
