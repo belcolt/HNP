@@ -42,7 +42,7 @@ namespace HospiceNiagara.Controllers
            
             //hard coded until select list added
             var rType = (from rt in db.ResourceTypes
-                         where rt.Description == "Annoucement-Memo"
+                         where rt.Description == "Announcement-Memo"
                          select rt).Single();
 
             //announcement dates and resource  initializing
@@ -90,7 +90,7 @@ namespace HospiceNiagara.Controllers
             }
             //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
             //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
-            return View("Index");
+            return View(announcement);
         }
 
         // POST: Resources/Edit/5
@@ -100,6 +100,10 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Content")] Announcement announcement)
         {
+            //var playerToUpdate = db.Players
+            //    .Include(p => p.Positions)
+            //    .Where(i => i.ID == id)
+            //    .Single();
             if (ModelState.IsValid)
             {
                 db.Entry(announcement).State = EntityState.Modified;
@@ -108,7 +112,7 @@ namespace HospiceNiagara.Controllers
             }
             //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
             //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
-            return View("Index");
+            return Redirect(HttpContext.Request.UrlReferrer.AbsoluteUri);
         }
     }
 }

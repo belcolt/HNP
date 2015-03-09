@@ -45,9 +45,9 @@
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 @Html.AntiForgeryToken()
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2 col-lg-offset-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter text here..." } })
+                                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-lg-offset-3", @placeholder = "Enter text here..." } })
+                                    <div class="row">
                                         @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
                     <li class="list-group-item">
                         <button type="button" class="btn btn-link">@item.Content</button>
                         @Html.ActionLink("Edit", "Edit", new { id = item.ID }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditAnmt" }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteAnmt" }))
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteAnmt" })
                     </li>
                 }
                 @*<li class="list-group-item">
@@ -85,7 +85,7 @@
                         <button type="button" class="btn btn-link"><b>Updated Funding Report</b></button>
                     </li>*@
             </ul>
-            @using (Html.BeginForm("Edit", "Announcements", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("Edit", "Announcements", FormMethod.Post))
             {
             <!-- Modal -->
             <div class="modal fade" id="modalEditAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalEditAnmt" aria-hidden="true">
@@ -96,26 +96,22 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">Edit Announcement</h4>
                         </div>
-                        <div class="modal-body">
-                            @using (Html.BeginForm())
-                            {
-                                @Html.AntiForgeryToken()
+                            <div class="modal-body">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.AntiForgeryToken()
                                 @Html.HiddenFor(model => model.ID)
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-lg-offset-3", @placeholder = "Enter text here..." } })
+                                    <div class="row">
                                         @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                                     </div>
+                                    <div class="row">
+                                        @Html.DisplayNameFor(model => model.Resource.FileDesc)
+                                        @Html.DisplayFor(modelItem => modelItem.Resource.FileDesc)
+                                    </div>
                                 </div>
-                                // A list of current attached resources
-                                <div class="form-group">
-                                    <input class="form-control" type="file" name="FileUpload1" /><br />
-                                </div>
-                            }
-                        </div>
+                            </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-default">Save Changes</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -124,9 +120,6 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
             }
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
 
                 <!-- Modal -->
             <div class="modal fade" id="modalDeleteAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalDeleteAnmt" aria-hidden="true">
@@ -135,7 +128,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Edit Announcement</h4>
+                            <h4 class="modal-title">Remove Announcement</h4>
                         </div>
                         <div class="modal-body">
                             @using (Html.BeginForm())
@@ -164,7 +157,6 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-            }
         </div>
     </div>
 

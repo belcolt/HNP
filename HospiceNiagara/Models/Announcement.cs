@@ -10,7 +10,7 @@ namespace HospiceNiagara.Models
     public class Announcement
     {
         public int ID { get; set; }
-
+          
         [DisplayName("Title/Description")]
         public string Content { get; set; }
 
