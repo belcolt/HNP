@@ -42,7 +42,7 @@ namespace HospiceNiagara.Controllers
            
             //hard coded until select list added
             var rType = (from rt in db.ResourceTypes
-                         where rt.Description == "Announcement-Memo"
+                         where rt.Description == "Annoucement-Memo"
                          select rt).Single();
 
             //announcement dates and resource  initializing
@@ -77,7 +77,6 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Resources/Edit/5
-        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -91,7 +90,7 @@ namespace HospiceNiagara.Controllers
             }
             //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
             //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
-            return PartialView("_EditModal",announcement);
+            return View("Index");
         }
 
         // POST: Resources/Edit/5
@@ -99,22 +98,17 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement)
+        public ActionResult Edit([Bind(Include = "ID,Content")] Announcement announcement)
         {
-            //string description = announcement.Resource.FileDesc;
             if (ModelState.IsValid)
             {
                 db.Entry(announcement).State = EntityState.Modified;
                 db.SaveChanges();
-                //return PartialView("_AnnounceList", db.Announcements.ToList());
-               //return Index();
+                return RedirectToAction("Index");
             }
-            
-            return PartialView("AnnounceList",db.Announcements.ToList());
-            //return PartialView("_AnnounceList", db.Announcements.ToList());
             //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
             //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
-            //return PartialView("_AnnounceList", db.Announcements.ToList());
+            return View("Index");
         }
     }
 }
