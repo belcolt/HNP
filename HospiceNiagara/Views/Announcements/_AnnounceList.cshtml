@@ -1,0 +1,14 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Announcement>
+@Html.AntiForgeryToken()
+    <ul class="list-group">
+        @if (ViewBag.AnnounceList!=null) {
+                foreach (HospiceNiagara.Models.Announcement item in ViewBag.AnnounceList)
+                {
+                    <li class="list-group-item">
+                        <button type="button" class="btn btn-link">@item.Content</button>
+                        @Ajax.ActionLink("Edit", "Edit", new { id = item.ID },new AjaxOptions{UpdateTargetId="_EditModal", HttpMethod="Get"}, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditAnmt" }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteAnmt" })
+                    </li>
+                }
+                }
+     </ul>

@@ -19,7 +19,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="col-md-12">
-
     <h2>Announcements</h2>
 
     @*[ANCMT]*@
@@ -30,113 +29,68 @@
             <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAnnouncement">
                 Add...
             </button>
-            @using (Html.BeginForm("Create", "Announcements", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-            <!-- Modal -->
-                <div class="modal fade" id="modalAnnouncement" tabindex="-1" role="dialog" aria-labelledby="myModalAnnouncement" aria-hidden="true">
-
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Add New Announcement</h4>
-                            </div>
-                            <div class="modal-body">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.AntiForgeryToken()
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-lg-offset-3", @placeholder = "Enter text here..." } })
-                                    <div class="row">
-                                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="form-group">
-                                    <input class="form-control" type="file" name="FileUpload1" /><br />
+            <div class="modal fade" id="modalAnnouncement" tabindex="-1" role="dialog" aria-labelledby="myModalAnnouncement" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Add New Announcement</h4>
+                        </div>
+                        @Html.BeginForm("Create", "Announcements", FormMethod.Post)
+                        <div class="modal-body">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2 col-lg-offset-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter text here..." } })
+                                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-default">Add</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <br />
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="FileUpload1" /><br />
                             </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            }
-        </div>
-        <div class="panel-body">
-            <ul class="list-group">
-                @foreach (HospiceNiagara.Models.Announcement item in ViewBag.AnnounceList)
-                {
-                    <li class="list-group-item">
-                        <button type="button" class="btn btn-link">@item.Content</button>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditAnmt" }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteAnmt" })
-                    </li>
-                }
-                @*<li class="list-group-item">
-                        <button type="button" class="btn btn-link"><b>February 26th, 2015 - 5 Car Draw</b></button>
-                    </li>
-                    <li class="list-group-item">
-                        <button type="button" class="btn btn-link"><b>Updated Health and Safety Policy</b></button>
-                    </li>
-                    <li class="list-group-item">
-                        <button type="button" class="btn btn-link"><b>Updated Funding Report</b></button>
-                    </li>*@
-            </ul>
-            @using (Html.BeginForm("Edit", "Announcements", FormMethod.Post))
-            {
-            <!-- Modal -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-default">Add</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <!-- Edit Modal -->
             <div class="modal fade" id="modalEditAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalEditAnmt" aria-hidden="true">
-
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">Edit Announcement</h4>
                         </div>
-                            <div class="modal-body">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.AntiForgeryToken()
-                                @Html.HiddenFor(model => model.ID)
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-lg-offset-3", @placeholder = "Enter text here..." } })
-                                    <div class="row">
-                                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="row">
-                                        @Html.DisplayNameFor(model => model.Resource.FileDesc)
-                                        @Html.DisplayFor(modelItem => modelItem.Resource.FileDesc)
-                                    </div>
-                                </div>
-                            </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-default">Save Changes</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <div class="modal-body" id="editAnn">
+                            @{Html.RenderPartial("_EditModal");}
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-            }
+            <!-- Delete-->
+            @using (Html.BeginForm("Delete", "Announcements", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
 
                 <!-- Modal -->
-            <div class="modal fade" id="modalDeleteAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalDeleteAnmt" aria-hidden="true">
+                <div class="modal fade" id="modalDeleteAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalDeleteAnmt" aria-hidden="true">
 
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Remove Announcement</h4>
-                        </div>
-                        <div class="modal-body">
-                            @using (Html.BeginForm())
-                            {
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Edit Announcement</h4>
+                            </div>
+                            <div class="modal-body">
                                 @Html.AntiForgeryToken()
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 @Html.HiddenFor(model => model.ID)
-
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
@@ -148,103 +102,115 @@
                                 <div class="form-group">
                                     <input class="form-control" type="file" name="FileUpload1" /><br />
                                 </div>
-                            }
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-default">Save Changes</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-        </div>
-    </div>
+                                }
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
 
-    @*[DTH_NTC]*@
-    <div class="panel panel-default col-lg-6">
-        <!-- Default panel contents -->
-        <div class="panel-heading">
-            Death Notices <span class="badge">1</span>
-            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalDeathNotice">
-                Add...
-            </button>
-            <!-- Modal -->
-            <div class="modal fade" id="modalDeathNotice" tabindex="-1" role="dialog" aria-labelledby="myModalDeathNotice" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Add New Death Notice</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <span class="input-group-addon" id="sizing-addon2">Name</span>
-                                <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2">
+                                    <button type="submit" class="btn btn-default">Save Changes</button>
+
+                                </div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
-                            <br />
-                            <div class="input-group">
-                                <span class="input-group-addon" id="sizing-addon2">Date</span>
-                                <input type="text" class="form-control" placeholder="Date" aria-describedby="sizing-addon2">
-                            </div>
-                            <br />
-                            <div class="input-group">
-                                <span class="input-group-addon" id="sizing-addon2">Location</span>
-                                <input type="text" class="form-control" placeholder="Location" aria-describedby="sizing-addon2">
-                            </div>
-                            <br />
-                            <div class="input-group">
-                                <span class="input-group-addon" id="sizing-addon2">Notes</span>
-                                <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default">Add</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            }
         </div>
         <div class="panel-body">
-
+            <!-- Modal -->
+            <div>
+               @{Html.RenderPartial("_AnnounceList");}
+            </div>
         </div>
+        </div>
+        @*[DTH_NTC]*@
+        <div class="panel panel-default col-lg-6">
+            <!-- Default panel contents -->
+            <div class="panel-heading">
+                Death Notices <span class="badge">1</span>
+                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalDeathNotice">
+                    Add...
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalDeathNotice" tabindex="-1" role="dialog" aria-labelledby="myModalDeathNotice" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Add New Death Notice</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="sizing-addon2">Name</span>
+                                    <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2">
+                                </div>
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="sizing-addon2">Date</span>
+                                    <input type="text" class="form-control" placeholder="Date" aria-describedby="sizing-addon2">
+                                </div>
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="sizing-addon2">Location</span>
+                                    <input type="text" class="form-control" placeholder="Location" aria-describedby="sizing-addon2">
+                                </div>
+                                <br />
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="sizing-addon2">Notes</span>
+                                    <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default">Add</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+            </div>
+            <div class="panel-body">
 
-        <!-- Table -->
-        <table class="table">
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Notes</th>
-            </tr>
-            <tr>
-                <td>*NEW* Joe Smith</td>
-                <td>December 16, 2014</td>
-                <td>Community Client</td>
-                <td>Volunteer: Ted Tennant</td>
-            </tr>
-            <tr>
-                <td>Raches Jones</td>
-                <td>December 14, 2014</td>
-                <td>The Stable Center</td>
-                <td>Room 4</td>
-            </tr>
-            <tr>
-                <td>Mary Brown</td>
-                <td>December 8, 2014</td>
-                <td>NN Outreach Team</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Sally Williams</td>
-                <td>November 30, 2014</td>
-                <td>NS Outreach Team</td>
-                <td></td>
+            </div>
 
-            </tr>
-            <tr>
-                <td><button type="button" class="btn btn-link">READ MORE...</button></td>
-            </tr>
-        </table>
-    </div>
+            <!-- Table -->
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>*NEW* Joe Smith</td>
+                    <td>December 16, 2014</td>
+                    <td>Community Client</td>
+                    <td>Volunteer: Ted Tennant</td>
+                </tr>
+                <tr>
+                    <td>Raches Jones</td>
+                    <td>December 14, 2014</td>
+                    <td>The Stable Center</td>
+                    <td>Room 4</td>
+                </tr>
+                <tr>
+                    <td>Mary Brown</td>
+                    <td>December 8, 2014</td>
+                    <td>NN Outreach Team</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Sally Williams</td>
+                    <td>November 30, 2014</td>
+                    <td>NS Outreach Team</td>
+                    <td></td>
+
+                </tr>
+                <tr>
+                    <td><button type="button" class="btn btn-link">READ MORE...</button></td>
+                </tr>
+            </table>
+        </div>
 </div>
+
+

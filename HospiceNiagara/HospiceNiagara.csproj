@@ -292,6 +292,8 @@
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Resources\TestIndex.cshtml" />
     <Content Include="Views\Resources\Create.cshtml" />
+    <Content Include="Views\Announcements\_EditModal.cshtml" />
+    <Content Include="Views\Announcements\_AnnounceList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
