@@ -55,7 +55,8 @@ namespace HospiceNiagara.Migrations
                         Description = c.String(maxLength: 50),
                     })
                 .PrimaryKey(t => t.ID);
-            
+            CreateIndex("dbo.ResourceType", "Description", unique: true, name: "IX_ResourceType_Desc");
+
             CreateTable(
                 "dbo.Contact",
                 c => new

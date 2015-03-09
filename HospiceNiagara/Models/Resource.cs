@@ -16,7 +16,7 @@ namespace HospiceNiagara.Models
         public string FileDesc { get; set; }
 
         //ResourceType
-        [DisplayName("Attending")]
+        [DisplayName("Resource Type")]
         public int ResourceTypeID { get; set; }
         public ResourceType ResourceType { get; set; }
 

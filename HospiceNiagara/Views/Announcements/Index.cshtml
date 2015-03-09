@@ -17,10 +17,11 @@
 @{
     ViewBag.Title = "Announcements";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 <div class="col-md-12">
     <h2>Announcements</h2>
-
+    @Html.AntiForgeryToken()
     @*[ANCMT]*@
     <div class="panel panel-default col-lg-6">
         <!-- Default panel contents -->
@@ -29,6 +30,7 @@
             <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAnnouncement">
                 Add...
             </button>
+            
             <div class="modal fade" id="modalAnnouncement" tabindex="-1" role="dialog" aria-labelledby="myModalAnnouncement" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -36,10 +38,10 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             <h4 class="modal-title">Add New Announcement</h4>
                         </div>
-                        @Html.BeginForm("Create", "Announcements", FormMethod.Post)
+                        @Html.BeginForm("Create", "Announcements", FormMethod.Post, new { enctype = "multipart/form-data" })){
+                         
                         <div class="modal-body">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                            @Html.AntiForgeryToken()
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2 col-lg-offset-2" })
                                 <div class="col-md-10">
@@ -56,71 +58,60 @@
                             <button type="submit" class="btn btn-default">Add</button>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         </div>
+                        }
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
             <!-- Edit Modal -->
             <div class="modal fade" id="modalEditAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalEditAnmt" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Edit Announcement</h4>
-                        </div>
-                        <div class="modal-body" id="editAnn">
-                            @{Html.RenderPartial("_EditModal");}
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-            <!-- Delete-->
-            @using (Html.BeginForm("Delete", "Announcements", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
+                
+                @Html.Partial("_EditModal");
+                </div>
+                <!-- Delete-->
+                @using (Html.BeginForm("Delete", "Announcements", FormMethod.Post))
+                {
 
                 <!-- Modal -->
-                <div class="modal fade" id="modalDeleteAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalDeleteAnmt" aria-hidden="true">
-
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Edit Announcement</h4>
-                            </div>
-                            <div class="modal-body">
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                @Html.HiddenFor(model => model.ID)
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                    <div class="modal fade" id="modalDeleteAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalDeleteAnmt" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">Edit Announcement</h4>
+                                </div>
+                                <div class="modal-body">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.ID)
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                                        </div>
                                     </div>
+                                    // A list of current attached resources
+                                    <div class="form-group">
+                                        <input class="form-control" type="file" name="FileUpload1" /><br />
+                                    </div>
+                                    }
                                 </div>
-                                // A list of current attached resources
-                                <div class="form-group">
-                                    <input class="form-control" type="file" name="FileUpload1" /><br />
-                                </div>
-                                }
-                            </div>
-                            <div class="modal-footer">
-                                <div class="form-group">
+                                <div class="modal-footer">
+                                    <div class="form-group">
 
-                                    <button type="submit" class="btn btn-default">Save Changes</button>
+                                        <button type="submit" class="btn btn-default">Save Changes</button>
 
+                                    </div>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            }
-        </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                }
+            </div>
         <div class="panel-body">
             <!-- Modal -->
-            <div>
-               @{Html.RenderPartial("_AnnounceList");}
+            <div id="announceList">
+                @Html.Partial("_AnnounceList")
             </div>
         </div>
         </div>
