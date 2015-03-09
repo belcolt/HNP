@@ -22,7 +22,6 @@ namespace HospiceNiagara.Controllers
             ViewBag.AnnounceList = db.Announcements.ToList();
             return View();
         }
-
         // GET: Announcements/Create
         public ActionResult Create()
         {
@@ -34,49 +33,46 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Content")] Announcement announcement)
+        public ActionResult Create([Bind(Include = "Content")] Announcement announcement)
         {
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
             int fileLength = Request.Files[0].ContentLength;
-           
+            announcement.Date = DateTime.Now;
+            byte[] fileData = new byte[fileLength];
             //hard coded until select list added
             var rType = (from rt in db.ResourceTypes
-                         where rt.Description == "Annoucement-Memo"
+                         where rt.Description == "Announcement-Memo"
                          select rt).Single();
-
-            //announcement dates and resource  initializing
-            announcement.Date = DateTime.Now;
             var resource = new Resource { DateAdded = DateTime.Today, ResourceTypeID = rType.ID };
+            //announcement dates and resource  initializing
             
             //fileread and associate file with resource
             if (!(fileName == "" || fileLength == 0))
             {
                 Stream fileStream = Request.Files[0].InputStream;
-                byte[] fileData = new byte[fileLength];
                 fileStream.Read(fileData, 0, fileLength);
                 //resource type already existent
-                resource.FileStore = new FileStore
-                {
+                resource.FileStore = new FileStore{
                     FileContent = fileData,
                     MimeType = mimeType,
                     FileName = fileName
                 };
             }
-
             //add resource, assign ID to announcement's resource
             db.Resources.Add(resource);
-            announcement.ResourceID = resource.ID;
+            announcement.Resource = resource;
             if (ModelState.IsValid)
             {
                 db.Announcements.Add(announcement);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(db.Announcements.ToList());
+            return View("Index");
         }
 
         // GET: Resources/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -88,9 +84,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
-            //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
-            return View("Index");
+            return PartialView("_EditModal",announcement);
         }
 
         // POST: Resources/Edit/5
@@ -98,17 +92,22 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content")] Announcement announcement)
+        public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement)
         {
+            //string description = announcement.Resource.FileDesc;
             if (ModelState.IsValid)
             {
                 db.Entry(announcement).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
-            //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
+            ViewBag.AnnounceList = db.Announcements.ToList();
             return View("Index");
         }
+        
+        //VIEW BAG DROP DOWNS AUTO GENERATED
+
+        //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
+        //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
+
     }
 }
