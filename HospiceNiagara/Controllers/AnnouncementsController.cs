@@ -106,7 +106,7 @@ namespace HospiceNiagara.Controllers
             {
                 db.Entry(announcement).State = EntityState.Modified;
                 db.SaveChanges();
-                //return PartialView("_AnnounceList", db.Announcements.ToList());
+               //return PartialView("_AnnounceList", db.Announcements.ToList());
                //return Index();
             }
             
