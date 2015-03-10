@@ -21,6 +21,7 @@ namespace HospiceNiagara.DAL
         public DbSet<Resource> Resources { get; set; }
         public DbSet<FileStore> FileStores { get; set; }
         public DbSet<ResourceType> ResourceTypes { get; set; }
+        public DbSet<DeathNotice> DeathNotices { get; set; }
 
 
 
