@@ -1,6 +1,12 @@
 ﻿@model HospiceNiagara.Models.Announcement
 @*@using (Ajax.BeginForm("Edit", "Announcements", new AjaxOptions { UpdateTargetId = "_AnnounceList", InsertionMode = InsertionMode.Replace, HttpMethod = "Post" }))*@
 
+<style>
+    div {
+        color: black;
+    }
+</style>
+
 <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -8,23 +14,24 @@
             <h4 class="modal-title">Edit Announcement</h4>
         </div>
         <div class="modal-body" id="editAnn">
-            @Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post",InsertionMode=InsertionMode.Replace})
+            @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post",InsertionMode=InsertionMode.Replace}))
             {
-            @Html.AntiForgeryToken()
+            @*@Html.AntiForgeryToken()*@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ID)
             @Html.HiddenFor(model => model.Date)
             @Html.HiddenFor(model => model.ResourceID)
-            <div class="form-group, row">
-                
+            <div class="form-group row">
                 @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+                <div class="col-md-10 col-md-push-1">
                     @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(@item => item.Content, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <div class="form-group row">
+                @Html.ValidationMessageFor(@item => item.Content, "", new { @class = "text-danger" })
+            </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary"  >Save Changes</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             }

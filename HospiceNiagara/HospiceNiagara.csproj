@@ -252,7 +252,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -298,6 +300,7 @@
     <Content Include="Views\Resources\Create.cshtml" />
     <Content Include="Views\Announcements\_EditModal.cshtml" />
     <Content Include="Views\Announcements\_AnnounceList.cshtml" />
+    <Content Include="Views\Announcements\_DeleteModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

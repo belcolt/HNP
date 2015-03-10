@@ -32,7 +32,7 @@ namespace HospiceNiagara.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Content")] Announcement announcement)
         {
             string mimeType = Request.Files[0].ContentType;
@@ -91,7 +91,7 @@ namespace HospiceNiagara.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement)
         {
             //string description = announcement.Resource.FileDesc;
@@ -101,6 +101,33 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
             }
             ViewBag.AnnounceList = db.Announcements.ToList();
+            return View("Index");
+        }
+
+        // GET: Resources/Delete/5
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Announcement announcement = db.Announcements.Find(id);
+            if (announcement == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_DeleteModal", announcement);
+        }
+
+        // POST: Resources/Delete/5
+        [HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Announcement announcement = db.Announcements.Find(id);
+            db.Announcements.Remove(announcement);
+            db.SaveChanges();
             return View("Index");
         }
         
