@@ -13,10 +13,13 @@ namespace HospiceNiagara.Models
 
         public string Notes { get; set; }
 
+        public int? AgendaId { get; set; }
+        public MeetingResource Agenda { get; set; }
 
         public int? MinutesID { get; set; }
         public MeetingResource Minutes { get; set; }
 
+        public string StaffLead { get; set; }
 
         public int? AttendanceID { get; set; }
         public MeetingResource Attendance { get; set; }

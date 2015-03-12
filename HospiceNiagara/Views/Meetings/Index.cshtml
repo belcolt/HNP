@@ -1,18 +1,7 @@
-﻿@*
-    Priority:
-
-    - P2 = Prototype 2
-    - P3 = Prototype 3
-
-    TO DO (COPY WHAT'S IN THE [ ] AND CTRL + F TO FIND THE SECTION):
-
-    - Meeting Table [MTG_TBL]: (P2) We'll need to replace the example of the data table with an actual one, limiting the columns as currently displayed. Make sure to include a details link to details view page.
-
-    If you've finished one of these points, place a *DONE* at the beginning of the point.
-*@
+﻿@model HospiceNiagara.Models.EventListViewModel
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Meetings";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -20,97 +9,62 @@
 
 
 <div class="panel-heading">
-    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalDeathNotice">
+   @* @Ajax.ActionLink("Add Meeting","CreateMeeting", new AjaxOptions { UpdateTargetId = "__CreateMeetingModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalCreateMeeting" })*@
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalCreateEvent">
+        Add new Event
+    </button>
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalCreateEvent">
         Add new Meeting
     </button>
     <!-- Modal -->
-    <div class="modal fade" id="modalDeathNotice" tabindex="-1" role="dialog" aria-labelledby="myModalDeathNotice" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Add New Death Notice</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon2">Event</span>
-                        <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2">
-                    </div>
-                    <br />
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon2">Date</span>
-                        <input type="text" class="form-control" placeholder="Date" aria-describedby="sizing-addon2">
-                    </div>
-                    <br />
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon2">Location</span>
-                        <input type="text" class="form-control" placeholder="Location" aria-describedby="sizing-addon2">
-                    </div>
-                    <br />
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon2">Requirements</span>
-                        <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
-                    </div>
-                    <br />
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon2">Presentation</span>
-                        <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
-                    </div>
-                    <br />
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon2">Staff Lead</span>
-                        <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
-                    </div>
-                    <br />
-                    <div class="input-group">
-                        <span class="input-group-addon" id="sizing-addon2">Contact Info</span>
-                        <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
-                    </div>
-                    <br />
-                    <button type="button" class="btn btn-default">Attach Document(s)</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default">Add</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
+    <div class="modal fade" id="modalCreateMeeting" tabindex="-1" role="dialog" aria-labelledby="modalCreateMeeting" aria-hidden="true">
+      @*@Html.Partial("_CreateMeetingModal")*@
     </div><!-- /.modal -->
 </div>
-
+<div></div>
 @*[MTG_TBL]*@
 <!-- Table -->
-<table class="table table-hover">
+<table class="table table-hover" id="eventsIndex">
     <tr>
         <th></th>
-        <th>Event</th>
-        <th>Date</th>
-        <th>Location</th>
+        <th>@Html.DisplayNameFor(model => model.Name)</th>
+        <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+        <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+        <th>@Html.DisplayNameFor(model => model.Location)</th>
         <th>RSVPs</th>
+        <th></th>
     </tr>
-    <tr>
-        <td><button type="button" class="btn btn-default">RSVP</button></td>
-        <td>Lunar Event</td>
-        <td>February 2, 2015</td>
-        <td>The Core</td>
-        <td><button type="button" class="btn btn-link">22</button></td>
-    </tr>
-    <tr>
-        <td><button type="button" class="btn btn-default">RSVP</button></td>
-        <td>Lunar Event #2</td>
-        <td>February 2, 2015</td>
-        <td>The Core</td>
-        <td><button type="button" class="btn btn-link">24</button></td>
-    </tr>
-    <tr>
-        <td><button type="button" class="btn btn-default">RSVP</button></td>
-        <td>Christmas party</td>
-        <td>December 25, 2014</td>
-        <td>Main Wing</td>
-        <td><button type="button" class="btn btn-link">88</button></td>
-    </tr>
-</table>
+    @if (ViewBag.EventsList != null)
+    {
+        foreach (HospiceNiagara.Models.EventListViewModel item in ViewBag.EventsList)
+        {  
+            <tr>
+                <td><button type="button" class="btn btn-default">RSVP</button></td>
+                <td>@item.Name</td>
+                <td>@item.StartDate</td>
+                <td>@item.EndDate</td>
+                <td>@item.Location</td>
+                <td>@Html.ActionLink(@item.AttendanceCount,"Invites",new{id=@item.ID})</td>
+                <td></td>
+            </tr>
+        }
+    }
+    </table>
+    @*<div id="eventList">
+            @Html.Partial("_EventIndexList")
+        </div>*@
+    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modal">
+        Export
+    </button>
+    @*
+        Priority:
 
-<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modal">
-    Export
-</button>           
+        - P2 = Prototype 2
+        - P3 = Prototype 3
+
+        TO DO (COPY WHAT'S IN THE [ ] AND CTRL + F TO FIND THE SECTION):
+
+        - Meeting Table [MTG_TBL]: (P2) We'll need to replace the example of the data table with an actual one, limiting the columns as currently displayed. Make sure to include a details link to details view page.
+
+        If you've finished one of these points, place a *DONE* at the beginning of the point.
+    *@

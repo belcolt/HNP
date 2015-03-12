@@ -170,17 +170,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201502242323338_Initial.cs" />
-    <Compile Include="Migrations\201502242323338_Initial.Designer.cs">
-      <DependentUpon>201502242323338_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503060504124_ResourceTypeUnique.cs" />
-    <Compile Include="Migrations\201503060504124_ResourceTypeUnique.Designer.cs">
-      <DependentUpon>201503060504124_ResourceTypeUnique.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503101421278_DEATH.cs" />
-    <Compile Include="Migrations\201503101421278_DEATH.Designer.cs">
-      <DependentUpon>201503101421278_DEATH.cs</DependentUpon>
+    <Compile Include="Migrations\201503120434100_initial.cs" />
+    <Compile Include="Migrations\201503120434100_initial.Designer.cs">
+      <DependentUpon>201503120434100_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -188,6 +180,7 @@
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\DeathNotice.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\EventViewModels.cs" />
     <Compile Include="Models\FileStore.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invitation.cs" />
@@ -306,6 +299,9 @@
     <Content Include="Views\Announcements\_EditModal.cshtml" />
     <Content Include="Views\Announcements\_AnnounceList.cshtml" />
     <Content Include="Views\Announcements\_DeleteModal.cshtml" />
+    <Content Include="Views\Meetings\_CreateMeetingModal.cshtml" />
+    <Content Include="Views\Meetings\_EventIndexList.cshtml" />
+    <Content Include="Views\Meetings\Invites.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -318,14 +314,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201502242323338_Initial.resx">
-      <DependentUpon>201502242323338_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503060504124_ResourceTypeUnique.resx">
-      <DependentUpon>201503060504124_ResourceTypeUnique.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503101421278_DEATH.resx">
-      <DependentUpon>201503101421278_DEATH.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503120434100_initial.resx">
+      <DependentUpon>201503120434100_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

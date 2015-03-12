@@ -24,14 +24,13 @@ namespace HospiceNiagara.Models
 
         //extension or number
         [Required]
-        [MaxLength(9)]
+        [MaxLength(10)]
         public string Phone { get; set; }
 
 
         public string Email { get; set; }
 
         //public ICollection<Meeting> Invitations { get; set; }
-        [DisplayName]
         public virtual ICollection<Invitation> Invitations { get; set; }
     }
 }

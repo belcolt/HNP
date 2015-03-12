@@ -8,6 +8,8 @@ namespace HospiceNiagara.Migrations
     using HospiceNiagara.Models;
     using HospiceNiagara.DAL;
     using System.IO;
+    using System.Data.Entity.Validation;
+    using System.Text;
     internal sealed class HospiceConfiguration : DbMigrationsConfiguration<HospiceNiagara.DAL.HospiceNiagaraContext>
     {
 
@@ -15,6 +17,34 @@ namespace HospiceNiagara.Migrations
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "HospiceNiagara.DAL.HospiceNiagaraContext";
+
+        }
+
+        private void SaveChanges(DbContext context)
+        {
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var failure in ex.EntityValidationErrors)
+                {
+                    sb.AppendFormat("{0} failed validation\n", failure.Entry.Entity.GetType());
+                    foreach (var error in failure.ValidationErrors)
+                    {
+                        sb.AppendFormat("- {0} : {1}", error.PropertyName, error.ErrorMessage);
+                        sb.AppendLine();
+                    }
+                }
+
+                throw new DbEntityValidationException(
+                    "Entity Validation Failed - errors follow:\n" +
+                    sb.ToString(), ex
+                ); // Add the original exception as the innerException
+            }
         }
         protected override void Seed(HospiceNiagaraContext context)
         {
@@ -42,13 +72,11 @@ namespace HospiceNiagara.Migrations
 
             var events = new List<Event>
                 {
-                    new Event {Name = "Spring Ball", Date=DateTime.Parse("2008-01-01"),StartTime=DateTime.Parse("2008-01-01T09:30:00"),EndTime=
-                        DateTime.Parse("2008-01-01T11:30:00")},
-                    new Event {Name = "Festivus Ball", Date=DateTime.Parse("2009-06-06"),StartTime=DateTime.Parse("2009-06-06T09:30:00"),EndTime=
-                        DateTime.Parse("2009-06-06T11:30:00")},
+                    new Event {Name = "Event 1", Location="Townhall", StartDateTime=DateTime.Parse("2008-01-01T09:30:00"),EndDateTime= DateTime.Parse("2008-01-01T11:30:00")},
+                    new Event {Name = "Event 2", Location="Downtown",StartDateTime=DateTime.Parse("2009-06-06T09:30:00"),EndDateTime= DateTime.Parse("2009-06-06T11:30:00")},
 
-                    new Meeting {Name="Important Day", Requirements="Formal", Notes="Please attend", Date=DateTime.Parse("2009-02-03"), 
-                    StartTime=DateTime.Parse("2009-02-03T11:30:00"), EndTime=DateTime.Parse("2009-02-03T13:30:00")}
+                    new Meeting {Name="Important Meeting", Requirements="Formal", Notes="Please attend", Location="The Core",
+                    StartDateTime=DateTime.Parse("2009-02-03T11:30:00"), EndDateTime=DateTime.Parse("2009-02-03T13:30:00")}
                 };
             events.ForEach(e => context.Events.Add(e));
             context.SaveChanges();

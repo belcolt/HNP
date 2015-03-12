@@ -1,0 +1,119 @@
+﻿@model HospiceNiagara.Models.Meeting
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit Announcement</h4>
+        </div>
+        <div class="modal-body" id="createMeet">
+            @using (AjaxExtensions.BeginForm(new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace },))
+
+            {
+                @*@Html.AntiForgeryToken()*@
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.Date)
+                @Html.HiddenFor(model => model.ResourceID)
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 col-md-push-1">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(@item => item.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.StartDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 col-md-push-1">
+                        @Html.EditorFor(model => model.StartDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(@item => item.StartDateTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.EndDateTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 col-md-push-1">
+                        @Html.EditorFor(model => model.EndDateTime, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(@item => item.EndDateTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 col-md-push-1">
+                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(@item => item.Location, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.StaffLead, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 col-md-push-1">
+                        @Html.EditorFor(model => model.StaffLead, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(@item => item.StaffLead, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div>
+                    <h5>Resources</h5>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Agenda, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 col-md-push-1">
+                        <input class="form-control" type="file" name="FileUpload1" /><br />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add Meeting</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            }
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add New Meeting</h4>
+        </div>
+        <div class="modal-body">
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Event</span>
+                <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Date</span>
+                <input type="text" class="form-control" placeholder="Date" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Location</span>
+                <input type="text" class="form-control" placeholder="Location" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Requirements</span>
+                <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Presentation</span>
+                <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Staff Lead</span>
+                <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <div class="input-group">
+                <span class="input-group-addon" id="sizing-addon2">Contact Info</span>
+                <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
+            </div>
+            <br />
+            <button type="button" class="btn btn-default">Attach Document(s)</button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default">Add</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
