@@ -203,6 +203,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\carousel1.jpg" />
+    <Content Include="Content\carousel3.jpg" />
     <Content Include="Content\Custom.css" />
     <Content Include="Content\Exterior-frontdoor.jpg" />
     <Content Include="Content\logoblacknobg.gif" />
