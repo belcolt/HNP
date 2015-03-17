@@ -22,7 +22,7 @@ namespace HospiceNiagara.DAL
         public DbSet<FileStore> FileStores { get; set; }
         public DbSet<ResourceType> ResourceTypes { get; set; }
         public DbSet<DeathNotice> DeathNotices { get; set; }
-
+        public DbSet<TeamDomain> TeamDomains { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

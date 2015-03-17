@@ -30,6 +30,10 @@ namespace HospiceNiagara.Models
 
         public string Email { get; set; }
 
+        [Required]
+        public int TeamDomainID { get; set; }
+        public virtual TeamDomain TeamDomain { get; set; }
+
         //public ICollection<Meeting> Invitations { get; set; }
         [DisplayName]
         public virtual ICollection<Invitation> Invitations { get; set; }

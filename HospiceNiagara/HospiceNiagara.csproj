@@ -197,6 +197,7 @@
     <Compile Include="Models\MeetingResource.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\ResourceType.cs" />
+    <Compile Include="Models\TeamDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

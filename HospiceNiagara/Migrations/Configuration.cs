@@ -46,6 +46,15 @@ namespace HospiceNiagara.Migrations
         }
         protected override void Seed(HospiceNiagaraContext context)
         {
+            var resourceDomains = new List<TeamDomain>
+            {
+                new TeamDomain{ID=1,Description="Volunteer"},
+                new TeamDomain{ID=2,Description="Staff"},
+                new TeamDomain{ID=3,Description="Board"},
+                new TeamDomain{ID=4,Description="Organizational"}
+            };
+            resourceDomains.ForEach(rd => context.TeamDomains.Add(rd));
+            context.SaveChanges();
             var deathNotice = new List<DeathNotice>
                 {
                     new DeathNotice{FirstName="Joe", MiddleName="T", LastName="Smith", Date=DateTime.Parse("2014-12-16"), Location="Bob's House", Notes="Volunteer: Ted Tennant"},
