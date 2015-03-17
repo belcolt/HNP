@@ -19,6 +19,7 @@ namespace HospiceNiagara.Controllers
         // GET: Announcements
         public ActionResult Index()
         {
+            ViewBag.DNList = db.DeathNotices.ToList();
             ViewBag.AnnounceList = db.Announcements.ToList();
             return View();
         }

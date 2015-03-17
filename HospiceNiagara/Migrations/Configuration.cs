@@ -8,6 +8,8 @@ namespace HospiceNiagara.Migrations
     using HospiceNiagara.Models;
     using HospiceNiagara.DAL;
     using System.IO;
+    using System.Data.Entity.Validation;
+    using System.Text;
     internal sealed class HospiceConfiguration : DbMigrationsConfiguration<HospiceNiagara.DAL.HospiceNiagaraContext>
     {
 
@@ -15,6 +17,32 @@ namespace HospiceNiagara.Migrations
         {
             AutomaticMigrationsEnabled = true;
             ContextKey = "HospiceNiagara.DAL.HospiceNiagaraContext";
+        }
+        private void SaveChanges(DbContext context)
+        {
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
+
+                foreach (var failure in ex.EntityValidationErrors)
+                {
+                    sb.AppendFormat("{0} failed validation\n", failure.Entry.Entity.GetType());
+                    foreach (var error in failure.ValidationErrors)
+                    {
+                        sb.AppendFormat("- {0} : {1}", error.PropertyName, error.ErrorMessage);
+                        sb.AppendLine();
+                    }
+                }
+
+                throw new DbEntityValidationException(
+                    "Entity Validation Failed - errors follow:\n" +
+                    sb.ToString(), ex
+                ); // Add the original exception as the innerException
+            }
         }
         protected override void Seed(HospiceNiagaraContext context)
         {
@@ -30,7 +58,6 @@ namespace HospiceNiagara.Migrations
 
             var resourceTypes = new List<ResourceType>
             {
-                new ResourceType{Description="Meeting-Attendance"},
                 new ResourceType{Description="Meeting-Minutes"},
                 new ResourceType{Description="Schedule-PetTherapy"},
                 new ResourceType{Description="Schedule-WelcomeDesk"},
