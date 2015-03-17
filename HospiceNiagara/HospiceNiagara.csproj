@@ -175,13 +175,9 @@
     <Compile Include="Migrations\201502242323338_Initial.Designer.cs">
       <DependentUpon>201502242323338_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503060504124_ResourceTypeUnique.cs" />
-    <Compile Include="Migrations\201503060504124_ResourceTypeUnique.Designer.cs">
-      <DependentUpon>201503060504124_ResourceTypeUnique.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503101421278_DEATH.cs" />
-    <Compile Include="Migrations\201503101421278_DEATH.Designer.cs">
-      <DependentUpon>201503101421278_DEATH.cs</DependentUpon>
+    <Compile Include="Migrations\201503171952139_TeamDomainContactsDeath.cs" />
+    <Compile Include="Migrations\201503171952139_TeamDomainContactsDeath.Designer.cs">
+      <DependentUpon>201503171952139_TeamDomainContactsDeath.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -304,7 +300,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Meetings\Index.cshtml" />
     <Content Include="Views\Schedules\Index.cshtml" />
-    <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Resources\TestIndex.cshtml" />
     <Content Include="Views\Resources\Create.cshtml" />
     <Content Include="Views\Announcements\_EditModal.cshtml" />
@@ -314,6 +309,12 @@
     <Content Include="Views\DeathNotices\_CreateModalDN.cshtml" />
     <Content Include="Views\DeathNotices\_EditModalDN.cshtml" />
     <Content Include="Views\DeathNotices\_DeleteModalDN.cshtml" />
+    <Content Include="Views\Contacts\Create.cshtml" />
+    <Content Include="Views\Contacts\Delete.cshtml" />
+    <Content Include="Views\Contacts\Details.cshtml" />
+    <Content Include="Views\Contacts\Edit.cshtml" />
+    <Content Include="Views\Contacts\Index.cshtml" />
+    <Content Include="Views\Contacts\TestIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -329,11 +330,8 @@
     <EmbeddedResource Include="Migrations\201502242323338_Initial.resx">
       <DependentUpon>201502242323338_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503060504124_ResourceTypeUnique.resx">
-      <DependentUpon>201503060504124_ResourceTypeUnique.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503101421278_DEATH.resx">
-      <DependentUpon>201503101421278_DEATH.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503171952139_TeamDomainContactsDeath.resx">
+      <DependentUpon>201503171952139_TeamDomainContactsDeath.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
