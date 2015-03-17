@@ -34,7 +34,7 @@
                 <h4 class="modal-title">Add New Death Notice</h4>
             </div>
             <div class="modal-body">
-                @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post",InsertionMode=InsertionMode.Replace}))
+                @using (Ajax.BeginForm("CreateDNotice",new AjaxOptions { HttpMethod = "Post",InsertionMode=InsertionMode.Replace}))
                 {
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.ID)
@@ -82,12 +82,12 @@
                         @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
                     </div>
                 </div>
-                }
-            </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default">Add</button>
+                <button type="submit" class="btn btn-default">Add</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
+                }
+        </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

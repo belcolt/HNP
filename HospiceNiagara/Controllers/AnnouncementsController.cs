@@ -33,6 +33,17 @@ namespace HospiceNiagara.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        public ActionResult CreateDNotice([Bind(Include = "FirstName,MiddleName,LastName,Date,Location,Notes")] DeathNotice deathNotice)
+        {
+            if (ModelState.IsValid)
+            {
+                db.DeathNotices.Add(deathNotice);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+        [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Content")] Announcement announcement)
         {

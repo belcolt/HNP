@@ -37,7 +37,7 @@ namespace HospiceNiagara.Controllers
 
         // POST: DeathNotice/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes")] DeathNotice deathNotice)
+        public ActionResult Create([Bind(Include = "FirstName,MiddleName,LastName,Date,Location,Notes")] DeathNotice deathNotice)
         {
             if(ModelState.IsValid)
             {
@@ -45,7 +45,7 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View("../Announcements/Index");
+            return View();
         }
 
         // GET: DeathNotice/Edit/5
