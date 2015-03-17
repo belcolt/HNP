@@ -68,11 +68,11 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-            <!-- Edit Modal -->
+            <!-- Edit Anmt Modal -->
             <div class="modal fade" id="modalEditAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalEditAnmt" aria-hidden="true">
                 @Html.Partial("_EditModal")
             </div>
-            <!-- Delete Modal -->
+            <!-- Delete Anmt Modal -->
             <div class="modal fade" id="modalDeleteAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalDeleteAnmt" aria-hidden="true">
                 @Html.Partial("_DeleteModal") 
             </div><!-- /.modal -->
@@ -84,93 +84,25 @@
             </div>
         </div>
     </div>
-        @*[DTH_NTC]*@
-        <div class="panel panel-default col-lg-6">
-            <!-- Default panel contents -->
-            <div class="panel-heading">
-                Death Notices <span class="badge">1</span>
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalDeathNotice">
-                    Add...
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="modalDeathNotice" tabindex="-1" role="dialog" aria-labelledby="myModalDeathNotice" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title">Add New Death Notice</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon2">Name</span>
-                                    <input type="text" class="form-control" placeholder="Name" aria-describedby="sizing-addon2">
-                                </div>
-                                <br />
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon2">Date</span>
-                                    <input type="text" class="form-control" placeholder="Date" aria-describedby="sizing-addon2">
-                                </div>
-                                <br />
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon2">Location</span>
-                                    <input type="text" class="form-control" placeholder="Location" aria-describedby="sizing-addon2">
-                                </div>
-                                <br />
-                                <div class="input-group">
-                                    <span class="input-group-addon" id="sizing-addon2">Notes</span>
-                                    <input type="text" class="form-control" placeholder="Notes" aria-describedby="sizing-addon2">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default">Add</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            </div>
-            <div class="panel-body">
-
-            </div>
-
-            <!-- Table -->
-            <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Date</th>
-                    <th>Location</th>
-                    <th>Notes</th>
-                </tr>
-                <tr>
-                    <td>*NEW* Joe Smith</td>
-                    <td>December 16, 2014</td>
-                    <td>Community Client</td>
-                    <td>Volunteer: Ted Tennant</td>
-                </tr>
-                <tr>
-                    <td>Raches Jones</td>
-                    <td>December 14, 2014</td>
-                    <td>The Stable Center</td>
-                    <td>Room 4</td>
-                </tr>
-                <tr>
-                    <td>Mary Brown</td>
-                    <td>December 8, 2014</td>
-                    <td>NN Outreach Team</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Sally Williams</td>
-                    <td>November 30, 2014</td>
-                    <td>NS Outreach Team</td>
-                    <td></td>
-
-                </tr>
-                <tr>
-                    <td><button type="button" class="btn btn-link">READ MORE...</button></td>
-                </tr>
-            </table>
+    @*[DTH_NTC]*@
+    <div class="panel panel-default col-lg-6">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            Death Notices <span class="badge">1</span>
+            @Html.Partial("../DeathNotices/_CreateModalDN")
         </div>
+        <div class="panel-body">
+            @Html.Partial("../DeathNotices/_DNList")
+        </div>
+        <!-- Edit DN Modal -->
+        <div class="modal fade" id="modalEditAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalEditDN" aria-hidden="true">
+            @Html.Partial("../DeathNotices/_EditModalDN")
+        </div>
+        <!-- Delete DN Modal -->
+        <div class="modal fade" id="modalDeleteAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalDeleteDN" aria-hidden="true">
+            @Html.Partial("../DeathNotices/_DeleteModalDN")
+        </div><!-- /.modal -->
+    </div>
 </div>
 
 

@@ -161,6 +161,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
+    <Compile Include="Controllers\DeathNoticeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingsController.cs" />
@@ -306,6 +307,10 @@
     <Content Include="Views\Announcements\_EditModal.cshtml" />
     <Content Include="Views\Announcements\_AnnounceList.cshtml" />
     <Content Include="Views\Announcements\_DeleteModal.cshtml" />
+    <Content Include="Views\DeathNotices\_DNList.cshtml" />
+    <Content Include="Views\DeathNotices\_CreateModalDN.cshtml" />
+    <Content Include="Views\DeathNotices\_EditModalDN.cshtml" />
+    <Content Include="Views\DeathNotices\_DeleteModalDN.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

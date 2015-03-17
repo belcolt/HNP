@@ -1,0 +1,43 @@
+﻿@model IEnumerable<HospiceNiagara.Models.DeathNotice>
+<table class="table">
+    @if (ViewBag.DNList != null)
+    {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th></th>
+        </tr>
+
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "_EditModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditDN" }) |
+                    @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "_Delete", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteDN" })
+                </td>
+            </tr>
+        }
+    }
+</table>
+    
