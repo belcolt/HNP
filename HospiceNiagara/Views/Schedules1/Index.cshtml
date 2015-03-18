@@ -1,0 +1,75 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Schedule>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Schedules</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div>
+    
+    @Html.DropDownList("ID", null, "All Schedules", htmlAttributes: new { @class = "form-control" })
+
+    @*<select>
+
+
+        @foreach (var item in Model)
+        {
+            <option value="@item.FileStoreID">@item.Month/@item.Year</option>
+
+        }
+    </select>*@
+
+</div>
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FileStore.MimeType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResourceType.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Month)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FileStore.MimeType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResourceType.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Month)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>*@

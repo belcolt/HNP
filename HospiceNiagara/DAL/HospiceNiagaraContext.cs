@@ -29,5 +29,7 @@ namespace HospiceNiagara.DAL
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.Schedule> Schedules { get; set; }
     }
 }
