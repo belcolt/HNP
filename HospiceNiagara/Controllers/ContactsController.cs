@@ -16,10 +16,23 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: Contacts
-        public ActionResult Index()
+        public ActionResult Index(string SearchString, int? TeamDomainID)
         {
             var contacts = db.Contacts.Include(c => c.TeamDomain);
-            return View(contacts.ToList());
+            var directors = db.Contacts.Include(d => d.TeamDomain).Where(d => d.IsBoardDirector);
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                directors = directors.Where(d => d.LastName.ToUpper().Contains(SearchString.ToUpper())
+                                       || d.FirstName.ToUpper().Contains(SearchString.ToUpper()));
+            }
+            var regular = db.Contacts.Include(r => r.TeamDomain).Where(r => r.IsBoardDirector == false);
+            if (TeamDomainID.HasValue)
+                regular = regular.Where(p => p.TeamDomainID == TeamDomainID);
+            
+            ViewBag.Directors = directors.ToList();
+            ViewBag.Regular = regular.ToList();
+            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
+            return View(contacts);
         }
 
         // GET: Contacts/Details/5
@@ -83,7 +96,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,TeamDomainID")] Contact contact)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,IsBoardDirector,TeamDomainID")] Contact contact)
         {
             if (ModelState.IsValid)
             {

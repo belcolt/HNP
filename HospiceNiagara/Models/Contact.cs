@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace HospiceNiagara.Models
 {
@@ -24,14 +25,19 @@ namespace HospiceNiagara.Models
 
         //extension or number
         [Required]
-        [MaxLength(9)]
+        [MaxLength(10)]
         public string Phone { get; set; }
 
 
         public string Email { get; set; }
 
+        
+        [DisplayName("Board Director")]
+        public bool IsBoardDirector { get; set; }
+
         [Required]
         public int TeamDomainID { get; set; }
+        [DisplayName("Team")]
         public virtual TeamDomain TeamDomain { get; set; }
 
         //public ICollection<Meeting> Invitations { get; set; }

@@ -91,8 +91,8 @@ namespace HospiceNiagara.Migrations
 
             var contacts = new List<Contact>
                 {
-                    new Contact {FirstName="Billy", LastName="Bragg", Position="Staff Leader", Phone="9058992333", Email="bBragg@gmail.com"},
-                    new Contact{FirstName="Ripping", LastName="Rhory", Position="Front Desk", Phone="9058993322", Email="rRhor@gmail.com"}
+                    new Contact {FirstName="Billy", LastName="Bragg", Position="Staff Leader", Phone="9058992333", Email="bBragg@gmail.com", TeamDomainID=1},
+                    new Contact{FirstName="Ripping", LastName="Rhory", Position="Front Desk", Phone="9058993322", Email="rRhor@gmail.com", TeamDomainID=2}
                 };
             contacts.ForEach(u => context.Contacts.Add(u));
             context.SaveChanges();

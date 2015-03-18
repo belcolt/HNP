@@ -179,6 +179,14 @@
     <Compile Include="Migrations\201503171952139_TeamDomainContactsDeath.Designer.cs">
       <DependentUpon>201503171952139_TeamDomainContactsDeath.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503172158376_ChangePhoneLength.cs" />
+    <Compile Include="Migrations\201503172158376_ChangePhoneLength.Designer.cs">
+      <DependentUpon>201503172158376_ChangePhoneLength.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503172218433_BoardDirector.cs" />
+    <Compile Include="Migrations\201503172218433_BoardDirector.Designer.cs">
+      <DependentUpon>201503172218433_BoardDirector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -313,8 +321,8 @@
     <Content Include="Views\Contacts\Delete.cshtml" />
     <Content Include="Views\Contacts\Details.cshtml" />
     <Content Include="Views\Contacts\Edit.cshtml" />
+    <Content Include="Views\Contacts\GoodIndex.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
-    <Content Include="Views\Contacts\TestIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -332,6 +340,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503171952139_TeamDomainContactsDeath.resx">
       <DependentUpon>201503171952139_TeamDomainContactsDeath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503172158376_ChangePhoneLength.resx">
+      <DependentUpon>201503172158376_ChangePhoneLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503172218433_BoardDirector.resx">
+      <DependentUpon>201503172218433_BoardDirector.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

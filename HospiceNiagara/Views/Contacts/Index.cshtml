@@ -1,161 +1,142 @@
-﻿    Will define a To Do list later. This is not a concern until Prototype 3 (it's not mentioned as a requirement in Prototype 2).
-*@
+﻿@model IEnumerable<HospiceNiagara.Models.Contact>
+
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h2>Contacts</h2>
-<div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading"><b>Contacts Information</b></div>
 
-    <!-- Table -->
-    <table class="table">
+@using (Html.BeginForm())
+    {
+        <table>
+            <tr>
+                <td>Select by Team: </td>
+                <td>@Html.DropDownList("TeamDomainID", null, "All Teams", htmlAttributes: new { @class = "form-control" })</td>
+                <td><input type="submit" value="Filter" class="btn btn-default" /> @Html.ActionLink("Clear", "Index")</td>
+            </tr>
+        </table>
+    }
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TeamDomain.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Position)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in ViewBag.Regular)
+            {
+                <tr>
+                    <td>
+                        @item.TeamDomain.Description
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Position
+                    </td>
+                    <td>
+                        @item.Phone
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <h2>Board Of Directors</h2>
+@using (Html.BeginForm())
+    {
+     <table>
         <tr>
-            <th>Staff Member</th>
-            <th>Position</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Office Cell</th>
-        </tr>
-        <tr>
-            <td>Jessica Estabrooks</td>
-            <td>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal">
-                    Finance and Operations Manager
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Description</h4>
-                            </div>
-                            <div class="modal-body">
-                                Finance and Operations Manager
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td><button type="button" class="btn btn-link">jestabrooks@hospiceniagara.ca</button></td>
-            <td>x 238</td>
+            <td>Search Board Of Director Name: </td>
+            <td>@Html.TextBox("SearchString", null, new { @class = "form-control" })</td>
             <td></td>
-        </tr>
-        <tr>
-            <td>Kate Murrell </td>
-            <td>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal">
-                    Administrative Assistant
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Description</h4>
-                            </div>
-                            <div class="modal-body">
-                                Administrative Assistant
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td><button type="button" class="btn btn-link">kmurrell@hospiceniagara.ca</button></td>
-            <td>x 222</td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Carol Nagy</td>
-            <td>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModal">
-                    Executive Director
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Description</h4>
-                            </div>
-                            <div class="modal-body">
-                                Executive Director
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td><button type="button" class="btn btn-link">cnagy@hospiceniagara.ca</button></td>
-            <td>x 222</td>
-            <td></td>
+            <td><input type="submit" value="Filter" class="btn btn-default" /> @Html.ActionLink("Clear", "Index")</td>
         </tr>
     </table>
-</div>
-<div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading"><b>Board of Directors Listing</b></div>
+}
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TeamDomain.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Position)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th></th>
+            </tr>
 
-    <!-- Table -->
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Email</th>
-            <th>Home Address</th>
-            <th>Business Address</th>
-            <th>Home Phone</th>
-            <th>Business Phone</th>
-            <th>Office Cell</th>
-            <th>Partner Name</th>
-        </tr>
-        <tr>
-            <td>Steve Brooks</td>
-            <td>CEO</td>
-            <td><button type="button" class="btn btn-link">stevebrooks@hospiceniagara.ca</button></td>
-            <td>1 Blank Street</td>
-            <td>2 Blank Street</td>
-            <td>555-555-5551</td>
-            <td>555-555-5552</td>
-            <td>555-555-5553</td>
-            <td>Tim Horton's</td>
-        </tr>
-        <tr>
-            <td>Steve Brooks</td>
-            <td>CEO</td>
-            <td><button type="button" class="btn btn-link">stevebrooks@hospiceniagara.ca</button></td>
-            <td>1 Blank Street</td>
-            <td>2 Blank Street</td>
-            <td>555-555-5551</td>
-            <td>555-555-5552</td>
-            <td>555-555-5553</td>
-            <td>Tim Horton's</td>
-        </tr>
-        <tr>
-            <td>Steve Brooks</td>
-            <td>CEO</td>
-            <td><button type="button" class="btn btn-link">stevebrooks@hospiceniagara.ca</button></td>
-            <td>1 Blank Street</td>
-            <td>2 Blank Street</td>
-            <td>555-555-5551</td>
-            <td>555-555-5552</td>
-            <td>555-555-5553</td>
-            <td>Tim Horton's</td>
-        </tr>
-    </table>
-</div>
+            @foreach (var item in ViewBag.Directors)
+            {
+                <tr>
+                    <td>
+                        @item.TeamDomain.Description
+                    </td>
+                    <td>
+                        @item.FirstName
+                    </td>
+                    <td>
+                        @item.LastName
+                    </td>
+                    <td>
+                        @item.Position
+                    </td>
+                    <td>
+                        @item.Phone
+                    </td>
+                    <td>
+                        @item.Email
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>
+                </tr>
+            }
+        </table>
