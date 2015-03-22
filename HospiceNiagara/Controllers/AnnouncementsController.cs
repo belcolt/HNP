@@ -21,6 +21,14 @@ namespace HospiceNiagara.Controllers
         {
             ViewBag.DNList = db.DeathNotices.ToList();
             ViewBag.AnnounceList = db.Announcements.ToList();
+            var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
+            var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
+            List<ResourceCatDD> rcats = new List<ResourceCatDD>();
+            foreach (var rc in rcs)
+            {
+                rcats.Add(new ResourceCatDD { ResourceCategoryID = rc.ID, RCatName = rc.Name, TeamDomainName = teamNames[rc.TeamDomainID - 1] });
+            }
+            ViewBag.ResourceCategoryID = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", null, null, null);
             return View();
         }
         // GET: Announcements/Create
@@ -43,9 +51,35 @@ namespace HospiceNiagara.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public ActionResult EditDNotice(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DeathNotice deathNotice = db.DeathNotices.Find(id);
+            if (deathNotice == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_EditModalDN", deathNotice);
+        }
+        [HttpPost]
+        public ActionResult EditDNotice([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes")] DeathNotice deathNotice)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(deathNotice).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            ViewBag.DNList = db.DeathNotices.ToList();
+            return View("../Announcements/Index");
+        }
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content")] Announcement announcement)
+        public ActionResult Create([Bind(Include = "Content")] Announcement announcement, int? ResourceCategoryID, string ResourceDescription)
         {
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
@@ -53,27 +87,32 @@ namespace HospiceNiagara.Controllers
             announcement.Date = DateTime.Now;
             byte[] fileData = new byte[fileLength];
             //hard coded until select list added
-            var rType = (from rt in db.ResourceTypes
-                         where rt.Description == "Announcement-Memo"
-                         select rt).Single();
-            var resource = new Resource { DateAdded = DateTime.Today, ResourceTypeID = rType.ID };
-            //announcement dates and resource  initializing
-            
-            //fileread and associate file with resource
-            if (!(fileName == "" || fileLength == 0))
+            if (ResourceCategoryID.HasValue)
             {
-                Stream fileStream = Request.Files[0].InputStream;
-                fileStream.Read(fileData, 0, fileLength);
-                //resource type already existent
-                resource.FileStore = new FileStore{
-                    FileContent = fileData,
-                    MimeType = mimeType,
-                    FileName = fileName
-                };
+                var rCat = (from rc in db.ResourceCategories
+                             where rc.ID == ResourceCategoryID
+                             select rc).Single();
+                var resource = new Resource { DateAdded = DateTime.Today, ResourceCategoryID = rCat.ID,FileDesc=ResourceDescription };
+                //announcement dates and resource  initializing
+
+                //fileread and associate file with resource
+                if (!(fileName == "" || fileLength == 0))
+                {
+                    Stream fileStream = Request.Files[0].InputStream;
+                    fileStream.Read(fileData, 0, fileLength);
+                    //resource type already existent
+                    resource.FileStore = new FileStore
+                    {
+                        FileContent = fileData,
+                        MimeType = mimeType,
+                        FileName = fileName
+                    };
+                    db.Resources.Add(resource);
+                    announcement.Resource = resource;
+                }
+                //add resource, assign ID to announcement's resource
+                
             }
-            //add resource, assign ID to announcement's resource
-            db.Resources.Add(resource);
-            announcement.Resource = resource;
             if (ModelState.IsValid)
             {
                 db.Announcements.Add(announcement);

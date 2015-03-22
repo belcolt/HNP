@@ -28,10 +28,9 @@ namespace HospiceNiagara.Models
         [MaxLength(10)]
         public string Phone { get; set; }
 
-
         public string Email { get; set; }
 
-        
+        [DefaultValue(false)]
         [DisplayName("Board Director")]
         public bool IsBoardDirector { get; set; }
 

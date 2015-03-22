@@ -29,30 +29,32 @@
 <div class="row">
     @*SRCH]*@
     <div class="col-lg-offset-1">
-        <div class="input-group">
+        @*<div class="input-group">
             <span class="input-group-btn">
                 <button class="btn btn-default" type="button">Go!</button>
             </span>
-            <input type="text" class="form-control" placeholder="Search for a resource...">
-        </div><!-- /input-group -->
+            <input type="text" class="form-control" placeholder="Search for a resource...">*@
+        @*</div>*@<!-- /input-group -->
+        @Html.ActionLink("Add Resource","Create")
     </div>
 </div><!-- /.row -->
 <br />    
 <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#OrgRsrc" aria-controls="OrgRsrc" role="tab" data-toggle="tab">Organizational Resources</a></li>
+        <li role="presentation" class="active"><a href="#AllRsrc" aria-controls="AllRsrc" role="tab" data-toggle="tab">All Resources</a></li>
+        <li role="presentation"><a href="#OrgRsrc" aria-controls="OrgRsrc" role="tab" data-toggle="tab">Organizational Resources</a></li>
         @* Only Admin and Staff members can see this. *@
         <li role="presentation"><a href="#StfRsrc" aria-controls="StfRsrc" role="tab" data-toggle="tab">Staff Resources</a></li>
         @* Only Admin, Board and Staff-Leadership members can see this. *@
         <li role="presentation"><a href="#BrdRsrc" aria-controls="BrdRsrc" role="tab" data-toggle="tab">Board Resources</a></li>
         <li role="presentation"><a href="#VlntRsrc" aria-controls="VlntRsrc" role="tab" data-toggle="tab">Volunteer Resources</a></li>
+        
+        
     </ul>
 
     <div class="row">
-        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalOrgRsrc">
-            Add, Remove, or Edit Resource(s)
-        </button>
+
         <!-- Modal -->
         <div class="modal fade" id="modalOrgRsrc" tabindex="-1" role="dialog" aria-labelledby="myModalOrgRsrc" aria-hidden="true">
             <div class="modal-dialog">
@@ -158,10 +160,15 @@
     @*[ORG_RSC]*@
     <!-- Tab panes -->
     <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="OrgRsrc">
+        <div role="tabpanel" class="tab-pane active" id="AllRsrc">
+            <div class="row">
+                @Html.Partial("_AllResourcesIndexTab")
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="OrgRsrc">
             
             <div class="row">
-                @* INSERT DAT FAB DATA TABLE HERE *@
+                @Html.Partial("_OrganizationalIndexTab")
             </div>
             
             <div class="row">
@@ -208,7 +215,7 @@
         <div role="tabpanel" class="tab-pane" id="StfRsrc">
             
             <div class="row">
-                @* INSERT DAT FAB DATA TABLE HERE *@
+                @Html.Partial("_StaffIndexTab")
             </div>
 
             <div class="row">
@@ -232,17 +239,17 @@
         @*[BRD_RSC]*@
         <div role="tabpanel" class="tab-pane" id="BrdRsrc">
             <div class="row">
-                @* INSERT DAT FAB DATA TABLE HERE *@
+                @Html.Partial("_BoardIndexTab")
             </div>
         </div>
 
-        @*[VLTR_RSC]*@
         <div role="tabpanel" class="tab-pane" id="VlntRsrc">
             <div class="row">
-                @* INSERT DAT FAB DATA TABLE HERE *@
+                @Html.Partial("_VolunteerIndexTab")
             </div>
-            @* Insert Volunteer Roles Chart Here *@
         </div>
+ 
+        
     </div>
 </div>
 

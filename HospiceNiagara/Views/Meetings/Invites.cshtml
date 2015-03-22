@@ -1,0 +1,53 @@
+﻿@model HospiceNiagara.Models.InvitationsSingleViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+<h2>Invitations for @Model.EventName</h2>
+
+<h3>Attending</h3>
+<table>
+    @if (Model.Attending!=null)
+    { 
+    foreach(var attend in Model.Attending)
+    {
+        <tr>
+            <td>
+                @attend
+            </td>
+        </tr>
+    }
+    }
+</table>
+
+<h3>Not Attending</h3>
+<table>
+    @if (Model.NotAttending != null)
+    { 
+    foreach (var attend in Model.NotAttending)
+    {
+        <tr>
+            <td>
+               @attend
+            </td>
+        </tr>
+    }
+    }
+</table>
+
+<h3>Not Responded</h3>
+<table>
+    @if (Model.NotResponded != null)
+    { 
+    foreach (var attend in Model.NotResponded)
+    { 
+        <tr>
+            <td>
+                @attend
+            </td>
+        </tr>
+    }
+    }
+</table>

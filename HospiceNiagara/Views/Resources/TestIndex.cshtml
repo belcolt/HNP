@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FileStore.FileName)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ResourceType.Description)
+            Resource Category
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FileDesc)
+            File
         </th>
         <th></th>
     </tr>
@@ -27,12 +27,12 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FileStore.FileName)
+                @Html.DisplayFor(modelitem=> item.FileDesc)
             <td>
-                @Html.DisplayFor(modelItem => item.ResourceType.Description)
+                @Html.DisplayFor(modelItem => item.ResourceCategory.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FileDesc)
+                @Html.ActionLink(@item.FileStore.FileName.ToString(), "Download", new { @id = @item.FileStoreID })
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

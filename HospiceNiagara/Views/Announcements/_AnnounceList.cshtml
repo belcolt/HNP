@@ -5,8 +5,8 @@
         {
             <li class="list-group-item">
                 <button type="button" class="btn btn-link">@item.Content</button>
-                @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "_EditModal", InsertionMode= InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditAnmt" }) |
-                @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "_Delete", InsertionMode=InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteAnmt" })
+                @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions {InsertionMode= InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditAnmt" }) |
+                @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { InsertionMode=InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteAnmt" })
             </li>
         }
         }

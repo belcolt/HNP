@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using HospiceNiagara.DAL;
 using HospiceNiagara.Models;
 using System.IO;
+using System.Web.Services;
 
 namespace HospiceNiagara.Controllers
 {
@@ -16,20 +17,63 @@ namespace HospiceNiagara.Controllers
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
+        //Enumeration for quick matching of Domain IDs as in the Hospice Database.
+        //Example: Check for specific DomainID on the ResourceCategory with db.ResourceCategories.Where(rc=>rc.TeamDomainID==(int)Domains.[nameOfDomain] and so forth
+        enum Domains { Volunteer, Staff, Board, Organizational };
+
         // GET: Resources
-        public ActionResult Index()
+        public ActionResult Index(string SearchString)
         {
-            var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceType);
-            return View(resources.ToList());
+            var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
+            ViewBag.VolunteerResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 1).ToList();
+            ViewBag.StaffResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 2).ToList();
+            ViewBag.OrgResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 4).ToList();
+            ViewBag.BoardResources = resources.Where(r=>r.ResourceCategory.TeamDomainID==3).ToList();
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                resources= resources.Where(d => d.FileDesc.ToUpper().Contains(SearchString.ToUpper()));
+                ViewBag.Resources = resources.ToList();
+                return View(resources);
+            }
+            ViewBag.Resources = resources.ToList();
+            //ViewBag.VolunteerResources = vRes;
+            return View(resources);
         }
 
         // GET: Resources
         public ActionResult TestIndex()
         {
-            var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceType);
+            var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
             return View(resources.ToList());
         }
 
+        //Index Partial Controllers
+
+        public ActionResult OrganizationalIndexTab()
+        {
+            return PartialView("_OrganizationalIndexTab");
+        }
+        public ActionResult BoardIndexTab()
+        {
+            return PartialView("_BoardIndexTab");
+        }
+
+        public ActionResult VolunteerIndexTab()
+        {
+            return PartialView();
+        }
+
+        public ActionResult StaffIndexTab()
+        {
+            return PartialView("_StaffIndexTab");
+        }
+
+        public FileContentResult Download(int id)
+        {
+            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
+            return File(theFile.FileContent, theFile.MimeType, theFile.FileName);
+        }
+        //Details Views
 
         // GET: Resources/Details/5
         public ActionResult Details(int? id)
@@ -49,8 +93,14 @@ namespace HospiceNiagara.Controllers
         // GET: Resources/Create
         public ActionResult Create()
         {
-            ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType");
-            ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description");
+            var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
+            var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
+            List<ResourceCatDD> rcats = new List<ResourceCatDD>();
+            foreach (var rc in rcs)
+            {
+                rcats.Add(new ResourceCatDD { ResourceCategoryID = rc.ID, RCatName = rc.Name, TeamDomainName = teamNames[rc.TeamDomainID - 1] });
+            }
+            ViewBag.ResourceCategoryID = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", null, null, null);
             return View();
         }
 
@@ -59,7 +109,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FileDesc,ResourceTypeID")] Resource resource)
+        public ActionResult Create([Bind(Include = "ID,FileDesc,ResourceCategoryID")] Resource resource)
         {
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
@@ -70,7 +120,7 @@ namespace HospiceNiagara.Controllers
                 byte[] fileData = new byte[fileLength];
                 fileStream.Read(fileData, 0, fileLength);
                 //resource type already existent
-                resource.DateAdded = DateTime.Now;
+                resource.DateAdded = Convert.ToDateTime(DateTime.Now);
                 resource.FileStore = new FileStore
                 {
                     FileContent = fileData,
@@ -84,9 +134,19 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
+            ViewBag.ResourceCategoryD = new SelectList(db.ResourceCategories, "ID", "Name", resource.ResourceCategoryID);
             return View(resource);
         }
+
+        //////////////
+        //Create Load Lists Methods
+        //[WebMethod]
+        //public static JsonResult LoadResCategories(int domainID)
+        //{
+        //    var cats = db.ResourceCategories.Where(rc => rc.TeamDomainID == domainID);
+        //    List<ResourceCategory> retCats = cats.ToList();
+        //    return Json(retCats);
+        //}
 
         // GET: Resources/Edit/5
         public ActionResult Edit(int? id)
@@ -101,7 +161,7 @@ namespace HospiceNiagara.Controllers
                 return HttpNotFound();
             }
             ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
-            ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
+            ViewBag.ResourceCategoryID = new SelectList(db.ResourceCategories, "ID", "Name", resource.ResourceCategoryID);
             return View(resource);
         }
 
@@ -119,7 +179,7 @@ namespace HospiceNiagara.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
-            ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
+            ViewBag.ResourceTypeID = new SelectList(db.ResourceCategories, "ID", "Name", resource.ResourceCategoryID);
             return View(resource);
         }
 

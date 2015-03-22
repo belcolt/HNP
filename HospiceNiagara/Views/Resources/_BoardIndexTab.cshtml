@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Resource>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><b>Board Resources</b></div>
+    <table class="table table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FileDesc)</th>
+            <th>@Html.DisplayNameFor(model => model.DateAdded)</th>
+            <th>@Html.DisplayNameFor(model => model.ResourceSubCategory)</th>
+            <th>@Html.DisplayNameFor(model => model.ResourceCategory)</th>
+            <th>File</th>
+        </tr>
+        @if (ViewBag.VolunteerResources != null)
+        {
+            foreach (HospiceNiagara.Models.Resource item in ViewBag.BoardResources)
+            {
+                <tr>
+                    <td>
+                        @item.FileDesc
+                    </td>
+                    <td>
+                        @item.DateAdded
+                    </td>
+                    <td>
+                        @if (item.ResourceSubCategory != null)
+                        {
+                            @item.ResourceSubCategory.Name
+                        }
+                    </td>
+                    <td>
+                        @item.ResourceCategory.Name
+                    </td>
+                    <td>
+                        @Html.ActionLink(item.FileStore.FileName, "Download", new { id = @item.FileStoreID })
+                    </td>
+                    @*@Html.ActionLink(@description, "Download", new { ID = @fileID });*@
+                </tr>
+            }
+        }
+    </table>
+</div>
