@@ -31,52 +31,28 @@ namespace HospiceNiagara.Controllers
             ViewBag.ResourceCategoryID = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", null, null, null);
             return View();
         }
+
+        // GET: Player/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Announcement announcement = db.Announcements.Find(id);
+            if (announcement == null)
+            {
+                return HttpNotFound();
+            }
+            return View("_Details", announcement);
+        }
+
         // GET: Announcements/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Announcements/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        public ActionResult CreateDNotice([Bind(Include = "FirstName,MiddleName,LastName,Date,Location,Notes")] DeathNotice deathNotice)
-        {
-            if (ModelState.IsValid)
-            {
-                db.DeathNotices.Add(deathNotice);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult EditDNotice(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DeathNotice deathNotice = db.DeathNotices.Find(id);
-            if (deathNotice == null)
-            {
-                return HttpNotFound();
-            }
-            return PartialView("_EditModalDN", deathNotice);
-        }
-        [HttpPost]
-        public ActionResult EditDNotice([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes")] DeathNotice deathNotice)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(deathNotice).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-            ViewBag.DNList = db.DeathNotices.ToList();
-            return View("../Announcements/Index");
-        }
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Content")] Announcement announcement, int? ResourceCategoryID, string ResourceDescription)
@@ -122,7 +98,6 @@ namespace HospiceNiagara.Controllers
             return View("Index");
         }
 
-        // GET: Resources/Edit/5
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -138,7 +113,6 @@ namespace HospiceNiagara.Controllers
             return PartialView("_EditModal",announcement);
         }
 
-        // POST: Resources/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -155,7 +129,6 @@ namespace HospiceNiagara.Controllers
             return View("Index");
         }
 
-        // GET: Resources/Delete/5
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -171,7 +144,6 @@ namespace HospiceNiagara.Controllers
             return PartialView("_DeleteModal", announcement);
         }
 
-        // POST: Resources/Delete/5
         [HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

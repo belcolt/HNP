@@ -33,8 +33,8 @@
                     @Html.DisplayFor(modelItem => item.Notes)
                 </td>
                 <td>
-                    @Ajax.ActionLink("Edit", "EditDNotice", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "_EditModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditDN" }) |
-                    @Ajax.ActionLink("Delete", "Delete","DeathNotice", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "_Delete", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteDN" })
+                    @Ajax.ActionLink("Edit", "EditDNotice", new { id = item.ID }, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditDN" }) |
+                    @*@Ajax.ActionLink("Delete", "Delete","DeathNotice", new { id = item.ID }, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteDN" })*@
                 </td>
             </tr>
         }

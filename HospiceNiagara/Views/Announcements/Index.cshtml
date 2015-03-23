@@ -19,6 +19,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
+
 <div class="col-md-12">
     <h2>Announcements</h2>
     @*@Html.AntiForgeryToken()*@
@@ -89,20 +90,14 @@
             </div>
         </div>
     </div>
-    @*[DTH_NTC]*@
     <div class="panel panel-default col-lg-6">
         <!-- Default panel contents -->
         <div class="panel-heading">
-            Death Notices <span class="badge">1</span>
-            @Html.Partial("../DeathNotices/_CreateModalDN")
+            Announcement Title
         </div>
         <div class="panel-body">
-            @Html.Partial("../DeathNotices/_DNList")
+            @Html.Partial("_Details")
         </div>
-        <!-- Edit DN Modal -->
-        @Html.Partial("../DeathNotices/_EditModalDN")
-        <!-- Delete DN Modal -->
-        @Html.Partial("../DeathNotices/_DeleteModalDN")
     </div>
 </div>
 

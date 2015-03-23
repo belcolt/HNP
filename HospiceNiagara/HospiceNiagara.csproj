@@ -333,6 +333,8 @@
     <Content Include="Views\Schedules\Edit.cshtml" />
     <Content Include="Views\Schedules\GoodIndex.cshtml" />
     <Content Include="Views\Resources\_AllResourcesIndexTab.cshtml" />
+    <Content Include="Views\Announcements\_Details.cshtml" />
+    <Content Include="Views\Announcements\_EditDeleteLink.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

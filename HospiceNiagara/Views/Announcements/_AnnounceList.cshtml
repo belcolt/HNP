@@ -4,9 +4,7 @@
         foreach (HospiceNiagara.Models.Announcement item in ViewBag.AnnounceList)
         {
             <li class="list-group-item">
-                <button type="button" class="btn btn-link">@item.Content</button>
-                @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions {InsertionMode= InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalEditAnmt" }) |
-                @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { InsertionMode=InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalDeleteAnmt" })
+                @Ajax.ActionLink(@item.Content, "Details", new { id = item.ID }, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
             </li>
         }
         }
