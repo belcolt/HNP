@@ -20,7 +20,7 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index(int? ID)
         {
             var schedules = db.Schedules.Include(s => s.FileStore).Include(s => s.ResourceType);
-            SelectList selectList = new SelectList(db.Schedules, "FileStoreID", "Month");
+            SelectList selectList = new SelectList(db.Schedules, "FileStoreID", "Month" + "Year");
             ViewBag.ID = new SelectList(db.Schedules, "FileStoreID", "Month");
             ViewBag.SelectList = selectList;
             return View(schedules.ToList());

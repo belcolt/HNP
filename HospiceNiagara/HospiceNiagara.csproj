@@ -258,6 +258,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Schedules\Index.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -300,7 +301,6 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Meetings\NiceIndex.cshtml" />
-    <Content Include="Views\Schedules\Index.cshtml" />
     <Content Include="Views\Resources\TestIndex.cshtml" />
     <Content Include="Views\Resources\Create.cshtml" />
     <Content Include="Views\Announcements\_EditModal.cshtml" />
