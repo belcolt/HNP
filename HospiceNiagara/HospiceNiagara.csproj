@@ -160,6 +160,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnnouncementsController.cs" />
+    <Compile Include="Controllers\BoardMembersController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\DeathNoticeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
+    <Compile Include="Models\BoardMember.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\DeathNotice.cs" />
     <Compile Include="Models\Event.cs" />
@@ -257,6 +259,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ShowSchedule.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Schedules\Index.cshtml" />
     <Content Include="Web.config">
@@ -335,6 +338,13 @@
     <Content Include="Views\Resources\_AllResourcesIndexTab.cshtml" />
     <Content Include="Views\Announcements\_Details.cshtml" />
     <Content Include="Views\Announcements\_EditDeleteLink.cshtml" />
+    <Content Include="Views\Schedules\ShowSched.cshtml" />
+    <Content Include="Views\BoardMembers\Create.cshtml" />
+    <Content Include="Views\BoardMembers\Delete.cshtml" />
+    <Content Include="Views\BoardMembers\Details.cshtml" />
+    <Content Include="Views\BoardMembers\Edit.cshtml" />
+    <Content Include="Views\BoardMembers\Index.cshtml" />
+    <Content Include="Views\BoardMembers\BoardMemberList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

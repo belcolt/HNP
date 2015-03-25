@@ -18,22 +18,28 @@ namespace HospiceNiagara.Controllers
         // GET: Contacts
         public ActionResult Index(string SearchString, int? TeamDomainID)
         {
-            var contacts = db.Contacts.Include(c => c.TeamDomain);
-            var directors = db.Contacts.Include(d => d.TeamDomain).Where(d => d.IsBoardDirector);
+
+            var directors = db.BoardMembers.AsEnumerable();
             if (!String.IsNullOrEmpty(SearchString))
             {
                 directors = directors.Where(d => d.LastName.ToUpper().Contains(SearchString.ToUpper())
                                        || d.FirstName.ToUpper().Contains(SearchString.ToUpper()));
             }
-            var regular = db.Contacts.Include(r => r.TeamDomain).Where(r => r.IsBoardDirector == false);
+            var contacts = db.Contacts.Include(c => c.TeamDomain);
+            ViewBag.Directors = directors;
+
+
             if (TeamDomainID.HasValue)
-                regular = regular.Where(p => p.TeamDomainID == TeamDomainID);
-            
-            ViewBag.Directors = directors.ToList();
-            ViewBag.Regular = regular.ToList();
+                contacts = contacts.Where(p => p.TeamDomainID == TeamDomainID);
+            ViewBag.Regular = contacts;
+
+
+
             ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
-            return View(contacts);
+            return View();
         }
+
+        
 
         // GET: Contacts/Details/5
         public ActionResult Details(int? id)

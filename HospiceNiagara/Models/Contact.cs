@@ -42,5 +42,7 @@ namespace HospiceNiagara.Models
         //public ICollection<Meeting> Invitations { get; set; }
         [DisplayName]
         public virtual ICollection<Invitation> Invitations { get; set; }
+
+        public List<string> ContactList { get; set; }
     }
 }
