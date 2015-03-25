@@ -46,12 +46,22 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
-                @Html.ActionLink("Show", "ShowSchedule", new { id = item.ResourceID })
-            </td>
+                @Html.ActionLink("Show", "ShowSchedule", new { id = item.ResourceID }, htmlAttributes: new {@data_toggle="modal", @data_target=".showCal"})
+                
+                <div class="modal fade showCal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div>
+                                <img src="data:@ViewBag.Mime;base64,@ViewBag.FileBits" alt="@ViewBag.Name" width="600" height="400" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</td>
         </tr>
     }
 </table>
-@if (ViewBag.Mime == "image/jpeg")
+@*@if (ViewBag.Mime == "image/jpeg")
     {
     <div>
         <img src="data:@ViewBag.Mime;base64,@ViewBag.FileBits" alt="@ViewBag.Name" width="600" height="400" />
@@ -60,6 +70,6 @@
     else
     {
     <div>no skedoole</div>
-    }
+    }*@
 
 

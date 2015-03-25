@@ -37,7 +37,7 @@ namespace HospiceNiagara.Controllers
             ViewBag.Mime = theFile.MimeType;
             ViewBag.Name = theFile.FileName;
             ViewBag.FileBits = string64;
-            return View("Index", schedules.ToList());
+            return View();
         }
 
 
