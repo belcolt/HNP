@@ -11,131 +11,128 @@ using HospiceNiagara.Models;
 
 namespace HospiceNiagara.Controllers
 {
-    public class ContactsController : Controller
+    public class BoardMembersController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
-        // GET: Contacts
-        public ActionResult Index(string SearchString, int? TeamDomainID)
+        // GET: BoardMembers
+        public ActionResult Index()
         {
-
-            var directors = db.BoardMembers.AsEnumerable();
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                directors = directors.Where(d => d.LastName.ToUpper().Contains(SearchString.ToUpper())
-                                       || d.FirstName.ToUpper().Contains(SearchString.ToUpper()));
-            }
-            var contacts = db.Contacts.Include(c => c.TeamDomain);
-            ViewBag.Directors = directors;
-
-
-            if (TeamDomainID.HasValue)
-                contacts = contacts.Where(p => p.TeamDomainID == TeamDomainID);
-            ViewBag.Regular = contacts;
-
-
-
-            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
-            return View();
+            return View(db.BoardMembers.ToList());
         }
 
-        
+        public PartialViewResult BoardMemberList(string SearchString)
+        {
+            
+            //var directors = db.BoardMembers.AsEnumerable();
+            if (!String.IsNullOrEmpty(SearchString))
+            {
+                var directors = db.BoardMembers.Where(d => d.LastName.ToUpper().Contains(SearchString.ToUpper())
+                                       || d.FirstName.ToUpper().Contains(SearchString.ToUpper()));
+                ViewBag.Directors = directors;
+                return PartialView();
+            }
+            else
+            {
+                 var directors = db.BoardMembers.ToList();
+                 ViewBag.Directors = directors;
+                 return PartialView();
+            }
 
-        // GET: Contacts/Details/5
+           
+        }
+
+        // GET: BoardMembers/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contact contact = db.Contacts.Find(id);
-            if (contact == null)
+            BoardMember boardMember = db.BoardMembers.Find(id);
+            if (boardMember == null)
             {
                 return HttpNotFound();
             }
-            return View(contact);
+            return View(boardMember);
         }
 
-        // GET: Contacts/Create
+        // GET: BoardMembers/Create
         public ActionResult Create()
         {
-            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
             return View();
         }
 
-        // POST: Contacts/Create
+        // POST: BoardMembers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,TeamDomainID")] Contact contact)
+        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Position,EmailAddress,HomeAddress,BusinessAddress,HomePhone,BusinessPhone,Fax,PartnerName")] BoardMember boardMember)
         {
             if (ModelState.IsValid)
             {
-                db.Contacts.Add(contact);
+                db.BoardMembers.Add(boardMember);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description", contact.TeamDomainID);
-            return View(contact);
+            return View(boardMember);
         }
 
-        // GET: Contacts/Edit/5
+        // GET: BoardMembers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contact contact = db.Contacts.Find(id);
-            if (contact == null)
+            BoardMember boardMember = db.BoardMembers.Find(id);
+            if (boardMember == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description", contact.TeamDomainID);
-            return View(contact);
+            return View(boardMember);
         }
 
-        // POST: Contacts/Edit/5
+        // POST: BoardMembers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,IsBoardDirector,TeamDomainID")] Contact contact)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,EmailAddress,HomeAddress,BusinessAddress,HomePhone,BusinessPhone,Fax,PartnerName")] BoardMember boardMember)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(contact).State = EntityState.Modified;
+                db.Entry(boardMember).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description", contact.TeamDomainID);
-            return View(contact);
+            return View(boardMember);
         }
 
-        // GET: Contacts/Delete/5
+        // GET: BoardMembers/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Contact contact = db.Contacts.Find(id);
-            if (contact == null)
+            BoardMember boardMember = db.BoardMembers.Find(id);
+            if (boardMember == null)
             {
                 return HttpNotFound();
             }
-            return View(contact);
+            return View(boardMember);
         }
 
-        // POST: Contacts/Delete/5
+        // POST: BoardMembers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Contact contact = db.Contacts.Find(id);
-            db.Contacts.Remove(contact);
+            BoardMember boardMember = db.BoardMembers.Find(id);
+            db.BoardMembers.Remove(boardMember);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

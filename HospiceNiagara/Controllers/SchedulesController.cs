@@ -25,19 +25,20 @@ namespace HospiceNiagara.Controllers
             return View(schedules.ToList());
         }
 
-        [ActionName("ShowSchedule")]
-        public ActionResult Index(int id)
+       
+        public ActionResult ShowSched(int id)
         {
-            var schedules = db.Schedules.Include(s => s.Resource);
-            var fileID = db.Resources.Where(i => i.ID == id).Select(i => i).Take(1);
-            var theFile = db.FileStores.Where(f => f.ID == fileID.FirstOrDefault().FileStoreID).SingleOrDefault();
+
+            var fileTitle = db.Resources.Where(u => u.FileStoreID == id).SingleOrDefault();
+            ViewBag.Title = fileTitle.FileDesc;
+            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
             var length = theFile.FileContent.Length;
 
             string string64 = Convert.ToBase64String(theFile.FileContent);
             ViewBag.Mime = theFile.MimeType;
             ViewBag.Name = theFile.FileName;
             ViewBag.FileBits = string64;
-            return View();
+            return PartialView("ShowSched");
         }
 
 

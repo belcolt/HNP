@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HospiceNiagara.Models.Contact>
+﻿@model IEnumerable<HospiceNiagara.Models.AllContactViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -42,7 +42,7 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in ViewBag.Regular)
+            @foreach (var item in )
             {
                 <tr>
                     <td>
@@ -72,71 +72,97 @@
             }
 
         </table>
-
         <h2>Board Of Directors</h2>
 @using (Html.BeginForm())
-    {
-     <table>
+{
+    <table>
         <tr>
             <td>Search Board Of Director Name: </td>
             <td>@Html.TextBox("SearchString", null, new { @class = "form-control" })</td>
             <td></td>
-            <td><input type="submit" value="Filter" class="btn btn-default" /> @Html.ActionLink("Clear", "Index")</td>
+            <td><input type="submit" value="Filter" class="btn btn-default" /> @Html.ActionLink("Clear", "BoardMemberList")</td>
         </tr>
     </table>
 }
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TeamDomain.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Position)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Phone)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th></th>
-            </tr>
+@*change this table into Board Of Directors table using ViewBag.Directors*@
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor()
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BusinessPhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fax)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PartnerName)
+        </th>
+        <th></th>
+    </tr>
 
-            @foreach (var item in ViewBag.Directors)
-            {
-                <tr>
-                    <td>
-                        @item.TeamDomain.Description
-                    </td>
-                    <td>
-                        @item.FirstName
-                    </td>
-                    <td>
-                        @item.LastName
-                    </td>
-                    <td>
-                        @item.Position
-                    </td>
-                    <td>
-                        @item.Phone
-                    </td>
-                    <td>
-                        @item.Email
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                    </td>
-                </tr>
-            }
-        </table>
+    @foreach (String item in model)
+    {
+        <tr>
+            <td>
+                @item.FirstName
+            </td>
+            <td>
+                @item.LastName
+            </td>
+            <td>
+                @item.Position
+            </td>
+            <td>
+                @item.EmailAddress
+            </td>
+            <td>
+                @item.HomeAddress
+            </td>
+            <td>
+                @item.BusinessAddress
+            </td>
+            <td>
+                @item.HomePhone
+            </td>
+            <td>
+                @item.BusinessPhone
+            </td>
+            <td>
+                @item.Fax
+            </td>
+            <td>
+                @item.PartnerName
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+       

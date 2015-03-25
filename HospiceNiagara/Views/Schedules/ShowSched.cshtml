@@ -1,0 +1,11 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Schedule>
+
+<h3>@ViewBag.Title</h3>
+    @if (ViewBag.Mime == "image/jpeg")
+    {
+        <div>
+            <img src="data:@ViewBag.Mime;base64,@ViewBag.FileBits" alt="@ViewBag.Name" width="600" height="400" />
+            
+        </div>
+        
+    }
