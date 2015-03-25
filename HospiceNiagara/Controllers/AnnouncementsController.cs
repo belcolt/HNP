@@ -19,7 +19,6 @@ namespace HospiceNiagara.Controllers
         // GET: Announcements
         public ActionResult Index()
         {
-            ViewBag.DNList = db.DeathNotices.ToList();
             ViewBag.AnnounceList = db.Announcements.ToList();
             var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
             var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
@@ -30,21 +29,6 @@ namespace HospiceNiagara.Controllers
             }
             ViewBag.ResourceCategoryID = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", null, null, null);
             return View();
-        }
-
-        // GET: Player/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Announcement announcement = db.Announcements.Find(id);
-            if (announcement == null)
-            {
-                return HttpNotFound();
-            }
-            return View("_Details", announcement);
         }
 
         // GET: Announcements/Create
