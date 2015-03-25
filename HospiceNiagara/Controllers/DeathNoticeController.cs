@@ -20,7 +20,7 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index()
         {
             ViewBag.DNList = db.DeathNotices.ToList();
-            return View("../Announcements/Index");
+            return View("Index");
         }
 
         //// GET: DeathNotice/Details/5
@@ -32,7 +32,7 @@ namespace HospiceNiagara.Controllers
         // GET: DeathNotice/Create
         public ActionResult Create()
         {
-            return PartialView("_CreateModalDN");
+            return View("Index");
         }
 
         // POST: DeathNotice/Create
@@ -45,7 +45,7 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View();
+            return View("Index");
         }
 
         // GET: DeathNotice/Edit/5
@@ -61,7 +61,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("_EditModalDN", deathNotice);
+            return View("Index");
         }
 
         // POST: DeathNotice/Edit/5
@@ -74,7 +74,7 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
             }
             ViewBag.DNList = db.DeathNotices.ToList();
-            return View("../Announcements/Index");
+            return View("Index");
         }
 
         // GET: DeathNotice/Delete/5
@@ -90,7 +90,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView("_DeleteModalDN", deathNotice);
+            return View("Index");
         }
 
         // POST: DeathNotice/Delete/5
@@ -100,7 +100,7 @@ namespace HospiceNiagara.Controllers
             DeathNotice deathNotice = db.DeathNotices.Find(id);
             db.DeathNotices.Remove(deathNotice);
             db.SaveChanges();
-            return View("../Announcements/Index");
+            return View("Index");
         }
     }
 }
