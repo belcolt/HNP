@@ -11,6 +11,7 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
+        [Required(ErrorMessage = "You cannot leave the first name blank.")]
         [DisplayName("Title/Description")]
         public string Content { get; set; }
 

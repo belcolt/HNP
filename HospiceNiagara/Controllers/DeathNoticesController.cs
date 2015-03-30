@@ -39,7 +39,7 @@ namespace HospiceNiagara.Controllers
         // GET: DeathNotices/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView("_CreateModal");
         }
 
         // POST: DeathNotices/Create
@@ -47,7 +47,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes")] DeathNotice deathNotice)
+        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {
@@ -55,8 +55,10 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(deathNotice);
+            //Issues:
+            //return View(deathNotice); = error returning create view, which doesn't exist
+            //return View("Index", deathNotice); = Error converting over to IEnumerable
+            return PartialView("_CreateModal");
         }
 
         // GET: DeathNotices/Edit/5
@@ -71,7 +73,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            return View(deathNotice);
+            return PartialView("_EditModal", deathNotice);
         }
 
         // POST: DeathNotices/Edit/5
@@ -79,7 +81,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes")] DeathNotice deathNotice)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +104,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            return View(deathNotice);
+            return PartialView("_DeleteModal", deathNotice);
         }
 
         // POST: DeathNotices/Delete/5

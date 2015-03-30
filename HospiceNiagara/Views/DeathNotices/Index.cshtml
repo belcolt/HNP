@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<HospiceNiagara.Models.DeathNotice>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Death Notices";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>In Memoriam</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Ajax.ActionLink("Create", "Create", null, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
 </p>
 <table class="table">
     <tr>
@@ -45,13 +45,16 @@
             @Html.DisplayFor(modelItem => item.Notes)
         </td>
         <td>
-            <a href="http://@item.URL")>@item.URL</a>
+            <a href="http://@item.URL">@item.URL</a>
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" }) |
+            @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
         </td>
     </tr>
 }
 
 </table>
+
+<div id="showModal">
+</div>

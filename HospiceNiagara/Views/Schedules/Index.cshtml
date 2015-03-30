@@ -47,7 +47,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
                 @*@Html.ActionLink("Show", "ShowSched", new { id = item.ResourceID })*@
-                @Ajax.ActionLink("Show", "ShowSched", new { id = item.Resource.FileStoreID }, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "someDiv" }, new {@class="show"});
+                @Ajax.ActionLink("Show", "ShowSched", new { id = item.Resource.FileStoreID }, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "someDiv" }, new {@class="show"})
                 
             </td>
         </tr>
