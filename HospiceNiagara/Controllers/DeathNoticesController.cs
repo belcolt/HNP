@@ -16,9 +16,17 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: DeathNotices
-        public ActionResult Index()
+        public ActionResult Index(bool? showModal)
         {
-            return View(db.DeathNotices.ToList());
+            if (showModal.HasValue==true)
+            {
+                return PartialView("_CreateModal");
+            }
+            else
+            {
+                
+                return View(db.DeathNotices.ToList());
+            }
         }
 
         // GET: DeathNotices/Details/5
@@ -37,6 +45,7 @@ namespace HospiceNiagara.Controllers
         //}
 
         // GET: DeathNotices/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return PartialView("_CreateModal");
@@ -47,7 +56,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
+        public ActionResult Index([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +67,7 @@ namespace HospiceNiagara.Controllers
             //Issues:
             //return View(deathNotice); = error returning create view, which doesn't exist
             //return View("Index", deathNotice); = Error converting over to IEnumerable
-            return PartialView("_CreateModal");
+            return PartialView("_CreateModal",deathNotice);
         }
 
         // GET: DeathNotices/Edit/5
