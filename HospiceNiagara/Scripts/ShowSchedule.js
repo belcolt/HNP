@@ -1,25 +1,29 @@
 ﻿$(function () {
 
-    $('.show').on('click', function (evt) {
+    $('.sel-sched').on('change', function (evt) {
         var $this = $(this);
-        evt.preventDefault();
-        
-        var i = 0;
-        var $update = $this.attr('data-ajax-update'),
-            $url = $(this).attr('href');
-        var div = $update;
+        if ($this.val() != "") {
 
-        $.ajax({
-            method: $this.data('ajaxMethod').toUpperCase(),
-            cache: false,
-            url: $url,
-            dataType: 'html',
-            success: function (data) {
-                $('#someDiv').html(data);
-                
-            }
-        });
 
+            evt.preventDefault();
+
+
+            
+               var $url = '/Schedules/ShowSched/' + $this.val();
+            
+
+
+            $.ajax({
+                method: 'POST',
+                cache: false,
+                url: $url,
+                dataType: 'html',
+                success: function (data) {
+                    $('#someDiv').html(data);
+
+                }
+            });
+        }
         //$.get($url, function (data) {
         //    $update.html(data);
         //});

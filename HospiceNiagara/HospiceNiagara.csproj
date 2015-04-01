@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.3\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -215,6 +218,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\BoardShow.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\font-awesome-4.3.0\fonts\fontawesome-webfont.eot" />
@@ -259,6 +263,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ScheduleCheck.js" />
     <Content Include="Scripts\ShowSchedule.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Schedules\Index.cshtml" />
@@ -345,6 +350,9 @@
     <Content Include="Views\BoardMembers\Edit.cshtml" />
     <Content Include="Views\BoardMembers\Index.cshtml" />
     <Content Include="Views\BoardMembers\BoardMemberList.cshtml" />
+    <Content Include="Views\BoardMembers\SearchResults.cshtml" />
+    <Content Include="Views\Schedules\ScheduleCheck.cshtml" />
+    <Content Include="Views\Schedules\ScheduleEditCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

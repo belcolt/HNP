@@ -10,6 +10,8 @@ namespace HospiceNiagara.Models
 {
     public class Schedule
     {
+        
+
         public int ID { get; set; }
 
         public string Category { get; set; }
@@ -17,6 +19,10 @@ namespace HospiceNiagara.Models
         public string Month { get; set; }
 
         public int Year { get; set; }
+
+        public bool IsActiveSchedule { get; set; }
+
+        public DateTime DataAdded { get; set; }
 
         [DisplayName("Resource")]
         public int ResourceID { get; set; }
