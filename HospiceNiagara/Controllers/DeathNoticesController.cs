@@ -58,7 +58,7 @@ namespace HospiceNiagara.Controllers
             //Issues:
             //return View(deathNotice); = error returning create view, which doesn't exist
             //return View("Index", deathNotice); = Error converting over to IEnumerable
-            return PartialView("_CreateModal");
+            return Content("_CreateModal");
         }
 
         // GET: DeathNotices/Edit/5
