@@ -10,7 +10,6 @@ using HospiceNiagara.DAL;
 using HospiceNiagara.Models;
 using System.IO;
 using System.Web.Services;
-
 namespace HospiceNiagara.Controllers
 {
     public class ResourcesController : Controller
@@ -28,10 +27,10 @@ namespace HospiceNiagara.Controllers
             ViewBag.VolunteerResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 1).ToList();
             ViewBag.StaffResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 2).ToList();
             ViewBag.OrgResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 4).ToList();
-            ViewBag.BoardResources = resources.Where(r=>r.ResourceCategory.TeamDomainID==3).ToList();
+            ViewBag.BoardResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 3).ToList();
             if (!String.IsNullOrEmpty(SearchString))
             {
-                resources= resources.Where(d => d.FileDesc.ToUpper().Contains(SearchString.ToUpper()));
+                resources = resources.Where(d => d.FileDesc.ToUpper().Contains(SearchString.ToUpper()));
                 ViewBag.Resources = resources.ToList();
                 return View(resources);
             }
@@ -39,35 +38,6 @@ namespace HospiceNiagara.Controllers
             //ViewBag.VolunteerResources = vRes;
             return View(resources);
         }
-
-        // GET: Resources
-        public ActionResult TestIndex()
-        {
-            var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
-            return View(resources.ToList());
-        }
-
-        //Index Partial Controllers
-
-        public ActionResult OrganizationalIndexTab()
-        {
-            return PartialView("_OrganizationalIndexTab");
-        }
-        public ActionResult BoardIndexTab()
-        {
-            return PartialView("_BoardIndexTab");
-        }
-
-        public ActionResult VolunteerIndexTab()
-        {
-            return PartialView();
-        }
-
-        public ActionResult StaffIndexTab()
-        {
-            return PartialView("_StaffIndexTab");
-        }
-
         public FileContentResult Download(int id)
         {
             var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
@@ -95,6 +65,7 @@ namespace HospiceNiagara.Controllers
         {
             var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
             var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
+            ViewBag.AllSubCats = db.ResourceSubCategories.ToList();
             List<ResourceCatDD> rcats = new List<ResourceCatDD>();
             foreach (var rc in rcs)
             {
@@ -104,12 +75,19 @@ namespace HospiceNiagara.Controllers
             return View();
         }
 
+        public JsonResult LoadSubcategories(int catID)
+        {
+            var sCats = db.ResourceSubCategories.Where(sc => sc.ResourceCategoryID == catID).Select(sc => new { sc.ID, sc.Name });
+            return Json(sCats, JsonRequestBehavior.AllowGet);
+
+        }
+
         // POST: Resources/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FileDesc,ResourceCategoryID")] Resource resource)
+        public ActionResult Create([Bind(Include = "ID,FileDesc,ResourceCategoryID,ResourceSubCategoryID")] Resource resource)
         {
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
@@ -137,16 +115,6 @@ namespace HospiceNiagara.Controllers
             ViewBag.ResourceCategoryD = new SelectList(db.ResourceCategories, "ID", "Name", resource.ResourceCategoryID);
             return View(resource);
         }
-
-        //////////////
-        //Create Load Lists Methods
-        //[WebMethod]
-        //public static JsonResult LoadResCategories(int domainID)
-        //{
-        //    var cats = db.ResourceCategories.Where(rc => rc.TeamDomainID == domainID);
-        //    List<ResourceCategory> retCats = cats.ToList();
-        //    return Json(retCats);
-        //}
 
         // GET: Resources/Edit/5
         public ActionResult Edit(int? id)

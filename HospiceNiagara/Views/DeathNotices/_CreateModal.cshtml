@@ -16,7 +16,7 @@
             </div>
             <div class="modal-body">
                 @*@using (Ajax.BeginForm(new AjaxOptions { Url = "Index", UpdateTargetId = "showModal", HttpMethod = "POST"}))*@
-                @using (Ajax.BeginForm("Index",new AjaxOptions{Url="Index",UpdateTargetId="showModal",HttpMethod="POST"}))
+                @using (Ajax.BeginForm("Create",new AjaxOptions{Url="Index",UpdateTargetId="showModal",HttpMethod="POST"}))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group row">

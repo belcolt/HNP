@@ -18,15 +18,7 @@ namespace HospiceNiagara.Controllers
         // GET: DeathNotices
         public ActionResult Index(bool? showModal)
         {
-            if (showModal.HasValue==true)
-            {
-                return PartialView("_CreateModal");
-            }
-            else
-            {
-                
                 return View(db.DeathNotices.ToList());
-            }
         }
 
         // GET: DeathNotices/Details/5
@@ -56,7 +48,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
+        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
         {
             if (ModelState.IsValid)
             {

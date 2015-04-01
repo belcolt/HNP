@@ -165,7 +165,7 @@
     <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\BoardMembersController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
-    <Compile Include="Controllers\DeathNoticeController.cs" />
+    <Compile Include="Controllers\DeathNoticesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingsController.cs" />
@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201503181232314_Initial.cs" />
     <Compile Include="Migrations\201503181232314_Initial.Designer.cs">
       <DependentUpon>201503181232314_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504011520432_Check.cs" />
+    <Compile Include="Migrations\201504011520432_Check.Designer.cs">
+      <DependentUpon>201504011520432_Check.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -265,6 +269,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ScheduleCheck.js" />
     <Content Include="Scripts\ShowSchedule.js" />
+    <Content Include="Scripts\SiteControls.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Schedules\Index.cshtml" />
     <Content Include="Web.config">
@@ -309,15 +314,10 @@
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Meetings\NiceIndex.cshtml" />
-    <Content Include="Views\Resources\TestIndex.cshtml" />
     <Content Include="Views\Resources\Create.cshtml" />
     <Content Include="Views\Announcements\_EditModal.cshtml" />
     <Content Include="Views\Announcements\_AnnounceList.cshtml" />
     <Content Include="Views\Announcements\_DeleteModal.cshtml" />
-    <Content Include="Views\DeathNotices\_DNList.cshtml" />
-    <Content Include="Views\DeathNotices\_CreateModalDN.cshtml" />
-    <Content Include="Views\DeathNotices\_EditModalDN.cshtml" />
-    <Content Include="Views\DeathNotices\_DeleteModalDN.cshtml" />
     <Content Include="Views\Contacts\Create.cshtml" />
     <Content Include="Views\Contacts\Delete.cshtml" />
     <Content Include="Views\Contacts\Details.cshtml" />
@@ -353,6 +353,10 @@
     <Content Include="Views\BoardMembers\SearchResults.cshtml" />
     <Content Include="Views\Schedules\ScheduleCheck.cshtml" />
     <Content Include="Views\Schedules\ScheduleEditCheck.cshtml" />
+    <Content Include="Views\DeathNotices\Index.cshtml" />
+    <Content Include="Views\DeathNotices\_CreateModal.cshtml" />
+    <Content Include="Views\DeathNotices\_DeleteModal.cshtml" />
+    <Content Include="Views\DeathNotices\_EditModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -367,6 +371,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503181232314_Initial.resx">
       <DependentUpon>201503181232314_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504011520432_Check.resx">
+      <DependentUpon>201504011520432_Check.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    @Scripts.Render("~/Scripts/SiteControls.js")
 }
 
 <h2>Create</h2>
@@ -23,25 +24,19 @@
             </div>
         </div>
         <div class="form-group">
-                <label class="control-label col-md-2" for="ddlDoms">Resource Domain</label>
+            <label class="control-label col-md-2" for="ddlDoms">Resource Category</label>
             <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.ResourceCategoryID,(SelectList)ViewBag.ResourceCategoryID)
-                </div>
+                @Html.DropDownListFor(model => model.ResourceCategoryID, (SelectList)ViewBag.ResourceCategoryID, htmlAttributes: new { id = "resCatDD" })
+            </div>
         </div>
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.ResourceCategoryID, "Resource Category", htmlAttributes: new { @class = "control-label col-md-2",@id="ddlResCats" })
+        <div class="form-group">
+            <label class="control-label col-md-2" for="ddlDoms">Resource SubCategory</label>
             <div class="col-md-10">
-                @Html.DropDownList(null,null,"Select a resource category", htmlAttributes: new { @class = "form-control",@readonly=true,@id="ddlResCats"})
-                @Html.ValidationMessageFor(model => model.ResourceCategoryID, "", new { @class = "text-danger" })
+                <select name="ResourceSubCategoryID" id="resSubCatDD">
+                    <option value="-1">No Subcategory</option>
+                </select>
             </div>
-        </div>*@
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.ResourceSubCategoryID, "ResourceTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ResourceSubCategoryID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ResourceSubCategoryID, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+        </div>
         <div class="form-group">
             <label class="control-label col-md-2" for="FileUpload1">Attach File:</label>
             <input class="form-control" type="file" name="FileUpload1" /><br />
@@ -57,7 +52,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
