@@ -94,6 +94,17 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.AnnounceList = db.Announcements.ToList();
+            var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
+            var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
+            List<ResourceCatDD> rcats = new List<ResourceCatDD>();
+            foreach (var rc in rcs)
+            {
+                rcats.Add(new ResourceCatDD { ResourceCategoryID = rc.ID, RCatName = rc.Name, TeamDomainName = teamNames[rc.TeamDomainID - 1] });
+            }
+            int rCatID = announcement.Resource.ResourceCategoryID;
+            ViewBag.ResourceCategories= new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", rCatID);
+            
             return PartialView("_EditModal",announcement);
         }
 
