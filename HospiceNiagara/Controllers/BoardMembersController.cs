@@ -21,10 +21,18 @@ namespace HospiceNiagara.Controllers
             return View(db.BoardMembers.ToList());
         }
 
-        public PartialViewResult BoardMemberList(string SearchString)
+        public PartialViewResult BoardMemberList()
+        {
+
+                 var directors = db.BoardMembers.AsEnumerable();
+                 ViewBag.Directors = directors;
+                 return PartialView();
+    
+        }
+
+        public ActionResult SearchResults(string SearchString)
         {
             
-            //var directors = db.BoardMembers.AsEnumerable();
             if (!String.IsNullOrEmpty(SearchString))
             {
                 var directors = db.BoardMembers.Where(d => d.LastName.ToUpper().Contains(SearchString.ToUpper())
@@ -34,12 +42,9 @@ namespace HospiceNiagara.Controllers
             }
             else
             {
-                 var directors = db.BoardMembers.ToList();
-                 ViewBag.Directors = directors;
-                 return PartialView();
+                return null;
             }
-
-           
+            
         }
 
         // GET: BoardMembers/Details/5
@@ -74,7 +79,7 @@ namespace HospiceNiagara.Controllers
             {
                 db.BoardMembers.Add(boardMember);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Contacts", new { area = "Index" });
             }
 
             return View(boardMember);
@@ -106,7 +111,7 @@ namespace HospiceNiagara.Controllers
             {
                 db.Entry(boardMember).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Contacts", new { area = "Index" });
             }
             return View(boardMember);
         }
@@ -134,7 +139,7 @@ namespace HospiceNiagara.Controllers
             BoardMember boardMember = db.BoardMembers.Find(id);
             db.BoardMembers.Remove(boardMember);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Contacts", new { area = "Index" });
         }
 
         protected override void Dispose(bool disposing)

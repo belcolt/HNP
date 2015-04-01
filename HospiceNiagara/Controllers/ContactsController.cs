@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using HospiceNiagara.DAL;
 using HospiceNiagara.Models;
+using System.IO;
+using System.Diagnostics;
+using OfficeOpenXml;
 
 namespace HospiceNiagara.Controllers
 {
@@ -20,11 +23,11 @@ namespace HospiceNiagara.Controllers
         {
 
             var directors = db.BoardMembers.AsEnumerable();
-            if (!String.IsNullOrEmpty(SearchString))
-            {
-                directors = directors.Where(d => d.LastName.ToUpper().Contains(SearchString.ToUpper())
-                                       || d.FirstName.ToUpper().Contains(SearchString.ToUpper()));
-            }
+            //if (!String.IsNullOrEmpty(SearchString))
+            //{
+            //    directors = directors.Where(d => d.LastName.ToUpper().Contains(SearchString.ToUpper())
+            //                           || d.FirstName.ToUpper().Contains(SearchString.ToUpper()));
+            //}
             var contacts = db.Contacts.Include(c => c.TeamDomain);
             ViewBag.Directors = directors;
 
@@ -147,6 +150,120 @@ namespace HospiceNiagara.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //public ActionResult ToXLS()
+        //{
+            //byte[] file = new byte[] { }; ;
+            //ContactToXLSX(file);
+            
+            //return RedirectToAction("Index", "Contacts", new { area = "Index" });
+        //}
+
+        public FileContentResult Download()
+        {
+            byte[] file = ContactToXLSX();
+            
+            return File(file,"application/vnd.ms-excel","Contacts.xlsx");
+        }
+
+        public byte[] ContactToXLSX()
+        {
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add("Contact List");
+                Contact contact = new Contact();
+                int cols = 1;
+                foreach (var prop in contact.GetType().GetProperties())
+                {
+                    
+                    if(prop.PropertyType == typeof(string))
+                    {
+                        worksheet.Cells[1, cols].Value = SplitHeader(prop.Name);
+                        cols++;
+                    }
+                    
+                 }
+                worksheet.Cells[1, 1, 1, cols].Style.Font.Bold = true;
+                worksheet.Cells[1, 1, 1, cols].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                //worksheet.Cells[1, 1, 1, cols].AutoFitColumns();
+                var contacts = db.Contacts.ToList();
+
+                int rows = 2;
+                foreach (var c in contacts)
+                {
+                    
+                    int i = 1;
+                    foreach (var prop in c.GetType().GetProperties())
+                    {
+                        if (prop.PropertyType == typeof(string))
+                        {
+                            worksheet.Cells[rows, i].Value = prop.GetValue(c, null);
+                            i++;
+                        }
+                        
+                    }
+                    rows++;
+                }
+                //FileInfo f = new FileInfo("C:\\Users\\bjjkdci\\Desktop\\TestDestination\\contacts.xlsx");
+                worksheet.Cells[1, 1, rows, cols].AutoFitColumns();
+               byte[] file = pck.GetAsByteArray();
+               return file;
+                //pck.SaveAs(f);
+                
+
+            }
+        }
+
+
+        public void ContactToCSV()
+        {
+
+           
+            Contact contact = new Contact();
+           
+            StreamWriter writer = new StreamWriter("C:\\Users\\bjjkdci\\Desktop\\TestDestination\\contacts.csv");
+            
+            List<string> headers = new List<string>();
+            foreach (var prop in contact.GetType().GetProperties())
+            {
+                if(prop.PropertyType == typeof(string))
+                {
+                    string test = SplitHeader(prop.Name);
+                    headers.Add(test);
+                }
+                
+            }
+            string[] h = headers.ToArray();
+            writer.WriteLine(String.Join(",", h));
+            var contacts = db.Contacts;
+            headers.Clear();
+            
+            foreach (var val in contacts)
+            {
+                headers.Clear();
+                foreach (var prop in val.GetType().GetProperties())
+                {
+                    if(prop.PropertyType == typeof(string))
+                    {
+                        headers.Add(prop.GetValue(val, null).ToString());
+                    }
+                }
+                Array.Clear(h, 0, h.Length);
+                h = headers.ToArray();
+                writer.WriteLine(String.Join(",", h));
+            }
+            writer.Dispose();
+        }
+
+        public string SplitHeader(string header)
+        {
+            List<string> split = header.Select(c => c.ToString()).ToList();
+
+
+            split = split.Select((t, i) => i != 0 & t.ToUpper() == t ? " " + t : t).ToList();
+
+            return String.Join("", split);
         }
     }
 }

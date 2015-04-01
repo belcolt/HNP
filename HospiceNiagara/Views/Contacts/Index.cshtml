@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HospiceNiagara.Models.AllContactViewModel>
+﻿@model IEnumerable<HospiceNiagara.Models.Contact>
 
 @{
     ViewBag.Title = "Index";
@@ -13,11 +13,12 @@
                 <td>Select by Team: </td>
                 <td>@Html.DropDownList("TeamDomainID", null, "All Teams", htmlAttributes: new { @class = "form-control" })</td>
                 <td><input type="submit" value="Filter" class="btn btn-default" /> @Html.ActionLink("Clear", "Index")</td>
-            </tr>
+                <td>@Html.ActionLink("To XLS", "Download")</td>
+</tr>
         </table>
     }
         <p>
-            @Html.ActionLink("Create New", "Create")
+            @Html.ActionLink("Create New","Create")
         </p>
         <table class="table">
             <tr>
@@ -42,7 +43,7 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in )
+            @foreach (var item in ViewBag.Regular )
             {
                 <tr>
                     <td>
@@ -72,7 +73,11 @@
             }
 
         </table>
-        <h2>Board Of Directors</h2>
+
+<div id="board">
+    @Html.Partial("~/Views/BoardMembers/BoardMemberList.cshtml")
+</div>
+        @*<h2>Board Of Directors</h2>
 @using (Html.BeginForm())
 {
     <table>
@@ -82,10 +87,10 @@
             <td></td>
             <td><input type="submit" value="Filter" class="btn btn-default" /> @Html.ActionLink("Clear", "BoardMemberList")</td>
         </tr>
-    </table>
-}
+    </table>*@
+@*  *@}
 @*change this table into Board Of Directors table using ViewBag.Directors*@
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
@@ -164,5 +169,5 @@
         </tr>
     }
 
-</table>
+</table>*@
        

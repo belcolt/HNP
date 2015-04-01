@@ -10,6 +10,10 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+@Html.DropDownList("ResidentialDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
+@Html.DropDownList("PetDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
+@Html.DropDownList("DayDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
+@Html.DropDownList("EventDD",null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
 <table class="table">
     <tr>
         <th>

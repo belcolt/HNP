@@ -16,9 +16,9 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: DeathNotices
-        public ActionResult Index()
+        public ActionResult Index(bool? showModal)
         {
-            return View(db.DeathNotices.ToList());
+                return View(db.DeathNotices.ToList());
         }
 
         // GET: DeathNotices/Details/5
@@ -37,6 +37,7 @@ namespace HospiceNiagara.Controllers
         //}
 
         // GET: DeathNotices/Create
+        [HttpGet]
         public ActionResult Create()
         {
             return PartialView("_CreateModal");
@@ -58,7 +59,7 @@ namespace HospiceNiagara.Controllers
             //Issues:
             //return View(deathNotice); = error returning create view, which doesn't exist
             //return View("Index", deathNotice); = Error converting over to IEnumerable
-            return Content("_CreateModal");
+            return PartialView("_CreateModal",deathNotice);
         }
 
         // GET: DeathNotices/Edit/5
