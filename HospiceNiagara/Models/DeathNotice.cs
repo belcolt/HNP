@@ -46,5 +46,8 @@ namespace HospiceNiagara.Models
 
         [StringLength(50, ErrorMessage = "Notes cannot be more than 50 characters long.")]
         public string Notes { get; set; }
+
+        [StringLength(2048, ErrorMessage = "URL cannot be more than 2048 characters long.")]
+        public string URL { get; set; }
     }
 }

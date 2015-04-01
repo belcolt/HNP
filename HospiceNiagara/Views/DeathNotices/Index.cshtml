@@ -1,10 +1,66 @@
 ﻿@model IEnumerable<HospiceNiagara.Models.DeathNotice>
 
 @{
-    ViewBag.Title = "Death Notice";
+    ViewBag.Title = "Death Notices";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    @Scripts.Render("~/bundles/jqueryval")
 }
 
-<h2>In Memoriam</h2>
+<div id="indexList">
+    <h2>In Memoriam</h2>
 
+    <p>
+        @Ajax.ActionLink("Create", "Index", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.URL)
+            </th>
+            <th></th>
+        </tr>
 
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    <a href="http://@item.URL">@item.URL</a>
+                </td>
+                <td>
+                    @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" }) |
+                    @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<div id="showModal">
+</div>
+<div id="unobtrusive">
+    ViewBag.UnObtrusive
+</div>

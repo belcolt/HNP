@@ -1,0 +1,49 @@
+﻿@model IEnumerable<HospiceNiagara.Models.DeathNotice>
+
+@{
+    ViewBag.Title = "Death Notice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>In Memoriam</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>@*@Html.ActionLink(@Html.DisplayNameFor(model => model.FullName).ToString(), "Index", new { sortOrder = ViewBag.NameSortParm })*@</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
