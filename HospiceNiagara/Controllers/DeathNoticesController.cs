@@ -90,7 +90,7 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(deathNotice);
+            return PartialView("_EditModal", deathNotice);
         }
 
         // GET: DeathNotices/Delete/5
