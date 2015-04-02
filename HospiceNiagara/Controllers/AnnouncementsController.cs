@@ -94,6 +94,17 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.AnnounceList = db.Announcements.ToList();
+            var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
+            var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
+            List<ResourceCatDD> rcats = new List<ResourceCatDD>();
+            foreach (var rc in rcs)
+            {
+                rcats.Add(new ResourceCatDD { ResourceCategoryID = rc.ID, RCatName = rc.Name, TeamDomainName = teamNames[rc.TeamDomainID - 1] });
+            }
+            int annCatID = announcement.Resource.ResourceCategoryID;
+            var selectedItem = rcats.Select(rc => rc.ResourceCategoryID == annCatID);
+            ViewBag.ResourceCategoryID = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", selectedItem, null, null);
             return PartialView("_EditModal",announcement);
         }
 
@@ -110,7 +121,7 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
             }
             ViewBag.AnnounceList = db.Announcements.ToList();
-            return View("Index");
+            return PartialView("_EditModal", announcement);
         }
 
         [HttpGet]
