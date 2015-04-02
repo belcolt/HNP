@@ -102,9 +102,9 @@ namespace HospiceNiagara.Controllers
             {
                 rcats.Add(new ResourceCatDD { ResourceCategoryID = rc.ID, RCatName = rc.Name, TeamDomainName = teamNames[rc.TeamDomainID - 1] });
             }
-            int annCatID = announcement.Resource.ResourceCategoryID;
-            var selectedItem = rcats.Select(rc => rc.ResourceCategoryID == annCatID);
-            ViewBag.ResourceCategoryID = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", selectedItem, null, null);
+            int rCatID = announcement.Resource.ResourceCategoryID;
+            ViewBag.ResourceCategories= new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", rCatID);
+            
             return PartialView("_EditModal",announcement);
         }
 
@@ -121,7 +121,7 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
             }
             ViewBag.AnnounceList = db.Announcements.ToList();
-            return PartialView("_EditModal", announcement);
+            return View("Index");
         }
 
         [HttpGet]

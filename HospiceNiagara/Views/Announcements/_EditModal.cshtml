@@ -6,6 +6,7 @@
         color: black;
     }
 </style>
+
 @Scripts.Render("~/bundles/jqueryval")
 <div class="modal fade" id="modalEditAnmt" tabindex="-1" role="dialog" aria-labelledby="myModalEditAnmt" aria-hidden="true">
     <div class="modal-dialog">
@@ -15,47 +16,49 @@
                 <h4 class="modal-title">Edit Announcement</h4>
             </div>
             <div class="modal-body">
-                @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace }))
-                {
-                    @*@Html.AntiForgeryToken()*@
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.ID)
-                    @Html.HiddenFor(model => model.Date)
-                    @Html.HiddenFor(model => model.ResourceID)
-                    <div class="form-group row">
-                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10 col-md-push-1">
-                            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
+            @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace }))
+            {
+                @*@Html.AntiForgeryToken()*@
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
+                @Html.HiddenFor(model => model.Date)
+                @Html.HiddenFor(model => model.ResourceID)
+                <div class="form-group row">
+                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10 col-md-push-1">
+                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
-                    <div class="form-group row">
-                        @Html.ValidationMessageFor(@item => item.Content, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group row">
+                    @Html.ValidationMessageFor(@item => item.Content, "", new { @class = "text-danger" })
+                </div>
+                <h6>Attach a Resource:</h6>
+                <div class="form-group row">
+                    <label class="control-label col-md-2">Resource Description</label>
+                    <div class="col-md-10">
+                        @Html.Editor("ResourceDescription", new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter resource description" } })
                     </div>
-                    <h6>Attach a Resource:</h6>
-                    <div class="form-group row">
-                        <label class="control-label col-md-2">Resource Description</label>
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Resource.FileDesc, new { htmlAttributes = new { @class = "form-control" } })
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-1">Resource Category</label>
+                    <div class="col-md-10 col-md-push-1">
+                        @Html.DropDownList("ResourceCategoryID", (SelectList)ViewBag.ResourceCategories, htmlAttributes: new { @class = "form-control" })
                     </div>
-                    <div class="form-group row">
-                        <label class="control-label col-md-1">Resource Category</label>
-                        <div class="col-md-10 col-md-push-1">
-                            @Html.DropDownList("ResourceCategoryID", (SelectList)ViewBag.ResourceCategoryID, htmlAttributes: new { @class = "form-control" })
-                        </div>
+                </div>
+                <div class="form-group row">
+                    @Html.Label("Upload", htmlAttributes: new { @class = "control-label col-md-1" })
+                    <div class="col-md-10 col-md-push-1">
+                        <input class="form-control" type="file" name="FileUpload1" />
                     </div>
-                    <div class="form-group row">
-                        @Html.Label("Upload", htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-10 col-md-push-1">
-                            <input class="form-control" type="file" name="FileUpload1" />
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                }
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            }
             </div>
-        </div><!-- /.modal-content -->
-    </div>
-</div><!-- /.modal-dialog -->
+                    
+            
+        </div>
+    </div><!-- /.modal-content -->
+</div>
