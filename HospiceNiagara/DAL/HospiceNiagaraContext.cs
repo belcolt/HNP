@@ -34,5 +34,7 @@ namespace HospiceNiagara.DAL
         public System.Data.Entity.DbSet<HospiceNiagara.Models.MeetingResource> MeetingResources { get; set; }
 
         public System.Data.Entity.DbSet<HospiceNiagara.Models.BoardMember> BoardMembers { get; set; }
+
+        public System.Data.Entity.DbSet<HospiceNiagara.Models.JobDescription> JobDescriptions { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: Contacts
-        public ActionResult Index(string SearchString, int? TeamDomainID)
+        public ActionResult Index(string SearchString, int? TeamDomainID, int? JobDescriptionID)
         {
 
             var directors = db.BoardMembers.AsEnumerable();
@@ -28,12 +28,14 @@ namespace HospiceNiagara.Controllers
             //    directors = directors.Where(d => d.LastName.ToUpper().Contains(SearchString.ToUpper())
             //                           || d.FirstName.ToUpper().Contains(SearchString.ToUpper()));
             //}
-            var contacts = db.Contacts.Include(c => c.TeamDomain);
+            var contacts = db.Contacts.Include(c => c.TeamDomain).Include(c => c.JobDescription);
             ViewBag.Directors = directors;
 
-
+            
             if (TeamDomainID.HasValue)
                 contacts = contacts.Where(p => p.TeamDomainID == TeamDomainID);
+            if (JobDescriptionID.HasValue)
+                contacts = contacts.Where(p => p.JobDescriptionID == JobDescriptionID);
             ViewBag.Regular = contacts;
 
 
@@ -63,6 +65,7 @@ namespace HospiceNiagara.Controllers
         public ActionResult Create()
         {
             ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
+            ViewBag.JobDescriptionID = new SelectList(db.JobDescriptions, "ID", "JobName");
             return View();
         }
 
@@ -71,7 +74,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,TeamDomainID")] Contact contact)
+        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,TeamDomainID,JobDescriptionID")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -81,6 +84,7 @@ namespace HospiceNiagara.Controllers
             }
 
             ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description", contact.TeamDomainID);
+            ViewBag.JobDescriptionID = new SelectList(db.JobDescriptions, "ID", "JobName", contact.JobDescriptionID);
             return View(contact);
         }
 
@@ -97,6 +101,7 @@ namespace HospiceNiagara.Controllers
                 return HttpNotFound();
             }
             ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description", contact.TeamDomainID);
+            ViewBag.JobDescriptionID = new SelectList(db.JobDescriptions, "ID", "JobName", contact.JobDescriptionID);
             return View(contact);
         }
 
@@ -105,7 +110,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,IsBoardDirector,TeamDomainID")] Contact contact)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,IsBoardDirector,TeamDomainID,JobDescriptionID")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -114,6 +119,7 @@ namespace HospiceNiagara.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description", contact.TeamDomainID);
+            ViewBag.JobDescriptionID = new SelectList(db.JobDescriptions, "ID", "JobName", contact.JobDescriptionID);
             return View(contact);
         }
 

@@ -56,6 +56,11 @@ namespace HospiceNiagara.Migrations
             deathNotice.ForEach(dn => context.DeathNotices.Add((dn)));
             context.SaveChanges();
 
+            var jobDescriptions = new List<JobDescription>
+            {
+                new JobDescription{JobName = "Finance and Operations Manager", Description = "This is a description" }
+            };
+
             var resourceDomains = new List<TeamDomain>
             {
                 new TeamDomain{ID=1,Description="Volunteer"},
@@ -79,13 +84,13 @@ namespace HospiceNiagara.Migrations
 
             var contacts = new List<Contact>
                 {
-                    new Contact {FirstName="Billy", LastName="Bragg", Position="Staff Deputy", Phone="9058992333", Email="bBragg@gmail.com",TeamDomainID=2},
-                    new Contact{FirstName="Rhory", LastName="Andrews", Position="Front Desk", Phone="9058993322", Email="rRhor@gmail.com", TeamDomainID=1},
-                    new Contact{FirstName="Kate", LastName="Murrell", Position="Administrative Assistant",Phone="x305", Email="kmurrell@hospiceniagara.ca",TeamDomainID=4},
-                    new Contact{FirstName="Jessica", LastName="Estabrooks",Position="Finance and Operations Manager",Email="jestabrooks@hospiceniagara.ca",Phone="x238",TeamDomainID=4},
-                    new Contact{FirstName="Robert", LastName="Jeffries",Position="Staff Leader",Email="rj@gmail.com",Phone="x298",TeamDomainID=1},
-                    new Contact{FirstName="Jane", LastName="Frisell",Position="Board member 1",Email="jf@gmail.com",Phone="x218",TeamDomainID=3},
-                    new Contact{FirstName="Rita", LastName="Lang",Position="Board member 2",Email="rl@gmail.com",Phone="x215",TeamDomainID=3},
+                    new Contact {FirstName="Billy", LastName="Bragg", Phone="9058992333", Email="bBragg@gmail.com",TeamDomainID=2,JobDescriptionID=1},
+                    new Contact{FirstName="Rhory", LastName="Andrews",  Phone="9058993322", Email="rRhor@gmail.com", TeamDomainID=1,JobDescriptionID=1},
+                    new Contact{FirstName="Kate", LastName="Murrell",Phone="x305", Email="kmurrell@hospiceniagara.ca",TeamDomainID=4,JobDescriptionID=1},
+                    new Contact{FirstName="Jessica", LastName="Estabrooks",Email="jestabrooks@hospiceniagara.ca",Phone="x238",TeamDomainID=4,JobDescriptionID=1},
+                    new Contact{FirstName="Robert", LastName="Jeffries",Email="rj@gmail.com",Phone="x298",TeamDomainID=1,JobDescriptionID=1},
+                    new Contact{FirstName="Jane", LastName="Frisell",Email="jf@gmail.com",Phone="x218",TeamDomainID=3,JobDescriptionID=1},
+                    new Contact{FirstName="Rita", LastName="Lang",Email="rl@gmail.com",Phone="x215",TeamDomainID=3,JobDescriptionID=1},
                 };
             contacts.ForEach(u => context.Contacts.Add(u));
             context.SaveChanges();

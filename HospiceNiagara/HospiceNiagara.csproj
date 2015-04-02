@@ -167,6 +167,7 @@
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\DeathNoticesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobDescriptionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingsController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
@@ -183,6 +184,30 @@
     <Compile Include="Migrations\201504011520432_Check.Designer.cs">
       <DependentUpon>201504011520432_Check.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504011909135_Jobs.cs" />
+    <Compile Include="Migrations\201504011909135_Jobs.Designer.cs">
+      <DependentUpon>201504011909135_Jobs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504022044402_job.cs" />
+    <Compile Include="Migrations\201504022044402_job.Designer.cs">
+      <DependentUpon>201504022044402_job.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504022052303_job2.cs" />
+    <Compile Include="Migrations\201504022052303_job2.Designer.cs">
+      <DependentUpon>201504022052303_job2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504022053456_job3.cs" />
+    <Compile Include="Migrations\201504022053456_job3.Designer.cs">
+      <DependentUpon>201504022053456_job3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504022059367_job4.cs" />
+    <Compile Include="Migrations\201504022059367_job4.Designer.cs">
+      <DependentUpon>201504022059367_job4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504022101377_job5.cs" />
+    <Compile Include="Migrations\201504022101377_job5.Designer.cs">
+      <DependentUpon>201504022101377_job5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -194,6 +219,7 @@
     <Compile Include="Models\FileStore.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invitation.cs" />
+    <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\MeetingResource.cs" />
@@ -265,6 +291,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Pop-up.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ScheduleCheck.js" />
@@ -357,6 +384,12 @@
     <Content Include="Views\DeathNotices\_CreateModal.cshtml" />
     <Content Include="Views\DeathNotices\_DeleteModal.cshtml" />
     <Content Include="Views\DeathNotices\_EditModal.cshtml" />
+    <Content Include="Views\JobDescriptions\Create.cshtml" />
+    <Content Include="Views\JobDescriptions\Delete.cshtml" />
+    <Content Include="Views\JobDescriptions\Details.cshtml" />
+    <Content Include="Views\JobDescriptions\Edit.cshtml" />
+    <Content Include="Views\JobDescriptions\Index.cshtml" />
+    <Content Include="Views\JobDescriptions\ShowDesc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -374,6 +407,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504011520432_Check.resx">
       <DependentUpon>201504011520432_Check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504011909135_Jobs.resx">
+      <DependentUpon>201504011909135_Jobs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504022044402_job.resx">
+      <DependentUpon>201504022044402_job.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504022052303_job2.resx">
+      <DependentUpon>201504022052303_job2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504022053456_job3.resx">
+      <DependentUpon>201504022053456_job3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504022059367_job4.resx">
+      <DependentUpon>201504022059367_job4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504022101377_job5.resx">
+      <DependentUpon>201504022101377_job5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
