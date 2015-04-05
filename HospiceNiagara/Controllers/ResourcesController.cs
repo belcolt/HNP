@@ -10,6 +10,7 @@ using HospiceNiagara.DAL;
 using HospiceNiagara.Models;
 using System.IO;
 using System.Web.Services;
+using Microsoft.AspNet.Identity;
 namespace HospiceNiagara.Controllers
 {
     public class ResourcesController : Controller
@@ -18,9 +19,11 @@ namespace HospiceNiagara.Controllers
 
         //Enumeration for quick matching of Domain IDs as in the Hospice Database.
         //Example: Check for specific DomainID on the ResourceCategory with db.ResourceCategories.Where(rc=>rc.TeamDomainID==(int)Domains.[nameOfDomain] and so forth
-        enum Domains { Volunteer, Staff, Board, Organizational };
+        private string volunteerRoles;
 
         // GET: Resources
+        
+        [Authorize(Roles="Administrator")]
         public ActionResult Index(string SearchString)
         {
             var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
@@ -38,6 +41,7 @@ namespace HospiceNiagara.Controllers
             //ViewBag.VolunteerResources = vRes;
             return View(resources);
         }
+
         public FileContentResult Download(int id)
         {
             var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
@@ -61,6 +65,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Resources/Create
+        [Authorize(Roles="Administrator")]
         public ActionResult Create()
         {
             var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
@@ -87,6 +92,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "ID,FileDesc,ResourceCategoryID,ResourceSubCategoryID")] Resource resource)
         {
             string mimeType = Request.Files[0].ContentType;
@@ -106,6 +112,10 @@ namespace HospiceNiagara.Controllers
                     FileName = fileName
                 };
             };
+            if (resource.ResourceSubCategoryID==-1)
+            {
+                resource.ResourceSubCategoryID = null;
+            }
             if (ModelState.IsValid)
             {
                 db.Resources.Add(resource);
@@ -117,6 +127,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Resources/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -138,6 +149,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "ID,FileDesc,ResourceTypeID,FileStoreID")] Resource resource)
         {
             if (ModelState.IsValid)
@@ -152,6 +164,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Resources/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -166,6 +179,32 @@ namespace HospiceNiagara.Controllers
             return View(resource);
         }
 
+        public string VolunteerRoles
+        {
+            get
+            {
+                List<String> roles = new List<String>();
+                string rolesSingle = "";
+                db.Roles.Where(r => r.TeamDomainID == (int)Domain.Volunteer).Select(r => r.Name).ToList().ForEach(s=>roles.Add(s));
+                foreach(string s in roles)
+                {
+                    rolesSingle += s + ",";
+                }
+                return rolesSingle;
+            }
+        }
+        //        public string HospiceSubRoles(Domain domain)
+        //{
+        //    List<String> roles = new List<String>();
+        //    string rolesSingle = "";
+        //    db.Roles.Where(r => r.TeamDomainID == (int)domain).Select(r => r.Name).ToList().ForEach(s=>roles.Add(s));
+        //    foreach(string s in roles)
+        //    {
+        //        rolesSingle += s + ",";
+        //    }
+        //    return rolesSingle;
+        //}
+
         // POST: Resources/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -176,7 +215,8 @@ namespace HospiceNiagara.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -185,5 +225,6 @@ namespace HospiceNiagara.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }
