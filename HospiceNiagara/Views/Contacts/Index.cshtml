@@ -5,7 +5,9 @@
 }
 
 <h2>Contacts</h2>
-
+<div id="pop-up">
+    
+</div>
 @using (Html.BeginForm())
     {
         <table>
@@ -20,6 +22,9 @@
         <p>
             @Html.ActionLink("Create New","Create")
         </p>
+<p>
+    @Html.ActionLink("Create New Position", "Create","JobDescriptions",null,null)
+</p>
         <table class="table">
             <tr>
                 <th>
@@ -32,8 +37,8 @@
                     @Html.DisplayNameFor(model => model.LastName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Position)
-                </th>
+                    @Html.DisplayNameFor(model => model.JobDescription.JobName)
+               </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Phone)
                 </th>
@@ -56,7 +61,7 @@
                         @item.LastName
                     </td>
                     <td>
-                        @item.Position
+                        <a href="/JobDescriptions/ShowDesc/@item.JobDescriptionID" class="hover">@item.JobDescription.JobName</a>
                     </td>
                     <td>
                         @item.Phone

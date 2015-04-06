@@ -19,9 +19,9 @@ namespace HospiceNiagara.Models
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        [Required]
-        [DisplayName("Position")]
-        public string Position { get; set; }
+        //[Required]
+        //[DisplayName("Position")]
+        //public string Position { get; set; }
 
         //extension or number
         [Required]
@@ -30,14 +30,19 @@ namespace HospiceNiagara.Models
 
         public string Email { get; set; }
 
-        [DefaultValue(false)]
-        [DisplayName("Board Director")]
-        public bool IsBoardDirector { get; set; }
+        //[DefaultValue(false)]
+        //[DisplayName("Board Director")]
+        //public bool IsBoardDirector { get; set; }
 
         [Required]
         public int TeamDomainID { get; set; }
         [DisplayName("Team")]
         public virtual TeamDomain TeamDomain { get; set; }
+
+        [Required]
+        public int JobDescriptionID { get; set; }
+        [DisplayName("Position")]
+        public virtual JobDescription JobDescription { get; set; }
 
         //public ICollection<Meeting> Invitations { get; set; }
         [DisplayName]

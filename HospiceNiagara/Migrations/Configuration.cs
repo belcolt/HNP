@@ -10,6 +10,8 @@ namespace HospiceNiagara.Migrations
     using System.IO;
     using System.Data.Entity.Validation;
     using System.Text;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.AspNet.Identity;
     internal sealed class HospiceConfiguration : DbMigrationsConfiguration<HospiceNiagara.DAL.HospiceNiagaraContext>
     {
 
@@ -56,6 +58,13 @@ namespace HospiceNiagara.Migrations
             deathNotice.ForEach(dn => context.DeathNotices.Add((dn)));
             context.SaveChanges();
 
+            var jobDescriptions = new List<JobDescription>
+            {
+                new JobDescription{JobName = "Finance and Operations Manager", Description = "This is a description" }
+            };
+            jobDescriptions.ForEach(jd => context.JobDescriptions.Add(jd));
+            context.SaveChanges();
+
             var resourceDomains = new List<TeamDomain>
             {
                 new TeamDomain{ID=1,Description="Volunteer"},
@@ -79,13 +88,13 @@ namespace HospiceNiagara.Migrations
 
             var contacts = new List<Contact>
                 {
-                    new Contact {FirstName="Billy", LastName="Bragg", Position="Staff Deputy", Phone="9058992333", Email="bBragg@gmail.com",TeamDomainID=2},
-                    new Contact{FirstName="Rhory", LastName="Andrews", Position="Front Desk", Phone="9058993322", Email="rRhor@gmail.com", TeamDomainID=1},
-                    new Contact{FirstName="Kate", LastName="Murrell", Position="Administrative Assistant",Phone="x305", Email="kmurrell@hospiceniagara.ca",TeamDomainID=4},
-                    new Contact{FirstName="Jessica", LastName="Estabrooks",Position="Finance and Operations Manager",Email="jestabrooks@hospiceniagara.ca",Phone="x238",TeamDomainID=4},
-                    new Contact{FirstName="Robert", LastName="Jeffries",Position="Staff Leader",Email="rj@gmail.com",Phone="x298",TeamDomainID=1},
-                    new Contact{FirstName="Jane", LastName="Frisell",Position="Board member 1",Email="jf@gmail.com",Phone="x218",TeamDomainID=3},
-                    new Contact{FirstName="Rita", LastName="Lang",Position="Board member 2",Email="rl@gmail.com",Phone="x215",TeamDomainID=3},
+                    new Contact {FirstName="Billy", LastName="Bragg", Phone="9058992333", Email="bBragg@gmail.com",TeamDomainID=2,JobDescriptionID=1},
+                    new Contact{FirstName="Rhory", LastName="Andrews",  Phone="9058993322", Email="rRhor@gmail.com", TeamDomainID=1,JobDescriptionID=1},
+                    new Contact{FirstName="Kate", LastName="Murrell",Phone="x305", Email="kmurrell@hospiceniagara.ca",TeamDomainID=4,JobDescriptionID=1},
+                    new Contact{FirstName="Jessica", LastName="Estabrooks",Email="jestabrooks@hospiceniagara.ca",Phone="x238",TeamDomainID=4,JobDescriptionID=1},
+                    new Contact{FirstName="Robert", LastName="Jeffries",Email="rj@gmail.com",Phone="x298",TeamDomainID=1,JobDescriptionID=1},
+                    new Contact{FirstName="Jane", LastName="Frisell",Email="jf@gmail.com",Phone="x218",TeamDomainID=3,JobDescriptionID=1},
+                    new Contact{FirstName="Rita", LastName="Lang",Email="rl@gmail.com",Phone="x215",TeamDomainID=3,JobDescriptionID=1},
                 };
             contacts.ForEach(u => context.Contacts.Add(u));
             context.SaveChanges();
@@ -169,6 +178,91 @@ namespace HospiceNiagara.Migrations
             };
             resourceSubCats.ForEach(rsc => context.ResourceSubCategories.Add(rsc));
             context.SaveChanges();
+
+            //USERS
+            var newUsers = new List<ApplicationUser>
+            {
+                new ApplicationUser{ContactID=1, UserName="bBragg@gmail.com"},
+                new ApplicationUser{ContactID=2, UserName="rRhor@gmail.com"},
+                new ApplicationUser{ContactID=3,UserName="kmurrell@hospiceniagara.ca"},
+                new ApplicationUser{ContactID=4, UserName="jestabrooks@hospiceniagara.ca"},
+                new ApplicationUser{ContactID=5, UserName="rj@gmail.com"},
+                new ApplicationUser{ContactID=6, UserName="jf@gmail.com"},
+                new ApplicationUser{ContactID=7, UserName="rl@gmail.com"},
+            };
+            int vol = 1;
+            int staff = 2;
+            int board = 3;
+            var newVolRoles = new List<ApplicationRole>
+            {
+                new ApplicationRole{Name="Bereavement", TeamDomainID = vol,Client=true},
+                new ApplicationRole{Name="Community", TeamDomainID = vol,Client=true},
+                new ApplicationRole{Name="Day Hospice", TeamDomainID = vol,Client=true},
+                new ApplicationRole{Name="Residential", TeamDomainID = vol,Client=true},
+                new ApplicationRole{Name="Welcome Desk",TeamDomainID=vol,Client=true},
+                new ApplicationRole{Name="Event",TeamDomainID=vol},
+                new ApplicationRole{Name="Admin",TeamDomainID=vol},
+                new ApplicationRole{Name="New Volunteers",TeamDomainID=vol},
+            };
+
+            var newStaffRoles = new List<ApplicationRole>
+            {
+                new ApplicationRole{Name="Leadership", TeamDomainID = staff},
+                new ApplicationRole{Name="Admin", TeamDomainID = staff},
+                new ApplicationRole{Name="Community", TeamDomainID = staff},
+                new ApplicationRole{Name="Outreach", TeamDomainID = staff},
+                new ApplicationRole{Name="Residential",TeamDomainID=staff},
+                new ApplicationRole{Name="New Staff",TeamDomainID=staff}
+            };
+
+            var newBoardRoles = new List<ApplicationRole>
+            {
+                new ApplicationRole{Name="Audit & Finance Committee",TeamDomainID=board},
+                new ApplicationRole{Name="Community Relations Committee",TeamDomainID=board},
+                new ApplicationRole{Name="Governance Committee",TeamDomainID=board},
+                new ApplicationRole{Name="Operations & Quality Improvement Committee",TeamDomainID=board},
+                new ApplicationRole{Name="New Board Members",TeamDomainID=board}
+            };
+            //Dave's Video
+
+            //Roles
+            var roleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(context));
+            foreach (var newRole in newVolRoles)
+            {
+                if (!context.Roles.Any(r => r.Name == newRole.Name))
+                {
+                    roleManager.Create(newRole);
+                }
+            }
+            foreach (var newRole in newStaffRoles)
+            {
+                if (!context.Roles.Any(r => r.Name == newRole.Name))
+                {
+                    roleManager.Create(newRole);
+                }
+            }
+            foreach (var newRole in newBoardRoles)
+            {
+                if (!context.Roles.Any(r => r.Name == newRole.Name))
+                {
+                    roleManager.Create(newRole);
+                }
+            }
+            if (!context.Roles.Any(r => r.Name == "Administrator"))
+            {
+                var roleResult = roleManager.Create(new ApplicationRole { Name = "Administrator", TeamDomainID = 4 });
+            }
+            //Users
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            
+            foreach(var newUser in newUsers)
+            {
+                if (!context.Users.Any(u=>u.UserName==newUser.UserName))
+                {
+                    manager.Create(newUser, "hospice1A");
+                }
+            }
         }
     }
 }

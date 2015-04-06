@@ -167,6 +167,7 @@
     <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\DeathNoticesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobDescriptionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingsController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
@@ -175,13 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503181232314_Initial.cs" />
-    <Compile Include="Migrations\201503181232314_Initial.Designer.cs">
-      <DependentUpon>201503181232314_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504011520432_Check.cs" />
-    <Compile Include="Migrations\201504011520432_Check.Designer.cs">
-      <DependentUpon>201504011520432_Check.cs</DependentUpon>
+    <Compile Include="Migrations\201504051954168_Initial.cs" />
+    <Compile Include="Migrations\201504051954168_Initial.Designer.cs">
+      <DependentUpon>201504051954168_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -192,8 +189,10 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventViewModel.cs" />
     <Compile Include="Models\FileStore.cs" />
+    <Compile Include="Models\HospiceUser.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invitation.cs" />
+    <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\MeetingResource.cs" />
@@ -265,6 +264,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Pop-up.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ScheduleCheck.js" />
@@ -355,7 +355,12 @@
     <Content Include="Views\DeathNotices\_CreateModal.cshtml" />
     <Content Include="Views\DeathNotices\_DeleteModal.cshtml" />
     <Content Include="Views\DeathNotices\_EditModal.cshtml" />
-    <Content Include="Views\Announcements\_CreateModal.cshtml" />
+    <Content Include="Views\JobDescriptions\Create.cshtml" />
+    <Content Include="Views\JobDescriptions\Delete.cshtml" />
+    <Content Include="Views\JobDescriptions\Details.cshtml" />
+    <Content Include="Views\JobDescriptions\Edit.cshtml" />
+    <Content Include="Views\JobDescriptions\Index.cshtml" />
+    <Content Include="Views\JobDescriptions\ShowDesc.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -368,11 +373,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503181232314_Initial.resx">
-      <DependentUpon>201503181232314_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504011520432_Check.resx">
-      <DependentUpon>201504011520432_Check.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504051954168_Initial.resx">
+      <DependentUpon>201504051954168_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
