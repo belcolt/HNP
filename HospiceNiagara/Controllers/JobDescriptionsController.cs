@@ -53,11 +53,32 @@ namespace HospiceNiagara.Controllers
             if (ModelState.IsValid)
             {
                 List<string> points = new List<string>();
-                foreach(string s in Text.Split(new string[] {"\n", "\r\n"}, StringSplitOptions.RemoveEmptyEntries))
+                int subItemLength = 0;
+
+                List<string> lines = Text.Split(new string[] {"\n", "\r\n"}, StringSplitOptions.RemoveEmptyEntries).ToList();
+                
+                int x = 0;
+                foreach(string s in lines)
                 {
+                    
+                    //if (s.IndexOf("-") == 0)
+                    //{
+
+                    //    int i = x;
+                    //    while (lines[i].IndexOf("-") == 0)
+                    //    {
+                    //        subItemLength++;
+                    //        i++;
+                    //    }
+                    //    if (subItemLength > 1)
+                    //    {
+
+                    //    }
+                    //}
                     points.Add("<li>" + s + "</li>");
+                    x++;
                 }
-                string test = "<ol>"+String.Join("",points)+"</ol>";
+                string test = "<ul>"+String.Join("",points)+"</ul>";
                 jobDescription.Description = test;
                 db.JobDescriptions.Add(jobDescription);
                 db.SaveChanges();
@@ -83,7 +104,7 @@ namespace HospiceNiagara.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             JobDescription jobDescription = db.JobDescriptions.Find(id);
-            ViewBag.Words = jobDescription.Description.Replace("\n\n", "\n").Replace("<ol>", "\n").Replace("</ol>", "").Replace("<li>", System.Environment.NewLine).Replace("</li>", "").Trim();
+            ViewBag.Words = jobDescription.Description.Replace("\n\n", "\n").Replace("<ul>", "\n").Replace("</ul>", "").Replace("<li>", System.Environment.NewLine).Replace("</li>", "").Trim();
             
             if (jobDescription == null)
             {
@@ -106,7 +127,7 @@ namespace HospiceNiagara.Controllers
                 {
                     points.Add("<li>" + s + "</li>");
                 }
-                string test = "<ol>" + String.Join("", points) + "</ol>";
+                string test = "<ul>" + String.Join("", points) + "</ul>";
                 jobDescription.Description = test;
                 db.Entry(jobDescription).State = EntityState.Modified;
                 db.SaveChanges();
