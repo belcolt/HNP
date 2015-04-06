@@ -20,6 +20,12 @@ namespace HospiceNiagara.Controllers
         public ActionResult Index()
         {
             ViewBag.AnnounceList = db.Announcements.ToList();
+            return View();
+        }
+
+        // GET: Announcements/Create
+        public ActionResult Create()
+        {
             var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
             var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
             List<ResourceCatDD> rcats = new List<ResourceCatDD>();
@@ -28,13 +34,7 @@ namespace HospiceNiagara.Controllers
                 rcats.Add(new ResourceCatDD { ResourceCategoryID = rc.ID, RCatName = rc.Name, TeamDomainName = teamNames[rc.TeamDomainID - 1] });
             }
             ViewBag.ResourceCategoryID = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", null, null, null);
-            return View();
-        }
-
-        // GET: Announcements/Create
-        public ActionResult Create()
-        {
-            return View();
+            return PartialView("_CreateModal");
         }
 
         [HttpPost]
@@ -79,7 +79,7 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View("Index");
+            return PartialView("_CreateModal", announcement);
         }
 
         [HttpGet]
@@ -112,16 +112,29 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement)
+        public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement, Resource resource, int ResourceCategoryID) //string ResourceDescription)
         {
-            //string description = announcement.Resource.FileDesc;
+            //hard coded until select list added
+            //if (ResourceCategoryID.HasValue)
+            //{
+            //    var rCat = (from rc in db.ResourceCategories
+            //                where rc.ID == ResourceCategoryID
+            //                select rc).Single();
+            //    var resource = new Resource { DateAdded = DateTime.Today, ResourceCategoryID = rCat.ID, FileDesc = ResourceDescription };
+            //    //announcement dates and resource  initializing
+            //}
+            //will need to add file addition/remove here
             if (ModelState.IsValid)
             {
+                resource.ResourceCategoryID = ResourceCategoryID;
                 db.Entry(announcement).State = EntityState.Modified;
+                db.Entry(resource).State = EntityState.Modified;
                 db.SaveChanges();
+                return RedirectToAction("Index");
             }
+
             ViewBag.AnnounceList = db.Announcements.ToList();
-            return View("Index");
+            return PartialView("_EditModal", announcement);
         }
 
         [HttpGet]
@@ -148,11 +161,13 @@ namespace HospiceNiagara.Controllers
             db.SaveChanges();
             return View("Index");
         }
+
+        public FileContentResult Download(int id)
+        {
+            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
+            return File(theFile.FileContent, theFile.MimeType, theFile.FileName);
+        }
         
         //VIEW BAG DROP DOWNS AUTO GENERATED
-
-        //ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
-        //ViewBag.ResourceTypeID = new SelectList(db.ResourceTypes, "ID", "Description", resource.ResourceTypeID);
-
     }
 }
