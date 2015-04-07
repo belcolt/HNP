@@ -20,30 +20,25 @@
             <div class="modal-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group row">
-                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-lg-2" })
-                        <div class="col-lg-10 col-md-push-1">
-                            @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter text here..." } })
-                            @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-                        </div>
+                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter title/description here..." } })
+                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                     </div>
-                    <h6>Attach a Resource:</h6>
+                    <hr />
+                    <h4><b>Attach a resource:</b></h4>
+                    <br />
                     <div class="form-group row">
-                        <label class="control-label col-md-2">Resource Description</label>
-                        <div class="col-md-10">
-                            @Html.Editor("ResourceDescription", new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter resource description" } })
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="control-label col-md-1">Resource Category</label>
-                        <div class="col-md-10 col-md-push-1">
-                            @Html.DropDownList("ResourceCategoryID", (SelectList)ViewBag.ResourceCategoryID, htmlAttributes: new { @class = "form-control" })
-                        </div>
+                        @Html.LabelFor(model => model.Resource.FileDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.Editor("ResourceDescription", new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter resource description here..." } })
+                        @Html.ValidationMessageFor(model => model.Resource.FileDesc, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group row">
-                        @Html.Label("Upload", htmlAttributes: new { @class = "control-label col-md-1" })
-                        <div class="col-md-10 col-md-push-1">
-                            <input class="form-control" type="file" name="FileUpload1" />
-                        </div>
+                        @Html.LabelFor(model => model.Resource.ResourceCategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.DropDownList("ResourceCategoryID", (SelectList)ViewBag.ResourceCategoryID, htmlAttributes: new { @class = "form-control col-md-10 col-md-push-1" })
+                    </div>
+                    <div class="form-group row">
+                        @Html.Label("Upload", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <input class="form-control col-md-10 col-md-push-1" type="file" name="FileUpload1" />
                     </div>
                 </div>
                 <div class="modal-footer">

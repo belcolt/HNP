@@ -39,7 +39,7 @@ namespace HospiceNiagara.Controllers
 
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content")] Announcement announcement, int? ResourceCategoryID, string ResourceDescription)
+        public ActionResult Create([Bind(Include = "Content")] Announcement announcement, int ResourceCategoryID, string ResourceDescription)
         {
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
@@ -47,32 +47,30 @@ namespace HospiceNiagara.Controllers
             announcement.Date = DateTime.Now;
             byte[] fileData = new byte[fileLength];
             //hard coded until select list added
-            if (ResourceCategoryID.HasValue)
-            {
-                var rCat = (from rc in db.ResourceCategories
-                             where rc.ID == ResourceCategoryID
-                             select rc).Single();
-                var resource = new Resource { DateAdded = DateTime.Today, ResourceCategoryID = rCat.ID,FileDesc=ResourceDescription };
-                //announcement dates and resource  initializing
+            var rCat = (from rc in db.ResourceCategories
+                            where rc.ID == ResourceCategoryID
+                            select rc).Single();
+            var resource = new Resource { DateAdded = DateTime.Today, ResourceCategoryID = rCat.ID,FileDesc=ResourceDescription };
+            //announcement dates and resource  initializing
 
-                //fileread and associate file with resource
-                if (!(fileName == "" || fileLength == 0))
+            //fileread and associate file with resource
+            if (!(fileName == "" || fileLength == 0))
+            {
+                Stream fileStream = Request.Files[0].InputStream;
+                fileStream.Read(fileData, 0, fileLength);
+                //resource type already existent
+                resource.FileStore = new FileStore
                 {
-                    Stream fileStream = Request.Files[0].InputStream;
-                    fileStream.Read(fileData, 0, fileLength);
-                    //resource type already existent
-                    resource.FileStore = new FileStore
-                    {
-                        FileContent = fileData,
-                        MimeType = mimeType,
-                        FileName = fileName
-                    };
-                    db.Resources.Add(resource);
-                    announcement.Resource = resource;
-                }
-                //add resource, assign ID to announcement's resource
-                
+                    FileContent = fileData,
+                    MimeType = mimeType,
+                    FileName = fileName
+                };
+                db.Resources.Add(resource);
+                announcement.Resource = resource;
             }
+            //add resource, assign ID to announcement's resource
+                
+            
             if (ModelState.IsValid)
             {
                 db.Announcements.Add(announcement);
@@ -112,28 +110,35 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement, Resource resource, int ResourceCategoryID) //string ResourceDescription)
+        public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
         {
-            //hard coded until select list added
-            //if (ResourceCategoryID.HasValue)
-            //{
-            //    var rCat = (from rc in db.ResourceCategories
-            //                where rc.ID == ResourceCategoryID
-            //                select rc).Single();
-            //    var resource = new Resource { DateAdded = DateTime.Today, ResourceCategoryID = rCat.ID, FileDesc = ResourceDescription };
-            //    //announcement dates and resource  initializing
-            //}
-            //will need to add file addition/remove here
+            //store user input before querying the object refreshes values
+            string fileDesc = resource.FileDesc;
+            int rCatID = ResourceCategoryID;
+
+            //match the announcement record to the resource record
+            resource = (from rc in db.Resources
+                            where rc.ID == announcement.ResourceID
+                            select rc).Single();
+            
+            if(TryUpdateModel(resource, new string[] {"FileDesc,ResourceCategoryID"}))
+            {
+                //populate user values to related fields
+                resource.FileDesc = fileDesc;
+                resource.ResourceCategoryID = rCatID;
+
+                //update the resource record
+                db.Entry(resource).State = EntityState.Modified;
+            }
+
             if (ModelState.IsValid)
             {
-                resource.ResourceCategoryID = ResourceCategoryID;
+                //yeah
                 db.Entry(announcement).State = EntityState.Modified;
-                db.Entry(resource).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.AnnounceList = db.Announcements.ToList();
+            //ViewBag.AnnounceList = db.Announcements.ToList();
             return PartialView("_EditModal", announcement);
         }
 

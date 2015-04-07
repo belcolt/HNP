@@ -8,7 +8,7 @@
 <div id="indexList">
     <h2>In Memoriam</h2>
     <p>
-        @Ajax.ActionLink("Create", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
+        @Ajax.ActionLink("Add new...", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
     </p>
     <table class="table">
         <tr>
@@ -46,7 +46,7 @@
                     @Html.DisplayFor(modelItem => item.Notes)
                 </td>
                 <td>
-                    <a href="http://@item.URL">@item.URL</a>
+                    <a target="_blank" href="@item.URL">@item.URL</a>
                 </td>
                 <td>
                     @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" }) |
