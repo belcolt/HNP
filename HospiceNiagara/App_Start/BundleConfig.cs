@@ -13,7 +13,8 @@ namespace HospiceNiagara
                         "~/Scripts/ShowSchedule.js",
                         "~/Scripts/BoardShow.js",
                         "~/Scripts/ScheduleCheck.js",
-                        "~/Scripts/Pop-up.js"));
+                        "~/Scripts/Pop-up.js",
+                        "~/Scripts/LoadEventDropDown.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*",
