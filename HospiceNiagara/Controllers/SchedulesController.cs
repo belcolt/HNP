@@ -432,6 +432,7 @@ namespace HospiceNiagara.Controllers
                     try
                     {
                         add.Add(scheds.Where(s => s.Month == m & s.Year == y).Single());
+                        
                     }
                     catch { }
                 }

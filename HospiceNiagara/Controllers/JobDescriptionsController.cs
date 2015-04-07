@@ -53,11 +53,42 @@ namespace HospiceNiagara.Controllers
             if (ModelState.IsValid)
             {
                 List<string> points = new List<string>();
-                foreach(string s in Text.Split(new string[] {"\n", "\r\n"}, StringSplitOptions.RemoveEmptyEntries))
+                //int subItemLength = 0;
+
+                List<string> lines = Text.Split(new string[] {"\n", "\r\n"}, StringSplitOptions.RemoveEmptyEntries).ToList();
+                
+                //int x = 0;
+                foreach(string s in lines)
                 {
+                    //if (subItemLength > 0)
+                    //{
+                    //    subItemLength--;
+                    //    x++;
+                    //    continue;
+                    //}
+                    //if (s.IndexOf("-") == 0)
+                    //{
+                       
+                    //    int i = x;
+                    //    string subItems = "";
+                    //    while (lines[i].IndexOf("-") == 0)
+                    //    {
+                    //        subItems += "<li>" + lines[i] + "</li>";
+                    //        subItemLength++;
+                    //        i++;
+                    //    }
+                    //    if (subItemLength > 0)
+                    //    {
+                    //        points.Add("<ul>" + subItems + "</ul>");
+                    //        subItemLength--;
+                    //        continue;
+                    //    }
+                    //}
                     points.Add("<li>" + s + "</li>");
+                    //x++;
+                    
                 }
-                string test = "<ol>"+String.Join("",points)+"</ol>";
+                string test = "<ul>"+String.Join("",points)+"</ul>";
                 jobDescription.Description = test;
                 db.JobDescriptions.Add(jobDescription);
                 db.SaveChanges();
@@ -71,7 +102,7 @@ namespace HospiceNiagara.Controllers
         {
             JobDescription job = db.JobDescriptions.Where(j => j.ID == id).Single();
             ViewBag.JobName = job.JobName;
-            ViewBag.Desc = job.Description;
+            ViewBag.Desc = job.Description.Replace("-","");
             return PartialView("ShowDesc");
         }
 
@@ -83,7 +114,7 @@ namespace HospiceNiagara.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             JobDescription jobDescription = db.JobDescriptions.Find(id);
-            ViewBag.Words = jobDescription.Description.Replace("\n\n", "\n").Replace("<ol>", "\n").Replace("</ol>", "").Replace("<li>", System.Environment.NewLine).Replace("</li>", "").Trim();
+            ViewBag.Words = jobDescription.Description.Replace("\n\n", "\n").Replace("<ul>", "").Replace("</ul>", "").Replace("<li>", System.Environment.NewLine).Replace("</li>", "").Trim();
             
             if (jobDescription == null)
             {
@@ -102,11 +133,40 @@ namespace HospiceNiagara.Controllers
             if (ModelState.IsValid)
             {
                 List<string> points = new List<string>();
-                foreach (string s in Text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries))
+                 //int subItemLength = 0;
+
+                List<string> lines = Text.Split(new string[] {"\n", "\r\n"}, StringSplitOptions.RemoveEmptyEntries).ToList();
+                
+                //int x = 0;
+                foreach (string s in lines)
                 {
+                    //if (subItemLength > 0)
+                    //{
+                    //    subItemLength--;
+                    //    x++;
+                    //    continue;
+                    //}
+                    //if (s.IndexOf("-") == 0)
+                    //{
+
+                    //    int i = x;
+                    //    string subItems = "";
+                    //    while (lines[i].IndexOf("-") == 0)
+                    //    {
+                    //        subItems += "<li>" + lines[i] + "</li>";
+                    //        subItemLength++;
+                    //        i++;
+                    //    }
+                    //    if (subItemLength > 0)
+                    //    {
+                    //        points.Add("<ul>" + subItems + "</ul>");
+                    //        subItemLength--;
+                    //        continue;
+                    //    }
+                    //}
                     points.Add("<li>" + s + "</li>");
                 }
-                string test = "<ol>" + String.Join("", points) + "</ol>";
+                string test = "<ul>" + String.Join("", points) + "</ul>";
                 jobDescription.Description = test;
                 db.Entry(jobDescription).State = EntityState.Modified;
                 db.SaveChanges();
