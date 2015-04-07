@@ -11,6 +11,7 @@ using HospiceNiagara.Models;
 using System.IO;
 using System.Diagnostics;
 using OfficeOpenXml;
+using System.ComponentModel;
 
 namespace HospiceNiagara.Controllers
 {
@@ -34,8 +35,8 @@ namespace HospiceNiagara.Controllers
             
             if (TeamDomainID.HasValue)
                 contacts = contacts.Where(p => p.TeamDomainID == TeamDomainID);
-            if (JobDescriptionID.HasValue)
-                contacts = contacts.Where(p => p.JobDescriptionID == JobDescriptionID);
+            //if (JobDescriptionID.HasValue)
+            //    contacts = contacts.Where(p => p.JobDescriptionID == JobDescriptionID);
             ViewBag.Regular = contacts;
 
 
@@ -180,33 +181,60 @@ namespace HospiceNiagara.Controllers
                 ExcelWorksheet worksheet = pck.Workbook.Worksheets.Add("Contact List");
                 Contact contact = new Contact();
                 int cols = 1;
-                foreach (var prop in contact.GetType().GetProperties())
-                {
-                    
-                    if(prop.PropertyType == typeof(string))
-                    {
-                        worksheet.Cells[1, cols].Value = SplitHeader(prop.Name);
-                        cols++;
-                    }
-                    
+                //foreach (var prop in contact.GetType().GetProperties())
+                //{
+                List<string> headings = new List<string>{"FirstName", "LastName", "Phone", "Email", "JobDescription"};
+                 PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(contact);
+                 foreach (PropertyDescriptor prop in properties)
+                 {
+
+                     if (headings.Contains(prop.Name))
+                     {
+                         if (prop.DisplayName == null)
+                         {
+                             worksheet.Cells[1, cols].Value = prop.Name;
+                         }
+                         else
+                         {
+                             worksheet.Cells[1, cols].Value = prop.DisplayName;
+                         }
+                         cols++;
+                     }
                  }
+                    //if(prop.PropertyType == typeof(string))
+                    //{
+                    //    worksheet.Cells[1, cols].Value = SplitHeader(prop.Name);
+                    //    cols++;
+                    //}
+                    
+                 //}
                 worksheet.Cells[1, 1, 1, cols].Style.Font.Bold = true;
                 worksheet.Cells[1, 1, 1, cols].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 //worksheet.Cells[1, 1, 1, cols].AutoFitColumns();
-                var contacts = db.Contacts.ToList();
-
+                var contacts = db.Contacts.Include(c => c.JobDescription).ToList();
+                headings = new List<string> { "FirstName", "LastName", "Phone", "Email" };
                 int rows = 2;
                 foreach (var c in contacts)
                 {
                     
                     int i = 1;
-                    foreach (var prop in c.GetType().GetProperties())
+                    properties = TypeDescriptor.GetProperties(c);
+                    
+                    foreach (PropertyDescriptor prop in properties)
                     {
-                        if (prop.PropertyType == typeof(string))
+                        if (headings.Contains(prop.Name))
                         {
-                            worksheet.Cells[rows, i].Value = prop.GetValue(c, null);
+                            
+                            worksheet.Cells[rows, i].Value = prop.GetValue(c);
                             i++;
                         }
+                        else if (prop.Name == "JobDescriptionID")
+                        {
+                            string con = contacts.Where(l => l.JobDescriptionID == c.JobDescriptionID).Select(l => l.JobDescription.JobName).First();
+                            worksheet.Cells[rows, i].Value = con;
+                            i++;
+                        }
+                        
                         
                     }
                     rows++;
