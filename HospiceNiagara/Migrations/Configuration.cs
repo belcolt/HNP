@@ -195,11 +195,12 @@ namespace HospiceNiagara.Migrations
             int board = 3;
             var newVolRoles = new List<ApplicationRole>
             {
-                new ApplicationRole{Name="Bereavement", TeamDomainID = vol,Client=true},
-                new ApplicationRole{Name="Community", TeamDomainID = vol,Client=true},
-                new ApplicationRole{Name="Day Hospice", TeamDomainID = vol,Client=true},
-                new ApplicationRole{Name="Residential", TeamDomainID = vol,Client=true},
-                new ApplicationRole{Name="Welcome Desk",TeamDomainID=vol,Client=true},
+                new ApplicationRole{Name="Volunteer", TeamDomainID = vol},
+                new ApplicationRole{Name="Bereavement", TeamDomainID = vol},
+                new ApplicationRole{Name="Community", TeamDomainID = vol},
+                new ApplicationRole{Name="Day Hospice", TeamDomainID = vol},
+                new ApplicationRole{Name="Residential", TeamDomainID = vol},
+                new ApplicationRole{Name="Welcome Desk",TeamDomainID=vol},
                 new ApplicationRole{Name="Event",TeamDomainID=vol},
                 new ApplicationRole{Name="Admin",TeamDomainID=vol},
                 new ApplicationRole{Name="New Volunteers",TeamDomainID=vol},
@@ -207,6 +208,7 @@ namespace HospiceNiagara.Migrations
 
             var newStaffRoles = new List<ApplicationRole>
             {
+                new ApplicationRole{Name="Staff", TeamDomainID = staff},
                 new ApplicationRole{Name="Leadership", TeamDomainID = staff},
                 new ApplicationRole{Name="Admin", TeamDomainID = staff},
                 new ApplicationRole{Name="Community", TeamDomainID = staff},
@@ -217,6 +219,7 @@ namespace HospiceNiagara.Migrations
 
             var newBoardRoles = new List<ApplicationRole>
             {
+                new ApplicationRole{Name="Board", TeamDomainID = board},
                 new ApplicationRole{Name="Audit & Finance Committee",TeamDomainID=board},
                 new ApplicationRole{Name="Community Relations Committee",TeamDomainID=board},
                 new ApplicationRole{Name="Governance Committee",TeamDomainID=board},

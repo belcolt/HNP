@@ -23,9 +23,10 @@ namespace HospiceNiagara.Controllers
 
         // GET: Resources
         
-        [Authorize(Roles="Administrator")]
+        [Authorize]
         public ActionResult Index(string SearchString)
         {
+            //Need to cascade for active pane
             var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
             ViewBag.VolunteerResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 1).ToList();
             ViewBag.StaffResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 2).ToList();
@@ -179,20 +180,20 @@ namespace HospiceNiagara.Controllers
             return View(resource);
         }
 
-        public string VolunteerRoles
-        {
-            get
-            {
-                List<String> roles = new List<String>();
-                string rolesSingle = "";
-                db.Roles.Where(r => r.TeamDomainID == (int)Domain.Volunteer).Select(r => r.Name).ToList().ForEach(s=>roles.Add(s));
-                foreach(string s in roles)
-                {
-                    rolesSingle += s + ",";
-                }
-                return rolesSingle;
-            }
-        }
+        //public string VolunteerRoles
+        //{
+        //    get
+        //    {
+        //        List<String> roles = new List<String>();
+        //        string rolesSingle = "";
+        //        db.Roles.Where(r => r.TeamDomainID == (int)Domain.Volunteer).Select(r => r.Name).ToList().ForEach(s=>roles.Add(s));
+        //        foreach(string s in roles)
+        //        {
+        //            rolesSingle += s + ",";
+        //        }
+        //        return rolesSingle;
+        //    }
+        //}
         //        public string HospiceSubRoles(Domain domain)
         //{
         //    List<String> roles = new List<String>();
@@ -206,6 +207,7 @@ namespace HospiceNiagara.Controllers
         //}
 
         // POST: Resources/Delete/5
+        [Authorize(Roles = "Administrator")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

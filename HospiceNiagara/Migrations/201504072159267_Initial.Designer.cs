@@ -13,7 +13,7 @@ namespace HospiceNiagara.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201504051954168_Initial"; }
+            get { return "201504072159267_Initial"; }
         }
         
         string IMigrationMetadata.Source
