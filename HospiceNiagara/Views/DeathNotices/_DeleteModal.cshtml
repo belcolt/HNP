@@ -13,6 +13,7 @@
                 <h4 class="modal-title">Delete Death Notice</h4>
             </div>
             <div class="modal-body" id="deleteDN">
+                <h4><b>Are you sure you want to delete this?</b></h4>
                 @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace }))
                 {
                     @Html.AntiForgeryToken()

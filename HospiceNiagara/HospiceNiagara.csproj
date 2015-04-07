@@ -180,6 +180,14 @@
     <Compile Include="Migrations\201504072159267_Initial.Designer.cs">
       <DependentUpon>201504072159267_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504061730170_fuckYou.cs" />
+    <Compile Include="Migrations\201504061730170_fuckYou.Designer.cs">
+      <DependentUpon>201504061730170_fuckYou.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504071716309_DOYOUREALLYWANTOHURTMEEEEEEE.cs" />
+    <Compile Include="Migrations\201504071716309_DOYOUREALLYWANTOHURTMEEEEEEE.Designer.cs">
+      <DependentUpon>201504071716309_DOYOUREALLYWANTOHURTMEEEEEEE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -264,6 +272,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LoadEventDropDown.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Pop-up.js" />
     <Content Include="Scripts\respond.js" />
@@ -362,6 +371,7 @@
     <Content Include="Views\JobDescriptions\Edit.cshtml" />
     <Content Include="Views\JobDescriptions\Index.cshtml" />
     <Content Include="Views\JobDescriptions\ShowDesc.cshtml" />
+    <Content Include="Views\Meetings\ContactDropDown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -377,6 +387,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504072159267_Initial.resx">
       <DependentUpon>201504072159267_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504061730170_fuckYou.resx">
+      <DependentUpon>201504061730170_fuckYou.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504071716309_DOYOUREALLYWANTOHURTMEEEEEEE.resx">
+      <DependentUpon>201504071716309_DOYOUREALLYWANTOHURTMEEEEEEE.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

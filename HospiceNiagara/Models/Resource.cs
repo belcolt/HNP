@@ -22,11 +22,11 @@ namespace HospiceNiagara.Models
 
         //ResourceType
         [Required]
-        [DisplayName("Resource Category")]
+        [DisplayName("Category")]
         public int ResourceCategoryID { get; set; }
         public virtual ResourceCategory ResourceCategory { get; set; }
 
-        [DisplayName("Resource SubCategory")]
+        [DisplayName("Subcategory")]
         public int? ResourceSubCategoryID { get; set; }
         public virtual ResourceSubCategory ResourceSubCategory { get; set; }
 

@@ -30,7 +30,20 @@ namespace HospiceNiagara.Controllers
             ViewBag.EventsList = elists;
             return View();
         }
-
+       public ActionResult LoadDropDown(int? id)
+       {
+           if(id > 0)
+           {
+               ViewBag.ContactDD = new MultiSelectList(db.Contacts.Where(c => c.TeamDomainID == id).ToList(), "ID", "LastName");
+               return PartialView("ContactDropDown");
+           }
+           else
+           {
+               ViewBag.ContactDD = new MultiSelectList(db.Contacts.ToList(), "ID", "LastName");
+               return PartialView("ContactDropDown");
+           }
+          
+       }
         public ActionResult CreateEvent()
         {
             return View();
