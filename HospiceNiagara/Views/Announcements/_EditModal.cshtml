@@ -25,29 +25,24 @@
                 @Html.HiddenFor(model => model.ResourceID)
                 <div class="form-group row">
                     @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10 col-md-push-1">
-                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
-                    </div>
+                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1" } })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
                 </div>
-                <h6>Attach a Resource:</h6>
+                <hr />
+                <h4><b>Attach a resource:</b></h4>
+                <br />
                 <div class="form-group row">
-                    <label class="control-label col-md-2">Resource Description</label>
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Resource.FileDesc, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter resource description" } })
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="control-label col-md-1">Resource Category</label>
-                    <div class="col-md-10 col-md-push-1">
-                        @Html.DropDownList("ResourceCategoryID", (SelectList)ViewBag.ResourceCategories, htmlAttributes: new { @class = "form-control" })
-                    </div>
+                    @Html.LabelFor(model => model.Resource.FileDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Resource.FileDesc, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter resource description" } })
+                    @Html.ValidationMessageFor(model => model.Resource.FileDesc, "", new { @class = "text-danger" })
                 </div>
                 <div class="form-group row">
-                    <label class="control-label col-md-1">Attached File(s)</label>
-                    <div class="col-md-10 col-md-push-1">
-                        @Html.ActionLink(Model.Resource.FileStore.FileName, "Download", new { id = Model.Resource.FileStoreID })
-                    </div>
+                    @Html.LabelFor(model => model.Resource.ResourceCategoryID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.DropDownList("ResourceCategoryID", (SelectList)ViewBag.ResourceCategories, htmlAttributes: new { @class = "form-control col-md-10 col-md-push-1" })
+                </div>
+                <div class="form-group row">
+                    @Html.Label("Attached File", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.ActionLink(Model.Resource.FileStore.FileName, "Download", new { id = Model.Resource.FileStoreID }, htmlAttributes: new { @class = "col-md-10 col-md-push-1" })
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save Changes</button>

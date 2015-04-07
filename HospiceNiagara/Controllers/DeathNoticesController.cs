@@ -50,6 +50,9 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
         {
+            if(!(deathNotice.URL.StartsWith("http://")))
+                deathNotice.URL = "http://" + deathNotice.URL;
+
             if (ModelState.IsValid)
             {
                 db.DeathNotices.Add(deathNotice);
@@ -84,6 +87,9 @@ namespace HospiceNiagara.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
         {
+            if (!(deathNotice.URL.StartsWith("http://")))
+                deathNotice.URL = "http://" + deathNotice.URL;
+
             if (ModelState.IsValid)
             {
                 db.Entry(deathNotice).State = EntityState.Modified;
