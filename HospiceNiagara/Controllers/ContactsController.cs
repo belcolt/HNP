@@ -15,6 +15,7 @@ using System.ComponentModel;
 
 namespace HospiceNiagara.Controllers
 {
+    [Authorize]
     public class ContactsController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
@@ -63,6 +64,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contacts/Create
+        [Authorize(Roles="Admin")]
         public ActionResult Create()
         {
             ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
@@ -75,6 +77,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,TeamDomainID,JobDescriptionID")] Contact contact)
         {
             if (ModelState.IsValid)
@@ -90,6 +93,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contacts/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -111,6 +115,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,IsBoardDirector,TeamDomainID,JobDescriptionID")] Contact contact)
         {
             if (ModelState.IsValid)
@@ -125,6 +130,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Contacts/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -142,6 +148,7 @@ namespace HospiceNiagara.Controllers
         // POST: Contacts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Contact contact = db.Contacts.Find(id);
