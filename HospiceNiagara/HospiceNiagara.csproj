@@ -176,9 +176,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504051954168_Initial.cs" />
-    <Compile Include="Migrations\201504051954168_Initial.Designer.cs">
-      <DependentUpon>201504051954168_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201504072159267_Initial.cs" />
+    <Compile Include="Migrations\201504072159267_Initial.Designer.cs">
+      <DependentUpon>201504072159267_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -206,6 +206,7 @@
     <Compile Include="Models\TeamDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="HospiceUser\HospiceUserRole.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -371,6 +372,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Schedules1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -380,8 +382,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504051954168_Initial.resx">
-      <DependentUpon>201504051954168_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504072159267_Initial.resx">
+      <DependentUpon>201504072159267_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

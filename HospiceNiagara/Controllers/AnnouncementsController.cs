@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using HospiceNiagara.DAL;
 using HospiceNiagara.Models;
 using System.IO;
+using HospiceNiagara.HospiceUserExtensions;
 
 namespace HospiceNiagara.Controllers
 {

@@ -210,14 +210,14 @@ namespace HospiceNiagara.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        TeamDomainID = c.Int(nullable: false),
-                        Client = c.Boolean(nullable: false),
                         Name = c.String(nullable: false, maxLength: 256),
+                        TeamDomainID = c.Int(),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.TeamDomain", t => t.TeamDomainID, cascadeDelete: true)
-                .Index(t => t.TeamDomainID)
-                .Index(t => t.Name, unique: true, name: "RoleNameIndex");
+                .Index(t => t.Name, unique: true, name: "RoleNameIndex")
+                .Index(t => t.TeamDomainID);
             
             CreateTable(
                 "dbo.AspNetUserRoles",
@@ -305,8 +305,8 @@ namespace HospiceNiagara.Migrations
             DropForeignKey("dbo.AspNetUsers", "ContactID", "dbo.Contact");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Schedule", "ResourceID", "dbo.Resource");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.AspNetRoles", "TeamDomainID", "dbo.TeamDomain");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Contact", "TeamDomainID", "dbo.TeamDomain");
             DropForeignKey("dbo.Contact", "JobDescriptionID", "dbo.JobDescription");
             DropForeignKey("dbo.Event", "MinutesID", "dbo.MeetingResource");
@@ -330,8 +330,8 @@ namespace HospiceNiagara.Migrations
             DropIndex("dbo.Schedule", new[] { "ResourceID" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.AspNetRoles", new[] { "TeamDomainID" });
+            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.MeetingResource", new[] { "ResourceID" });
             DropIndex("dbo.MeetingResource", new[] { "MeetingID" });
             DropIndex("dbo.Event", new[] { "AttendanceID" });

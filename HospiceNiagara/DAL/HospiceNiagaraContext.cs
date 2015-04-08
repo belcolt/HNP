@@ -10,7 +10,7 @@ namespace HospiceNiagara.DAL
 {
         public enum Domain { Volunteer, Staff, Board, Organizational };
         
-        public class HospiceNiagaraContext : IdentityDbContext<ApplicationUser,ApplicationRole,string,IdentityUserLogin,IdentityUserRole,IdentityUserClaim>
+        public class HospiceNiagaraContext : IdentityDbContext<ApplicationUser>
         {
         public HospiceNiagaraContext()
             : base("HospiceNiagaraContext")
@@ -26,10 +26,7 @@ namespace HospiceNiagara.DAL
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            
         }
-
-        
 
         public DbSet<Event> Events { get; set; }
         public DbSet<Contact> Contacts { get; set; }

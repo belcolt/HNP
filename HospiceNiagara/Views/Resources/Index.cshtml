@@ -2,7 +2,6 @@
     ViewBag.Title = "Resources";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row">
     @*SRCH]*@
     <div class="col-lg-offset-1">
@@ -19,17 +18,26 @@
 <div role="tabpanel">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#AllRsrc" aria-controls="AllRsrc" role="tab" data-toggle="tab">All Resources</a></li>
-        <li role="presentation"><a href="#OrgRsrc" aria-controls="OrgRsrc" role="tab" data-toggle="tab">Organizational Resources</a></li>
+        <li role="presentation" class="active"><a href="#OrgRsrc" aria-controls="OrgRsrc" role="tab" data-toggle="tab">Organizational Resources</a></li>
         @* Only Admin and Staff members can see this. *@
-        <li role="presentation"><a href="#StfRsrc" aria-controls="StfRsrc" role="tab" data-toggle="tab">Staff Resources</a></li>
+        @if(User.InRoleDomain("Staff")||User.IsInRole("Administrator"))
+        { 
+            <li role="presentation"><a href="#StfRsrc" aria-controls="StfRsrc" role="tab" data-toggle="tab">Staff Resources</a></li>
+        }
+        @if ( User.InRoleDomain("Board")||User.IsInRole("Administrator") || User.IsInRole("Staff-Leadership"))
+        {
+            <li role="presentation"><a href="#BrdRsrc" aria-controls="BrdRsrc" role="tab" data-toggle="tab">Board Resources</a></li>
+        }
         @* Only Admin, Board and Staff-Leadership members can see this. *@
-        <li role="presentation"><a href="#BrdRsrc" aria-controls="BrdRsrc" role="tab" data-toggle="tab">Board Resources</a></li>
+        @if (User.InRoleDomain("Volunteer")||User.IsInRole("Administrator"))
+        { 
         <li role="presentation"><a href="#VlntRsrc" aria-controls="VlntRsrc" role="tab" data-toggle="tab">Volunteer Resources</a></li>
-        
-        
+        }
+        @if (User.IsInRole("Administrator"))
+        { 
+        <li role="presentation"><a href="#AllRsrc" aria-controls="AllRsrc" role="tab" data-toggle="tab">All Resources</a></li>
+        }
     </ul>
-
     <div class="row">
 
         <!-- Modal -->

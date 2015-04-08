@@ -6,10 +6,13 @@
 }
 
 <h2>Schedules</h2>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 @Html.DropDownList("ResidentialDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
 @Html.DropDownList("PetDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
 @Html.DropDownList("DayDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
@@ -47,9 +50,17 @@
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @if (User.IsInRole("Admin"))
+                {
+                    Html.ActionLink("Edit", "Edit", new { id = item.ID })@:|
+                }
+                
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+                @if(User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })@:|
+                }
+
                 @*@Html.ActionLink("Show", "ShowSched", new { id = item.ResourceID })*@
                 @Ajax.ActionLink("Show", "ShowSched", new { id = item.Resource.FileStoreID }, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "someDiv" }, new {@class="show"})
                 
