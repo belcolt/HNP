@@ -8,16 +8,20 @@
             <td>Search Board Of Director Name: </td>
             <td>@Html.TextBox("SearchString", null, new { @class = "form-control", @id="txtSearch" })</td>
             <td></td>
-            <td>@Ajax.ActionLink("Go", "SearchResults","BoardMembers" ,null, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "someDiv" }, new { @id = "search" })@Html.ActionLink("Clear", "Index") @*@Html.ActionLink("Clear", "BoardMemberList")*@</td>
+            <td>@Ajax.ActionLink("Go", "SearchResults","BoardMembers" ,null, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "someDiv" }, new { @id = "search" }) @*@Html.ActionLink("Clear", "BoardMemberList")*@</td>
             
                 @*<input type="submit" value="Filter" class="btn btn-default" />*@
                 @*@Ajax.ActionLink("Show", "ShowSched", new { id = item.Resource.FileStoreID }, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "Get", UpdateTargetId = "someDiv" }, new {@class="show"});*@
 </tr>
     </table>
+@Html.ActionLink("Clear", "Index")
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create", "BoardMembers")
+    </p>
+}
 
-<p>
-    @Html.ActionLink("Create New", "Create","BoardMembers")
-</p>
 <div id="someDiv">
     <table class="table">
         <tr>
@@ -88,9 +92,17 @@
                     @item.PartnerName
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", "BoardMembers", new { id = item.ID }, null)|
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", "BoardMembers", new { id = item.ID }, null) @:|
+                    }
+                    
                     @Html.ActionLink("Details", "Details", "BoardMembers", new { id = item.ID }, null) |
-                    @Html.ActionLink("Delete", "Delete", "BoardMembers", new { id = item.ID }, null)
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Delete", "Delete", "BoardMembers", new { id = item.ID }, null)
+                    }
+                    
                 </td>
             </tr>
         }

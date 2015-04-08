@@ -266,6 +266,8 @@ namespace HospiceNiagara.Migrations
                     manager.Create(newUser, "hospice1A");
                 }
             }
+           var admin = newUsers.Where(u => u.UserName == "jestabrooks@hospiceniagara.ca").Single();
+           manager.AddToRole(admin.Id, "Admin");
         }
     }
 }
