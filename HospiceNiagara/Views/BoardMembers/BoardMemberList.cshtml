@@ -15,7 +15,7 @@
 </tr>
     </table>
 @Html.ActionLink("Clear", "Index")
-@if (User.IsInRole("Admin"))
+@if (User.IsInRole("Administrator"))
 {
     <p>
         @Html.ActionLink("Create New", "Create", "BoardMembers")
@@ -92,13 +92,13 @@
                     @item.PartnerName
                 </td>
                 <td>
-                    @if (User.IsInRole("Admin"))
+                    @if (User.IsInRole("Administrator"))
                     {
                         @Html.ActionLink("Edit", "Edit", "BoardMembers", new { id = item.ID }, null) @:|
                     }
                     
                     @Html.ActionLink("Details", "Details", "BoardMembers", new { id = item.ID }, null) |
-                    @if (User.IsInRole("Admin"))
+                    @if (User.IsInRole("Administrator"))
                     {
                         @Html.ActionLink("Delete", "Delete", "BoardMembers", new { id = item.ID }, null)
                     }

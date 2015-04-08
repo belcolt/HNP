@@ -84,3 +84,28 @@ width: 300px;
 .jumbotron.col-md-6{
     padding:0;
 }
+
+.body-content{
+    padding-top:5px;
+}
+
+.navbar-header{
+    padding-left:100px;
+    padding-right:50px;
+}
+
+/*.carousel-inner > .item > img, .carousel-inner > .item > a > img{
+    height:400px;
+}
+
+.carousel-image{
+    width:auto;
+    height:700px;
+    max-height:700px;
+    overflow:hidden;
+}
+
+.carousel {
+    max-height: 700px;
+    overflow: hidden;
+}*/

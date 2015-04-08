@@ -202,7 +202,7 @@ namespace HospiceNiagara.Migrations
                 new ApplicationRole{Name="Residential", TeamDomainID = vol},
                 new ApplicationRole{Name="Welcome Desk",TeamDomainID=vol},
                 new ApplicationRole{Name="Event",TeamDomainID=vol},
-                new ApplicationRole{Name="Admin",TeamDomainID=vol},
+                new ApplicationRole{Name="Admin-Vol",TeamDomainID=vol},
                 new ApplicationRole{Name="New Volunteers",TeamDomainID=vol},
             };
 
@@ -210,7 +210,7 @@ namespace HospiceNiagara.Migrations
             {
                 new ApplicationRole{Name="Staff", TeamDomainID = staff},
                 new ApplicationRole{Name="Leadership", TeamDomainID = staff},
-                new ApplicationRole{Name="Admin", TeamDomainID = staff},
+                new ApplicationRole{Name="Admin-Staff", TeamDomainID = staff},
                 new ApplicationRole{Name="Community", TeamDomainID = staff},
                 new ApplicationRole{Name="Outreach", TeamDomainID = staff},
                 new ApplicationRole{Name="Residential",TeamDomainID=staff},
@@ -267,7 +267,7 @@ namespace HospiceNiagara.Migrations
                 }
             }
            var admin = newUsers.Where(u => u.UserName == "jestabrooks@hospiceniagara.ca").Single();
-           manager.AddToRole(admin.Id, "Admin");
+           manager.AddToRole(admin.Id, "Administrator");
         }
     }
 }

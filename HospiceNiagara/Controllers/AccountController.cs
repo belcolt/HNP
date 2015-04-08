@@ -140,7 +140,7 @@ namespace HospiceNiagara.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Admin()
+        public ActionResult Admiistrator()
         {
             return View();
         }
@@ -150,7 +150,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Admin (AdminViewModel model)
+        public async Task<ActionResult> Administrator (AdminViewModel model)
         {
             if (ModelState.IsValid)
             {

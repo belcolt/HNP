@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top navbar-color ">
-        <div class="container">
+        <!--<div class="container">-->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -26,7 +26,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Announcements", "Index", "Announcements")</li>
-                    @if (!(User.IsInRole("Admin")||User.IsInRole("New Volunteers")||User.IsInRole("Event")))
+                    @if (!(User.IsInRole("Administrator")||User.IsInRole("New Volunteers")||User.IsInRole("Event")))
                     {
                     <li>@Html.ActionLink("Death Notices", "Index", "DeathNotices")</li>
                     }
@@ -36,7 +36,7 @@
                     <li>@Html.ActionLink("Contacts", "Index", "Contacts")</li>
                     @if (User.IsInRole("Administrator"))
                     { 
-                    <li>@Html.ActionLink("Admin", "Admin", "Account")</li>
+                    <li>@Html.ActionLink("Administration", "Admin", "Account")</li>
                     }
                     @*<li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@

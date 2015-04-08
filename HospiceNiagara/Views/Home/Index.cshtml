@@ -7,6 +7,8 @@
 <div class="alert alert-info" role="alert">Welcome New Staff/Volunteer/Board member! Click <a>here</a> for some information </div>
 
 <div class="row">
+    
+    
     <div class="jumbotron col-md-6">
         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -50,7 +52,7 @@
 
     <div class="panel panel-default col-md-6">
         <div class="panel-heading">
-            <h1 class="panel-title"><a href="#">Announcements</a> <span class="badge">3</span></h1>
+            <h1 class="panel-title">@Html.ActionLink("Announcements", "Index", "Announcements") <span class="badge">3</span></h1>
         </div>
         <div class="panel-body">
             @Html.Partial("_AnnounceList")
@@ -61,7 +63,7 @@
 <div class="row">
     <div class="panel panel-default col-lg-6">
         <div class="panel-heading">
-            <h1 class="panel-title"><a href="#">Upcoming Events</a> <span class="badge">2</span></h1>
+            <h1 class="panel-title">@Html.ActionLink("Upcoming Events", "Index", "Meetings") <span class="badge">2</span></h1>
         </div>
         <div class="panel-body">
             @Html.Partial("_EventList")
@@ -70,7 +72,7 @@
 
     <div class="panel panel-default col-lg-6">
         <div class="panel-heading">
-            <h1 class="panel-title"><a href="#">Death Notices</a> <span class="badge">1</span></h1>
+            <h1 class="panel-title">@Html.ActionLink("Obituary", "Index", "DeathNotices") <span class="badge">1</span></h1>
         </div>
         <div class="panel-body">
             @Html.Partial("_DNList")

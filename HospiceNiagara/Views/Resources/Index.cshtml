@@ -19,7 +19,7 @@
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#OrgRsrc" aria-controls="OrgRsrc" role="tab" data-toggle="tab">Organizational Resources</a></li>
-        @* Only Admin and Staff members can see this. *@
+        @* Only Administrator and Staff members can see this. *@
         @if(User.InRoleDomain("Staff")||User.IsInRole("Administrator"))
         { 
             <li role="presentation"><a href="#StfRsrc" aria-controls="StfRsrc" role="tab" data-toggle="tab">Staff Resources</a></li>
@@ -28,7 +28,7 @@
         {
             <li role="presentation"><a href="#BrdRsrc" aria-controls="BrdRsrc" role="tab" data-toggle="tab">Board Resources</a></li>
         }
-        @* Only Admin, Board and Staff-Leadership members can see this. *@
+        @* Only Administrator, Board and Staff-Leadership members can see this. *@
         @if (User.InRoleDomain("Volunteer")||User.IsInRole("Administrator"))
         { 
         <li role="presentation"><a href="#VlntRsrc" aria-controls="VlntRsrc" role="tab" data-toggle="tab">Volunteer Resources</a></li>

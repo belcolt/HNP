@@ -15,7 +15,10 @@
             @*<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAnnouncement">
                 Add...
             </button>*@
-            @Ajax.ActionLink("Add new...", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal btn btn-link" })            
+            @if (User.IsInRole("Administrator"))
+            { 
+                @Ajax.ActionLink("Add new...", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal btn btn-link" })  
+            }          
         </div>
         <div class="panel-body">
             <!-- Modal -->

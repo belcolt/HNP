@@ -87,7 +87,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Schedules/Create
-         [Authorize(Roles = "Admin")]
+         [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             if (TempData["message"] == null)
@@ -116,7 +116,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "Year,IsActiveSchedule")] Schedule schedule, string ResourceSubcategory, string SchedMonth, string SchedYear)
         {
             string mimeType = Request.Files[0].ContentType;
@@ -187,7 +187,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Schedules/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -214,7 +214,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "ID,Category,Year,ResourceID,IsActiveSchedule")] Schedule schedule, string SchedMonth, string SchedYear)
         {
             if (SchedYear.Length == 0)
@@ -277,7 +277,7 @@ namespace HospiceNiagara.Controllers
         
 
         // GET: Schedules/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -305,7 +305,7 @@ namespace HospiceNiagara.Controllers
         // POST: Schedules/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Schedule schedule = db.Schedules.Find(id);
@@ -351,7 +351,7 @@ namespace HospiceNiagara.Controllers
             }
             
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult CheckEditSchedule(string id, string month, string year, string category, string start)
         {
             int y = Convert.ToInt32(year);

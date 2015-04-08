@@ -13,6 +13,7 @@ using HospiceNiagara.HospiceUserExtensions;
 
 namespace HospiceNiagara.Controllers
 {
+    [Authorize]
     public class AnnouncementsController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
@@ -25,6 +26,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: Announcements/Create
+        [Authorize(Roles="Administrator")]
         public ActionResult Create()
         {
             var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
@@ -39,6 +41,7 @@ namespace HospiceNiagara.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Content")] Announcement announcement, int ResourceCategoryID, string ResourceDescription)
         {
@@ -82,6 +85,7 @@ namespace HospiceNiagara.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -110,6 +114,7 @@ namespace HospiceNiagara.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
         {
@@ -144,6 +149,7 @@ namespace HospiceNiagara.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -159,6 +165,7 @@ namespace HospiceNiagara.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
