@@ -20,7 +20,7 @@
         </table>
     @Html.ActionLink("To XLS", "Download")
     }
-        @if (User.IsInRole("Admin"))
+        @if (User.IsInRole("Administrator"))
         { 
          <p>
             @Html.ActionLink("Create New","Create")
@@ -76,7 +76,7 @@
                         @item.Email
                     </td>
                     <td>
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("Administrator"))
                         {
                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) @:|
                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })@:|

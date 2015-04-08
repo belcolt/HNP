@@ -65,7 +65,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: BoardMembers/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -76,7 +76,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Position,EmailAddress,HomeAddress,BusinessAddress,HomePhone,BusinessPhone,Fax,PartnerName")] BoardMember boardMember)
         {
             if (ModelState.IsValid)
@@ -90,7 +90,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: BoardMembers/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -110,7 +110,7 @@ namespace HospiceNiagara.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,EmailAddress,HomeAddress,BusinessAddress,HomePhone,BusinessPhone,Fax,PartnerName")] BoardMember boardMember)
         {
             if (ModelState.IsValid)
@@ -123,7 +123,7 @@ namespace HospiceNiagara.Controllers
         }
 
         // GET: BoardMembers/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -141,7 +141,7 @@ namespace HospiceNiagara.Controllers
         // POST: BoardMembers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             BoardMember boardMember = db.BoardMembers.Find(id);

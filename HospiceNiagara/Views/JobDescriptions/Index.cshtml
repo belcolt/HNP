@@ -8,9 +8,13 @@
 <div id="pop-up">
     <h2>Testing</h2>
 </div>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (User.IsInRole("Administrator"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
@@ -25,9 +29,17 @@
             <a href="/JobDescriptions/ShowDesc/@item.ID" class="hover">@item.JobName</a> 
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @if (User.IsInRole("Administrator"))
+            {
+                @Html.ActionLink("Edit", "Edit", new { id=item.ID }); @:|
+            }
+            
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID }) |
+            @if (User.IsInRole("Administrator"))
+            {
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID }) @:|
+            }
+            
             @Html.ActionLink("Show", "ShowDesc", new { id=item.ID})
         </td>
     </tr>
