@@ -1,0 +1,13 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Event>
+
+<ul class="list-group">
+    
+    @foreach (HospiceNiagara.Models.Event item in ViewBag.MeetingList)
+    {
+        <li class="list-group-item">
+            @item.Name
+        </li>
+    }
+    
+</ul>
+

@@ -1,13 +1,13 @@
-﻿@*@model HospiceNiagara.Models.Announcement*@
-@{
+﻿@{
     ViewBag.Title = "Announcements";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="col-md-12">
+    <div class="row">
+        @Html.ActionLink("See Death Notices", "Index", "DeathNotices")
+    </div>
     <h2>Announcements</h2>
-    @*@Html.AntiForgeryToken()*@
-    @*[ANCMT]*@
+    <br />
     <div class="panel panel-default col-lg-6">
         <!-- Default panel contents -->
         <div class="panel-heading">

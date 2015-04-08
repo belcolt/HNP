@@ -1,0 +1,12 @@
+﻿@model IEnumerable<HospiceNiagara.Models.DeathNotice>
+
+<ul class="list-group">
+    
+    @foreach (HospiceNiagara.Models.DeathNotice item in ViewBag.DNList)
+    {
+        <li class="list-group-item">
+            @item.Date.ToLongDateString()
+        </li>
+    }
+
+</ul>
