@@ -6,7 +6,11 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <div id="indexList">
+    <div class="row">
+        @Html.ActionLink("Back To Announcements", "Index", "Announcements")
+    </div>
     <h2>In Memoriam</h2>
+    <br />
     <p>
         @Ajax.ActionLink("Add new...", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
     </p>

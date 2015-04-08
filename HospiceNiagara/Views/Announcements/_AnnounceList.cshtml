@@ -1,16 +1,12 @@
 ﻿@model IEnumerable<HospiceNiagara.Models.Announcement>
-    <ul class="list-group">
-        @if (ViewBag.AnnounceList != null) { 
-        foreach (HospiceNiagara.Models.Announcement item in ViewBag.AnnounceList)
-        {
-            <li class="list-group-item">
-                @item.Content
-                @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId="showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new {@class="showModal"}) |
-                @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
-            </li>
-        }
-        }
-    </ul>
 
-<div id="showModal">
-</div>
+<ul class="list-group"> 
+    
+    @foreach (HospiceNiagara.Models.Announcement item in ViewBag.AnnounceList)
+    {
+        <li class="list-group-item">
+            @item.Content
+        </li>
+    }
+    
+</ul>

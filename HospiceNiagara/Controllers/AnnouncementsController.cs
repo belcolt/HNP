@@ -20,7 +20,7 @@ namespace HospiceNiagara.Controllers
         // GET: Announcements
         public ActionResult Index()
         {
-            ViewBag.AnnounceList = db.Announcements.ToList();
+            ViewBag.AnnounceList = db.Announcements.OrderByDescending(anmt => anmt.Content).ToList();
             return View();
         }
 

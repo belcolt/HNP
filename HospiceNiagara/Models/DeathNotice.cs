@@ -37,7 +37,7 @@ namespace HospiceNiagara.Models
         [StringLength(50, ErrorMessage = "Last name cannot be more than 50 characters long.")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You cannot leave the date of passing blank.")]
         [DisplayFormat(DataFormatString = "{0:D}")]
         public DateTime Date { get; set; }
 
@@ -49,5 +49,10 @@ namespace HospiceNiagara.Models
 
         [StringLength(2048, ErrorMessage = "URL cannot be more than 2048 characters long.")]
         public string URL { get; set; }
+
+        //[Required(ErrorMessage = "You cannot leave the expiry date of the post blank.")]
+        //[Display(Name = "Expiry Date of Post")]
+        //[DisplayFormat(DataFormatString = "{0:D}")]
+        //public DateTime ExpiryDate { get; set; }
     }
 }

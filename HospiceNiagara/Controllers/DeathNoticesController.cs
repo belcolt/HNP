@@ -18,7 +18,7 @@ namespace HospiceNiagara.Controllers
         // GET: DeathNotices
         public ActionResult Index(bool? showModal)
         {
-                return View(db.DeathNotices.ToList());
+            return View(db.DeathNotices.OrderByDescending(dn => dn.Date).ToList());
         }
 
         // GET: DeathNotices/Details/5

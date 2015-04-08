@@ -189,6 +189,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventViewModel.cs" />
     <Compile Include="Models\FileStore.cs" />
+    <Compile Include="Models\Home.cs" />
     <Compile Include="Models\HospiceUser.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Invitation.cs" />
@@ -364,6 +365,10 @@
     <Content Include="Views\JobDescriptions\Index.cshtml" />
     <Content Include="Views\JobDescriptions\ShowDesc.cshtml" />
     <Content Include="Views\Meetings\ContactDropDown.cshtml" />
+    <Content Include="Views\Home\_AnnounceList.cshtml" />
+    <Content Include="Views\Home\_DNList.cshtml" />
+    <Content Include="Views\Home\_EventList.cshtml" />
+    <Content Include="Views\Announcements\_CreateModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
