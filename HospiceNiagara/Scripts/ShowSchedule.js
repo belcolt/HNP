@@ -1,5 +1,8 @@
 ﻿$(function () {
-
+    $('#showTable').hide();
+    $('#showLink').on('click', function () {
+        $('#showTable').toggle();
+    });
     $('.sel-sched').on('change', function (evt) {
         var $this = $(this);
         if ($this.val() != "") {

@@ -16,8 +16,9 @@
 @Html.DropDownList("ResidentialDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
 @Html.DropDownList("PetDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
 @Html.DropDownList("DayDD", null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
-@Html.DropDownList("EventDD",null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })
-<table class="table">
+@Html.DropDownList("EventDD",null, "Select a Month", htmlAttributes: new { @class = "sel-sched" })<br />
+<a id="showLink">Show/Hide All</a>
+<table class="table" id="showTable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Resource.FileDesc)
@@ -31,11 +32,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Year)
         </th>
+       
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
+        if (!User.IsInRole("Administrator") & !item.IsActiveSchedule)
+        {
+            continue;
+        }
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Resource.FileDesc)
@@ -49,14 +55,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Year)
             </td>
+           
             <td>
                 @if (User.IsInRole("Administrator"))
                 {
-                    Html.ActionLink("Edit", "Edit", new { id = item.ID })@:|
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }); @:|
                 }
                 
                 @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                @if(User.IsInRole("Administrator"))
+                @if (User.IsInRole("Administrator"))
                 {
                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })@:|
                 }

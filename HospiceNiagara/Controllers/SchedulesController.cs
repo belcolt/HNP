@@ -23,11 +23,12 @@ namespace HospiceNiagara.Controllers
         // GET: Schedules
         public ActionResult Index()
         {
-
+            
             
             //string m = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
-           
             var schedules = db.Schedules.Include(s => s.Resource);
+           
+            
             
             List<Schedule> res = schedules.Where(s => s.Category == "Residential Schedule" & s.IsActiveSchedule == true).ToList();
             List<Schedule> pet = schedules.Where(s => s.Category == "Pet Therapy Schedule" & s.IsActiveSchedule == true).ToList();
@@ -38,7 +39,10 @@ namespace HospiceNiagara.Controllers
             ViewBag.PetDD = ActiveSchedDropDown(pet);
             ViewBag.DayDD = ActiveSchedDropDown(day);
             ViewBag.EventDD = ActiveSchedDropDown(events);
-            return View(schedules.ToList());
+                           return View(schedules.ToList());
+            
+           
+            
         }
         [Authorize(Roles="CantGetHere")]
         public ActionResult GoodIndex()
