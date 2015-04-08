@@ -3,9 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="col-md-12">
-    <div class="row">
-        @Html.ActionLink("See Death Notices", "Index", "DeathNotices")
-    </div>
+    @if (User.IsInRole("Administrator,Staff,Board,Organizational,Volunteer,Day Hospice,Welcome Desk,Residential,New Volunteers,Community,Bereavement"))
+    {
+       <div class="row">
+            @Html.ActionLink("See Death Notices", "Index", "DeathNotices")
+       </div> 
+    }
     <h2>Announcements</h2>
     <br />
     <div class="panel panel-default col-lg-6">
