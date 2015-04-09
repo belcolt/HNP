@@ -22,6 +22,25 @@ namespace HospiceNiagara.Models
         [DisplayName("RSVPs")]
         public string AttendanceCount { get; set; }
     }
+    public class UserInviteViewModel
+    {
+        //for the Invitation
+        public int InviteID { get; set; }
+
+        public int EventID { get; set; }
+
+        public string Name { get; set; }
+
+        [DisplayName("Start")]
+        public DateTime? StartDate { get; set; }
+
+        [DisplayName("End")]
+        public DateTime? EndDate { get; set; }
+
+        public string Location { get; set; }
+
+        public string Attend { get; set; }
+    }
 
     public class InvitationsSingleViewModel
     {

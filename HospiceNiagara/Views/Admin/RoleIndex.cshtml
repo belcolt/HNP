@@ -1,0 +1,38 @@
+﻿@model IEnumerable<HospiceNiagara.Models.ApplicationRole>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><b>All Resources</b></div>
+    @*@using (Html.BeginForm())
+    {
+        <table>
+            <tr>
+                <td>Search By Resource Name: </td>
+                <td>@Html.DropDownList("SearchString", null, new { @class = "form-control" })</td>
+                <td></td>
+                <td><input type="submit" value="Filter" class="btn btn-default" /> @Html.ActionLink("Clear", "Index")</td>
+            </tr>
+        </table>
+    }*@
+    @Html.ActionLink("Create a new role","RoleCreate")
+    <table class="table table-hover">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.TeamDomainID)</th>
+        </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.TeamDomainID
+                    </td>
+                </tr>
+            }
+    </table>
+</div>
