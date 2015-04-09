@@ -10,6 +10,8 @@ using HospiceNiagara.DAL;
 using HospiceNiagara.Models;
 using System.IO;
 using HospiceNiagara.HospiceUserExtensions;
+using System.Security.Principal;
+using System.Web.Security;
 
 namespace HospiceNiagara.Controllers
 {
@@ -21,6 +23,14 @@ namespace HospiceNiagara.Controllers
         // GET: Announcements
         public ActionResult Index()
         {
+            //var roles = new List<string> { "Admin", "Author", "Super" };
+            //var userRoles = Roles.GetRolesForUser(User.Identity.Name);
+
+            //if (userRoles.Any(u => roles.Contains(u)))
+            //{
+            //    //do something
+            //}
+
             ViewBag.AnnounceList = db.Announcements.OrderByDescending(anmt => anmt.Content).ToList();
             return View();
         }
@@ -175,12 +185,19 @@ namespace HospiceNiagara.Controllers
             return View("Index");
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
         public FileContentResult Download(int id)
         {
             var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
             return File(theFile.FileContent, theFile.MimeType, theFile.FileName);
         }
-        
-        //VIEW BAG DROP DOWNS AUTO GENERATED
     }
 }
