@@ -14,11 +14,11 @@ namespace HospiceNiagara.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         Content = c.String(nullable: false),
                         Date = c.DateTime(nullable: false),
-                        Resource_ID = c.Int(),
+                        ResourceID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Resource", t => t.Resource_ID)
-                .Index(t => t.Resource_ID);
+                .ForeignKey("dbo.Resource", t => t.ResourceID, cascadeDelete: true)
+                .Index(t => t.ResourceID);
             
             CreateTable(
                 "dbo.Resource",
@@ -212,6 +212,7 @@ namespace HospiceNiagara.Migrations
                         Id = c.String(nullable: false, maxLength: 128),
                         Name = c.String(nullable: false, maxLength: 256),
                         TeamDomainID = c.Int(),
+                        NonClient = c.Boolean(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
@@ -317,7 +318,7 @@ namespace HospiceNiagara.Migrations
             DropForeignKey("dbo.MeetingResource", "MeetingID", "dbo.Event");
             DropForeignKey("dbo.Event", "AgendaId", "dbo.Resource");
             DropForeignKey("dbo.Invitation", "ContactID", "dbo.Contact");
-            DropForeignKey("dbo.Announcement", "Resource_ID", "dbo.Resource");
+            DropForeignKey("dbo.Announcement", "ResourceID", "dbo.Resource");
             DropForeignKey("dbo.Resource", "ResourceSubCategoryID", "dbo.ResourceSubCategory");
             DropForeignKey("dbo.ResourceSubCategory", "ResourceCategoryID", "dbo.ResourceCategory");
             DropForeignKey("dbo.Resource", "ResourceCategoryID", "dbo.ResourceCategory");
@@ -349,7 +350,7 @@ namespace HospiceNiagara.Migrations
             DropIndex("dbo.Resource", new[] { "FileStoreID" });
             DropIndex("dbo.Resource", new[] { "ResourceSubCategoryID" });
             DropIndex("dbo.Resource", new[] { "ResourceCategoryID" });
-            DropIndex("dbo.Announcement", new[] { "Resource_ID" });
+            DropIndex("dbo.Announcement", new[] { "ResourceID" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");

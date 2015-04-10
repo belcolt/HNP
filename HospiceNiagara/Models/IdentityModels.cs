@@ -25,6 +25,9 @@ namespace HospiceNiagara.Models
     {
         public int TeamDomainID { get; set; }
         public TeamDomain TeamDomain { get; set; }
+
+        [DefaultValue(false)]
+        public bool NonClient { get; set; }
     }
 
 

@@ -3,11 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="col-md-12">
-    @if (User.IsInDomain("Staff") || User.IsInDomain("Board") || User.IsInDomain("Organizational") || User.IsInRole("Volunteer") || User.IsInRole("Day Hospice") || User.IsInRole("Welcome Desk") || User.IsInRole("Residential") || User.IsInRole("New Volunteers") || User.IsInRole("Community") || User.IsInRole("Bereavement"))
+    @*@if (User.IsInDomain("Staff") || User.IsInDomain("Board") || User.IsInDomain("Organizational") || User.IsInRole("Volunteer") || User.IsInRole("Day Hospice") || User.IsInRole("Welcome Desk") || User.IsInRole("Residential") || User.IsInRole("New Volunteers") || User.IsInRole("Community") || User.IsInRole("Bereavement"))*@
+    @if(User.HasDNView())
     {
-       <div class="row">
-            @Html.ActionLink("See Death Notices", "Index", "DeathNotices")
-       </div> 
+    <div class="row">
+        @Html.ActionLink("See Death Notices", "Index", "DeathNotices")
+    </div>
     }
     <h2>Announcements</h2>
     <br />
@@ -16,12 +17,12 @@
         <div class="panel-heading">
             <b>Announcements</b> <span class="badge">3</span>
             @*<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalAnnouncement">
-                Add...
-            </button>*@
+                    Add...
+                </button>*@
             @if (User.IsInRole("Administrator"))
-            { 
-                @Ajax.ActionLink("Add new...", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal btn btn-link" })  
-            }          
+            {
+                @Ajax.ActionLink("Add new...", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal btn btn-link" })
+            }
         </div>
         <div class="panel-body">
             <!-- Modal -->
