@@ -267,7 +267,9 @@ namespace HospiceNiagara.Migrations
                 }
             }
            var admin = newUsers.Where(u => u.UserName == "jestabrooks@hospiceniagara.ca").Single();
+           var b = newUsers.Where(u => u.UserName == "bBragg@gmail.com").Single();
            manager.AddToRole(admin.Id, "Administrator");
+           manager.AddToRole(b.Id, "Audit & Finance Committee");
         }
     }
 }

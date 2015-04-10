@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="col-md-12">
-    @if (User.IsInRole("Administrator,Staff,Board,Organizational,Volunteer,Day Hospice,Welcome Desk,Residential,New Volunteers,Community,Bereavement"))
+    @if (User.IsInDomain("Staff") || User.IsInDomain("Board") || User.IsInDomain("Organizational") || User.IsInRole("Volunteer") || User.IsInRole("Day Hospice") || User.IsInRole("Welcome Desk") || User.IsInRole("Residential") || User.IsInRole("New Volunteers") || User.IsInRole("Community") || User.IsInRole("Bereavement"))
     {
        <div class="row">
             @Html.ActionLink("See Death Notices", "Index", "DeathNotices")

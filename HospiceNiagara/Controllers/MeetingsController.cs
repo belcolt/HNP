@@ -1,5 +1,6 @@
 ﻿using HospiceNiagara.DAL;
 using HospiceNiagara.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,39 +12,90 @@ using System.Web.Mvc;
 
 namespace HospiceNiagara.Controllers
 {
+    [Authorize]
     public class MeetingsController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
         // GET: Meetings
         public ActionResult Index()
         {
-            var events = db.Events.ToList();
-            var contacts = db.Contacts.ToList();
-
             var invites = db.Invitations.ToList();
-            var elists = new List<EventListViewModel>();
-            foreach (var item in events)
+            var events = db.Events.ToList();
+            //Administrator index of all events
+            if (User.IsInRole("Administrator"))
             {
-                string count = (invites.Where(i => i.RSVP == true).Where(i => i.EventID == item.ID)).Count().ToString();
-                elists.Add(new EventListViewModel { ID = item.ID, Name = item.Name, Location = item.Location, StartDate = item.StartDateTime, EndDate = item.EndDateTime, AttendanceCount = count });
+                var contacts = db.Contacts.ToList();
+                var elists = new List<EventListViewModel>();
+                foreach (var item in events)
+                {
+                    string count = (invites.Where(i => i.RSVP == true).Where(i => i.EventID == item.ID)).Count().ToString();
+                    elists.Add(new EventListViewModel { ID = item.ID, Name = item.Name, Location = item.Location, StartDate = item.StartDateTime, EndDate = item.EndDateTime, AttendanceCount = count });
+                }
+                ViewBag.EventsList = elists;
             }
-            ViewBag.EventsList = elists;
+
+            //Invitation index for any user
+            string id = User.Identity.GetUserId();
+            if (id != null)
+            {
+                int contactID = db.Users.Find(id).ContactID;
+                var singleInvites = new List<UserInviteViewModel>();
+                var eventIDs = invites.Where(i => i.ContactID == contactID).ToList();
+                foreach (var invite in eventIDs)
+                {
+                    var oneInvite = events.Where(e => e.ID == invite.EventID).Single();
+                    var userInvite = new UserInviteViewModel { EventID = invite.ID, InviteID = invite.ID, Name = oneInvite.Name, StartDate = oneInvite.StartDateTime, EndDate = oneInvite.EndDateTime };
+                    if (invite.RSVP == true)
+                    {
+                        userInvite.Attend = "Attending";
+                    }
+                    else if (invite.RSVP == false & invite.HasResponded == false)
+                    {
+                        userInvite.Attend = "RSVP";
+                    }
+                    else if (invite.RSVP == false & invite.HasResponded == true)
+                    {
+                        userInvite.Attend = "Not Attending";
+                    }
+                    singleInvites.Add(userInvite);
+                }
+                ViewBag.UserInvitesList = singleInvites;
+            }
             return View();
         }
-       public ActionResult LoadDropDown(int? id)
-       {
-           if(id > 0)
-           {
-               ViewBag.ContactDD = new MultiSelectList(db.Contacts.Where(c => c.TeamDomainID == id).ToList(), "ID", "LastName");
-               return PartialView("ContactDropDown");
-           }
-           else
-           {
-               ViewBag.ContactDD = new MultiSelectList(db.Contacts.ToList(), "ID", "LastName");
-               return PartialView("ContactDropDown");
-           }
-          
-       }
+        [HttpPost]
+        public void AttendResponse(int inviteID, string attend)
+        {
+            var invitation = db.Invitations.Where(i => i.ID == inviteID).Single();
+            if (attend == "Attending")
+            {
+                invitation.RSVP = true;
+
+            }
+            else if (attend == "Not Attending")
+            {
+                invitation.RSVP = false;
+            }
+            if (invitation.HasResponded == false)
+            {
+                invitation.HasResponded = true;
+            }
+            db.SaveChanges();
+        }
+        public ActionResult LoadDropDown(int? id)
+        {
+            if (id > 0)
+            {
+                ViewBag.ContactDD = new MultiSelectList(db.Contacts.Where(c => c.TeamDomainID == id).ToList(), "ID", "LastName");
+                return PartialView("ContactDropDown");
+            }
+            else
+            {
+                ViewBag.ContactDD = new MultiSelectList(db.Contacts.ToList(), "ID", "LastName");
+                return PartialView("ContactDropDown");
+            }
+
+        }
         public ActionResult CreateEvent()
         {
             return View();
@@ -83,15 +135,15 @@ namespace HospiceNiagara.Controllers
             //}
             //invitations
             List<Contact> invites;
-                if (ContactsAddID != null)
+            if (ContactsAddID != null)
             {
-                invites = db.Contacts.Where(c => c.TeamDomainID == ContactsAddID).Select(c=>c).ToList();
+                invites = db.Contacts.Where(c => c.TeamDomainID == ContactsAddID).Select(c => c).ToList();
             }
             else
             {
                 invites = db.Contacts.ToList();
             }
-            foreach(var contact in invites)
+            foreach (var contact in invites)
             {
                 db.Invitations.Add(new Invitation { Contact = contact, Event = @meet });
             }
@@ -101,7 +153,6 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BrochureID = new SelectList(db.Resources, "ID", "FileDesc", @meet.BrochureID);
             return View(@meet);
         }
 
@@ -119,7 +170,7 @@ namespace HospiceNiagara.Controllers
             {
                 if (item.RSVP == true)
                 {
-                    singleEventList.Attending.Add(item.Contact.FirstName+" "+item.Contact.LastName);
+                    singleEventList.Attending.Add(item.Contact.FirstName + " " + item.Contact.LastName);
                 }
                 else if (item.RSVP == false && item.HasResponded == true)
                 {

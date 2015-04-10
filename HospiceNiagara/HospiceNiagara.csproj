@@ -162,6 +162,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnnouncementsController.cs" />
     <Compile Include="Controllers\BoardMembersController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
@@ -180,11 +181,16 @@
     <Compile Include="Migrations\201504072159267_Initial.Designer.cs">
       <DependentUpon>201504072159267_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504081804499_Hospice.cs" />
+    <Compile Include="Migrations\201504081804499_Hospice.Designer.cs">
+      <DependentUpon>201504081804499_Hospice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
     <Compile Include="Models\BoardMember.cs" />
     <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\ContactUserViewModels.cs" />
     <Compile Include="Models\DeathNotice.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\EventViewModel.cs" />
@@ -284,7 +290,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -316,7 +324,6 @@
     <Content Include="Views\Announcements\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Meetings\NiceIndex.cshtml" />
     <Content Include="Views\Resources\Create.cshtml" />
     <Content Include="Views\Announcements\_EditModal.cshtml" />
     <Content Include="Views\Announcements\_AnnounceList.cshtml" />
@@ -331,13 +338,6 @@
     <Content Include="Views\Resources\_OrganizationalIndexTab.cshtml" />
     <Content Include="Views\Resources\_StaffIndexTab.cshtml" />
     <Content Include="Views\Resources\_VolunteerIndexTab.cshtml" />
-    <Content Include="Views\Meetings\Index.cshtml" />
-    <Content Include="Views\Meetings\Invites.cshtml" />
-    <Content Include="Views\Meetings\_CreateMeetingModal.cshtml" />
-    <Content Include="Views\Meetings\_EventIndexList.cshtml" />
-    <Content Include="Views\Meetings\CreateMeeting.cshtml" />
-    <Content Include="Views\Meetings\Edit.cshtml" />
-    <Content Include="Views\Meetings\Delete.cshtml" />
     <Content Include="Views\Schedules\Create.cshtml" />
     <Content Include="Views\Schedules\Delete.cshtml" />
     <Content Include="Views\Schedules\Details.cshtml" />
@@ -364,12 +364,26 @@
     <Content Include="Views\JobDescriptions\Edit.cshtml" />
     <Content Include="Views\JobDescriptions\Index.cshtml" />
     <Content Include="Views\JobDescriptions\ShowDesc.cshtml" />
-    <Content Include="Views\Meetings\ContactDropDown.cshtml" />
     <Content Include="Views\Home\_AnnounceList.cshtml" />
     <Content Include="Views\Home\_DNList.cshtml" />
     <Content Include="Views\Home\_EventList.cshtml" />
     <Content Include="Views\Announcements\_CreateModal.cshtml" />
     <Content Include="Views\Home\_Pictures.cshtml" />
+    <Content Include="Views\Admin\RoleCreate.cshtml" />
+    <Content Include="Views\Admin\RoleIndex.cshtml" />
+    <Content Include="Views\Admin\UserRegister.cshtml" />
+    <Content Include="Views\Admin\_Error.cshtml" />
+    <Content Include="Views\Admin\_RegisterUserForm.cshtml" />
+    <Content Include="Views\Meetings\ContactDropDown.cshtml" />
+    <Content Include="Views\Meetings\CreateMeeting.cshtml" />
+    <Content Include="Views\Meetings\Delete.cshtml" />
+    <Content Include="Views\Meetings\Edit.cshtml" />
+    <Content Include="Views\Meetings\Index.cshtml" />
+    <Content Include="Views\Meetings\Invites.cshtml" />
+    <Content Include="Views\Meetings\NiceIndex.cshtml" />
+    <Content Include="Views\Meetings\_CreateMeetingModal.cshtml" />
+    <Content Include="Views\Meetings\_EventIndexList.cshtml" />
+    <Content Include="Views\Meetings\_UserInvites.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -386,6 +400,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504072159267_Initial.resx">
       <DependentUpon>201504072159267_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504081804499_Hospice.resx">
+      <DependentUpon>201504081804499_Hospice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
