@@ -49,7 +49,7 @@ namespace HospiceNiagara.HospiceUserExtensions
             }
             //var contact = db.Contacts.Find(contactID);
             string ud = ((Domains)db.Contacts.Find(contactID).TeamDomainID).ToString();
-            if (ud=="Staff")
+            if (ud=="Volunteer")
             {
                 var roles = manager.GetRoles(id);
                 foreach (string role in roles)
