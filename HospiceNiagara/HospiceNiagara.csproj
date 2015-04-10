@@ -170,7 +170,6 @@
     <Compile Include="Controllers\JobDescriptionsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingsController.cs" />
-    <Compile Include="Controllers\Picture.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
     <Compile Include="DAL\HospiceNiagaraContext.cs" />
