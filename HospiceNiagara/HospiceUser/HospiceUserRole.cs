@@ -12,11 +12,12 @@ namespace HospiceNiagara.HospiceUserExtensions
 
     public static class HospiceUserExtensions
     {
-        //enum Domains { Volunteer=1, Staff=2, Board=3, Organizational=4 };
-        enum Domains { Volunteer=1, Staff, Board, Organizational };
+        enum Domains { Volunteer=1, Staff=2, Board=3, Organizational=4};
+        private static HospiceNiagaraContext db = new HospiceNiagaraContext();
+
         public static bool IsInDomain(this IPrincipal User, String checkDomain)
         {
-            HospiceNiagaraContext db = new HospiceNiagaraContext();
+            
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             string id = User.Identity.GetUserId();
             int contactID = manager.FindById(id).ContactID;
@@ -30,6 +31,37 @@ namespace HospiceNiagara.HospiceUserExtensions
                 }
                 else
                     return false;
+        }
+
+        public static bool HasDNView(this IPrincipal User)
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            string id = User.Identity.GetUserId();
+            int contactID = manager.FindById(id).ContactID;
+            string nonClientRoles = "";
+            var aRoles = db.Roles.ToList();
+            foreach(ApplicationRole aRole in aRoles)
+            {
+                if (aRole.NonClient)
+                {
+                    nonClientRoles+= aRole.Name+",";
+                }
+            }
+            //var contact = db.Contacts.Find(contactID);
+            string ud = ((Domains)db.Contacts.Find(contactID).TeamDomainID).ToString();
+            if (ud=="Volunteer")
+            {
+                var roles = manager.GetRoles(id);
+                foreach (string role in roles)
+                {
+                    if(!(nonClientRoles.Contains(role)))
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            return true;
         }
     }
 }

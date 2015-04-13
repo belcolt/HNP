@@ -13,6 +13,7 @@ using System.Web.Services;
 using Microsoft.AspNet.Identity;
 namespace HospiceNiagara.Controllers
 {
+    [Authorize]
     public class ResourcesController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
