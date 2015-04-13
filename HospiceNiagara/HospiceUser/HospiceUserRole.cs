@@ -12,8 +12,8 @@ namespace HospiceNiagara.HospiceUserExtensions
 
     public static class HospiceUserExtensions
     {
-        //enum Domains { Volunteer=1, Staff=2, Board=3, Organizational=4 };
-        enum Domains { Volunteer, Staff, Board, Organizational };
+        enum Domains { Volunteer = 1, Staff = 2, Board = 3, Organizational = 4 };
+        //enum Domains { Volunteer, Staff, Board, Organizational };
         public static bool IsInDomain(this IPrincipal User, String checkDomain)
         {
             HospiceNiagaraContext db = new HospiceNiagaraContext();

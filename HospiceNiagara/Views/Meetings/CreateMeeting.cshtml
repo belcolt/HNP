@@ -90,7 +90,10 @@
         <div class="form-group" id="someDiv">
 
         </div>
-
+        <div class="col-md-10">
+            @Html.DropDownList("ChoosenID", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
+            <a id="remove">Remove</a>
+        </div>
         @*Add listbox to input selected contacts from the above listbox using jquery, then submit this listbox on submit.
             Also needs an intersection table...I think*@
         @*<h5>Upload Agenda</h5>*@

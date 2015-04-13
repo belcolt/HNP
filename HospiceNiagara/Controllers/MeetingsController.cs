@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,6 +16,7 @@ namespace HospiceNiagara.Controllers
     [Authorize]
     public class MeetingsController : Controller
     {
+        enum Domains { Volunteer = 1, Staff = 2, Board = 3, Organizational = 4 };
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
         // GET: Meetings
         public ActionResult Index()
@@ -82,18 +84,62 @@ namespace HospiceNiagara.Controllers
             }
             db.SaveChanges();
         }
-        public ActionResult LoadDropDown(int? id)
+        public ActionResult LoadDropDown(int? dID, string cIDs ="")
         {
-            if (id > 0)
+            List<int> choosen = new List<int>();
+            List<int> choosenDomains = new List<int>();
+            string[] contactID = cIDs.Split(new string[] { "," }, StringSplitOptions.None);
+            if (cIDs != "All")
             {
-                ViewBag.ContactDD = new MultiSelectList(db.Contacts.Where(c => c.TeamDomainID == id).ToList(), "ID", "LastName");
-                return PartialView("ContactDropDown");
+                foreach (string s in contactID)
+                {
+                    int num;
+                    if (int.TryParse(s, out num))
+                    {
+                        choosen.Add(num);
+                    }
+                    else
+                    {
+                        if (s != "")
+                        {
+                            Domains d = (Domains)Enum.Parse(typeof(Domains), s);
+                            choosenDomains.Add((int)d);
+                        }
+                    }
+                }
+
+                if (choosen.Count == 0)
+                {
+                    choosen.Add(0);
+                }
+
+                if (dID > 0)
+                {
+
+                    if (choosenDomains.Contains((int)dID))
+                    {
+                        var temp = db.Contacts.Where(c => c.TeamDomainID == dID & !choosen.Contains(c.ID));
+                        ViewBag.ContactDD = new MultiSelectList(temp.Where(c => !choosenDomains.Contains(c.TeamDomainID)).ToList(), "ID", "FullName");
+                    }
+                    else
+                    {
+                        ViewBag.ContactDD = new MultiSelectList(db.Contacts.Where(c => c.TeamDomainID == dID & !choosen.Contains(c.ID)).ToList(), "ID", "FullName");
+                    }
+
+                    return PartialView("ContactDropDown");
+                }
+                else
+                {
+                    ViewBag.ContactDD = new MultiSelectList(db.Contacts.Where(c => !choosenDomains.Contains(c.TeamDomainID) & !choosen.Contains(c.ID)).ToList(), "ID", "FullName");
+                    return PartialView("ContactDropDown");
+                }
             }
             else
             {
-                ViewBag.ContactDD = new MultiSelectList(db.Contacts.ToList(), "ID", "LastName");
+                ViewBag.ContactDD = new MultiSelectList(Enumerable.Empty<SelectListItem>());
                 return PartialView("ContactDropDown");
             }
+            
 
         }
         public ActionResult CreateEvent()
@@ -103,11 +149,12 @@ namespace HospiceNiagara.Controllers
         public ActionResult CreateMeeting()
         {
             ViewBag.ContactsAddID = new SelectList(db.TeamDomains, "ID", "Description");
+            ViewBag.ChoosenID = new SelectList(Enumerable.Empty<SelectListItem>());
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateMeeting([Bind(Include = "ID,Name,Date,StartDateTime,EndDateTime,Location,Requirements,Notes,StaffLead")] Meeting @meet, int? ContactsAddID)
+        public ActionResult CreateMeeting([Bind(Include = "ID,Name,Date,StartDateTime,EndDateTime,Location,Requirements,Notes,StaffLead")] Meeting @meet, FormCollection fc)
         {
             //string mimeType = Request.Files[0].ContentType;
             //string fileName = Path.GetFileName(Request.Files[0].FileName);
@@ -134,25 +181,78 @@ namespace HospiceNiagara.Controllers
             //    @meet.Agenda = newRes;
             //}
             //invitations
-            List<Contact> invites;
-            if (ContactsAddID != null)
+            //var valueProvider = fc.ToValueProvider();
+            //foreach (var val in fc.Keys)
+            //{
+            //    string test = fc[val.ToString()];
+            //}
+            
+            string ids = fc["ChoosenID"];
+            List<int> choosen = new List<int>();
+            List<int> choosenDomains = new List<int>();
+            string[] contactID = ids.Split(new string[] { "," }, StringSplitOptions.None);
+            foreach (string s in contactID)
             {
-                invites = db.Contacts.Where(c => c.TeamDomainID == ContactsAddID).Select(c => c).ToList();
+                int num = 0;
+                if (int.TryParse(s, out num))
+                {
+                    choosen.Add(num);
+                }
+                else
+                {
+                    if (s != "")
+                    {
+                        if (s == "All")
+                        {
+                            choosenDomains.Add(0);
+                        }
+                        else
+                        {
+                            Domains d = (Domains)Enum.Parse(typeof(Domains), s);
+                            choosenDomains.Add((int)d);
+                        }
+                        
+                    }
+                }
+                
             }
-            else
+            List<Contact> invites;
+
+            //if (choosen.Count > 0)
+            //{
+            if (choosenDomains.Contains(0))
             {
                 invites = db.Contacts.ToList();
             }
-            foreach (var contact in invites)
+            else
             {
-                db.Invitations.Add(new Invitation { Contact = contact, Event = @meet });
+               
+                invites = db.Contacts.Where(i => choosenDomains.Contains(i.TeamDomainID) | choosen.Contains(i.ID)).ToList();
             }
+                
+            //}
+            //if (ContactsAddID != null)
+            //{
+            //    invites = db.Contacts.Where(c => c.TeamDomainID == ContactsAddID).Select(c => c).ToList();
+            //}
+            //else
+            //{
+            //    invites = db.Contacts.ToList();
+            //}
+            
             if (ModelState.IsValid)
             {
+                foreach (var contact in invites)
+                {
+                    db.Invitations.Add(new Invitation { Contact = contact, Event = @meet });
+                    //SendConfirmation(@meet, contact);
+                }
                 db.Events.Add(@meet);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ContactsAddID = new SelectList(db.TeamDomains, "ID", "Description");
+            ViewBag.ChoosenID = new SelectList(Enumerable.Empty<SelectListItem>());
             return View(@meet);
         }
 
@@ -240,6 +340,24 @@ namespace HospiceNiagara.Controllers
             db.Events.Remove(@event);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private void SendConfirmation(Meeting meet, Contact contact)
+        {
+            MailMessage mail = new MailMessage();
+            SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+
+            mail.From = new MailAddress("smtptestdestination@gmail.com");
+            mail.To.Add(contact.Email);
+            mail.Subject = @meet.Name;
+            mail.Body = "Dear " + contact.FirstName+": \n\n"+ "Your attendence has been requested for the "+@meet.Name+" located at "+ @meet.Location+". The meeting is from " + @meet.StartDateTime.ToString()+" untill "+@meet.EndDateTime.ToString() + ".\n Meeting Notes: " + @meet.Notes +"\n Meeting Requirements: "+@meet.Requirements;
+
+            SmtpServer.Port = 587;
+            SmtpServer.Credentials = new System.Net.NetworkCredential("smtptestdestination@gmail.com", "eightchar");
+            SmtpServer.EnableSsl = true;
+
+            SmtpServer.Send(mail);
+            
         }
     }
 }
