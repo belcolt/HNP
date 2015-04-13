@@ -40,6 +40,11 @@
                         @Html.Label("Upload", htmlAttributes: new { @class = "control-label col-md-2" })
                         <input class="form-control col-md-10 col-md-push-1" type="file" name="FileUpload1" />
                     </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter title/description here..." } })
+                        @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-default">Add</button>

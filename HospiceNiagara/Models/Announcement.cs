@@ -19,6 +19,11 @@ namespace HospiceNiagara.Models
         [DisplayFormat(DataFormatString = "{0:D}")]
         public DateTime Date { get; set; }
 
+        [Required(ErrorMessage = "You cannot leave the expiry date of the post blank.")]
+        [Display(Name = "Expiry Date of Post")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime ExpiryDate { get; set; }
+
         public int ResourceID { get; set; }
         public virtual Resource Resource { get; set; }
     }

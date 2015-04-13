@@ -50,9 +50,9 @@ namespace HospiceNiagara.Models
         [StringLength(2048, ErrorMessage = "URL cannot be more than 2048 characters long.")]
         public string URL { get; set; }
 
-        //[Required(ErrorMessage = "You cannot leave the expiry date of the post blank.")]
-        //[Display(Name = "Expiry Date of Post")]
-        //[DisplayFormat(DataFormatString = "{0:D}")]
-        //public DateTime ExpiryDate { get; set; }
+        [Required(ErrorMessage = "You cannot leave the expiry date of the post blank.")]
+        [Display(Name = "Expiry Date of Post")]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTime ExpiryDate { get; set; }
     }
 }
