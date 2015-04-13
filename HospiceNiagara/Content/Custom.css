@@ -89,9 +89,8 @@ width: 300px;
     padding-top:5px;
 }
 
-.navbar-header{
-    padding-left:100px;
-    padding-right:50px;
+body{
+    padding-top:0px;
 }
 
 /*.carousel-inner > .item > img, .carousel-inner > .item > a > img{
