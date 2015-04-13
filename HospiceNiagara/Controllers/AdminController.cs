@@ -45,12 +45,12 @@ namespace HospiceNiagara.Controllers
         {
             
             //Roles
-            //var checks = fc.GetValues(9);
-            //List<string> roleIDs = new List<string>();
-            //foreach (var value in checks)
-            //{
-                //roleIDs.Add(value);
-            //}
+            var checks = fc.GetValues(9);
+            List<string> roleIDs = new List<string>();
+            foreach (var value in checks)
+            {
+                roleIDs.Add(value);
+            }
             if (ModelState.IsValid)
             {
                 var contact = db.Contacts.Add(new Contact
@@ -70,10 +70,10 @@ namespace HospiceNiagara.Controllers
                     var result = await manager.CreateAsync(newUser, regUser.Password);
                     if (result.Succeeded)
                     {
-                    //    foreach (var role in roleIDs)
-                    //    {
-                    //        manager.AddToRole(newUser, role);
-                    //    }
+                        foreach (var role in roleIDs)
+                        {
+                            manager.AddToRole<ApplicationUser, string>(newUser.Id, role);
+                        }
                         db.SaveChanges();
                     }
                     
