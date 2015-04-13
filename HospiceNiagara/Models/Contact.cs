@@ -12,6 +12,15 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
+        [DisplayName("Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
+
         [Required]
         [DisplayName("First Name")]
         public string FirstName { get; set; }
