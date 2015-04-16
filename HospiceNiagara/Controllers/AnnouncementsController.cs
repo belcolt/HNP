@@ -21,6 +21,7 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: Announcements
+        [SessionTracking.Logging]
         public ActionResult Index()
         {
             string username = User.Identity.Name;

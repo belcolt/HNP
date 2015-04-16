@@ -11,10 +11,19 @@ using Microsoft.AspNet.Identity;
 namespace HospiceNiagara.Controllers
 {
     [Authorize(Roles="Administrator")]
+    [SessionTracking.Logging]
     public class AdminController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
+        public ActionResult TrackUsers()
+        {
+            return View();
+        }
+        public ActionResult TrackDownloads()
+        {
+            return View(db.Resources.ToList());
+        }
         // GET: Admin
         public ActionResult UserRegister()
         {

@@ -16,14 +16,16 @@ using System.ComponentModel;
 namespace HospiceNiagara.Controllers
 {
     [Authorize]
+    
     public class ContactsController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: Contacts
+        [HospiceNiagara.SessionTracking.Logging]
         public ActionResult Index(string SearchString, int? TeamDomainID, int? JobDescriptionID)
         {
-
+            
             var directors = db.BoardMembers.AsEnumerable();
             //if (!String.IsNullOrEmpty(SearchString))
             //{
@@ -69,7 +71,9 @@ namespace HospiceNiagara.Controllers
         {
             ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
             ViewBag.JobDescriptionID = new SelectList(db.JobDescriptions, "ID", "JobName");
-            return View();
+            Contact c = new Contact();
+            c.DateHired = DateTime.Now;
+            return View(c);
         }
 
         // POST: Contacts/Create
@@ -78,7 +82,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,TeamDomainID,JobDescriptionID")] Contact contact)
+        public ActionResult Create([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,TeamDomainID,JobDescriptionID,DateHired")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +120,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,IsBoardDirector,TeamDomainID,JobDescriptionID")] Contact contact)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,LastName,Position,Phone,Email,IsBoardDirector,TeamDomainID,JobDescriptionID,DateHired")] Contact contact)
         {
             if (ModelState.IsValid)
             {
@@ -173,7 +177,7 @@ namespace HospiceNiagara.Controllers
             
             //return RedirectToAction("Index", "Contacts", new { area = "Index" });
         //}
-
+        [HospiceNiagara.SessionTracking.Logging]
         public FileContentResult Download()
         {
             byte[] file = ContactToXLSX();

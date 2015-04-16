@@ -5,12 +5,32 @@ using System.Web;
 
 namespace HospiceNiagara.SessionTracking
 {
+    public class TrackInfo
+    {
+        private string _user;
+        private  string _currentPage;
+
+        public string User
+        {
+            get;
+            set;
+        }
+        public string CurrentPage
+        {
+            get;
+            set;
+        }
+    }
+
     public class ActiveSessions
     {
-        private static List<string> _sessionInfo;
+
+        
+        private static Dictionary<string, TrackInfo> _sessionInfo;
+        //private static List<string> _sessionEmail;
         private static readonly object padlock = new object();
 
-        public static List<string> Sessions
+        public static Dictionary<string,TrackInfo> Sessions
         {
             get
             {
@@ -18,13 +38,14 @@ namespace HospiceNiagara.SessionTracking
                 {
                     if (_sessionInfo == null)
                     {
-                        _sessionInfo = new List<string>();
+                        _sessionInfo = new Dictionary<string, TrackInfo>();
                     }
                     return _sessionInfo;
                 }
             }
         }
 
+        
         public static int Count
         {
             get
@@ -33,7 +54,7 @@ namespace HospiceNiagara.SessionTracking
                 {
                     if (_sessionInfo == null)
                     {
-                        _sessionInfo = new List<string>();
+                        _sessionInfo = new Dictionary<string,TrackInfo>();
                     }
                     return _sessionInfo.Count;
                 }

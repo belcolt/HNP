@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using HospiceNiagara.SessionTracking;
+
 namespace HospiceNiagara
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -20,10 +21,24 @@ namespace HospiceNiagara
         }
         protected void Session_Start(object sender, EventArgs e)
         {
-            ActiveSessions.Sessions.Add(Session.SessionID);
+          
+            if (this.User.Identity.Name != "")
+            {
+                TrackInfo tI = new TrackInfo();
+                tI.User = this.User.Identity.Name;
+                ActiveSessions.Sessions.Add(Session.SessionID, tI);
+            }
+            else
+            {
+                TrackInfo tI = new TrackInfo();
+                tI.User = "Anonymous";
+                ActiveSessions.Sessions.Add(Session.SessionID, tI);
+            }
+            
         }
         protected void Session_End(object sender, EventArgs e)
         {
+            //To do: add check for Session.IsNewSession
             ActiveSessions.Sessions.Remove(Session.SessionID);
         }
     }

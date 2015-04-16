@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    ViewBag.ActiveUsers = @HospiceNiagara.SessionTracking.ActiveSessions.Sessions;
+    ViewBag.Total = @HospiceNiagara.SessionTracking.ActiveSessions.Count;
+}
+
+<h2>Active Sessions</h2>
+<h3>Total Active Users: @ViewBag.Total</h3>
+<table class="table table-hover">
+    <tr>
+        <th>User Name</th>
+        <th>SessionID</th>
+        <th>Current Page</th>
+    </tr>
+
+    @foreach (var u in ViewBag.ActiveUsers)
+    {
+        <tr>
+            <td>@u.Value.User</td>
+            <td>@u.Key</td>
+            <td>@u.Value.CurrentPage</td>
+        </tr>
+    }
+</table>

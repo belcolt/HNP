@@ -25,6 +25,7 @@ namespace HospiceNiagara.Controllers
         // GET: Resources
         
         [Authorize]
+        [SessionTracking.Logging]
         public ActionResult Index(string SearchString)
         {
             //Need to cascade for active pane
@@ -43,7 +44,7 @@ namespace HospiceNiagara.Controllers
             //ViewBag.VolunteerResources = vRes;
             return View(resources);
         }
-
+        [SessionTracking.TrackDownload]
         public FileContentResult Download(int id)
         {
             var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
