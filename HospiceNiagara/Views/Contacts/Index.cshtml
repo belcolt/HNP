@@ -51,6 +51,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Email)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.YearsOfService)
+                </th>
                 <th></th>
             </tr>
 
@@ -74,6 +77,9 @@
                     </td>
                     <td>
                         @item.Email
+                    </td>
+                    <td>
+                        @item.YearsOfService 
                     </td>
                     <td>
                         @if (User.IsInRole("Administrator"))

@@ -77,6 +77,8 @@ namespace HospiceNiagara.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session.Abandon();
+                    Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -395,6 +397,9 @@ namespace HospiceNiagara.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+            Session.Abandon();
+            
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
             return RedirectToAction("Index", "Home");
         }
 

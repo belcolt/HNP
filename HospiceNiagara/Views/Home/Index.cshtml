@@ -3,8 +3,14 @@
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 <div class="alert alert-info" role="alert">Welcome New Staff/Volunteer/Board member! Click <a>here</a> for some information </div>
+@if (ViewBag.Anniversary != null)
+{
+    <div class="alert alert-info" role="alert">@ViewBag.Anniversary</div>
+}
+
 
 <div class="row">
     
@@ -49,7 +55,6 @@
             </a>
         </div>
     </div>
-
     <div class="panel panel-default col-md-6">
         <div class="panel-heading">
             <h1 class="panel-title">@Html.ActionLink("Announcements", "Index", "Announcements") <span class="badge">3</span></h1>

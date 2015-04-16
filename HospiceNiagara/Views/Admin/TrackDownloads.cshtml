@@ -1,0 +1,24 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Resource>
+@{
+    ViewBag.Title = "TrackDownloads";
+}
+
+<h2>Track Downloads</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.FileDesc)</th>
+        <th>@Html.DisplayNameFor(model => model.DateAdded)</th>
+        <th>@Html.DisplayNameFor(model => model.DownloadCount)</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.FileDesc</td>
+            <td>@item.DateAdded</td>
+            <td>@item.DownloadCount</td>
+        </tr>
+    }
+</table>
+

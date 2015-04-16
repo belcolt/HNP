@@ -21,6 +21,7 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: Announcements
+        [SessionTracking.Logging]
         public ActionResult Index()
         {
             //var roles = new List<string> { "Admin", "Author", "Super" };

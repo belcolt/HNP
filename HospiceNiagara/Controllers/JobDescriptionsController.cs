@@ -16,6 +16,7 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: JobDescriptions
+        [SessionTracking.Logging]
         public ActionResult Index()
         {
             return View(db.JobDescriptions.ToList());

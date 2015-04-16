@@ -181,6 +181,14 @@
     <Compile Include="Migrations\201504101506546_Initial.Designer.cs">
       <DependentUpon>201504101506546_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504150404200_dlcount.cs" />
+    <Compile Include="Migrations\201504150404200_dlcount.Designer.cs">
+      <DependentUpon>201504150404200_dlcount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504151928337_dateHired.cs" />
+    <Compile Include="Migrations\201504151928337_dateHired.Designer.cs">
+      <DependentUpon>201504151928337_dateHired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -208,10 +216,12 @@
     <Compile Include="Models\TeamDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionTracking\ActiveSessions.cs" />
+    <Compile Include="SessionTracking\Requests.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="HospiceUser\HospiceUserRole.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\carousel1.jpg" />
@@ -381,6 +391,8 @@
     <Content Include="Views\Meetings\_CreateMeetingModal.cshtml" />
     <Content Include="Views\Meetings\_EventIndexList.cshtml" />
     <Content Include="Views\Meetings\_UserInvites.cshtml" />
+    <Content Include="Views\Admin\TrackUsers.cshtml" />
+    <Content Include="Views\Admin\TrackDownloads.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -397,6 +409,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504101506546_Initial.resx">
       <DependentUpon>201504101506546_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504150404200_dlcount.resx">
+      <DependentUpon>201504150404200_dlcount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504151928337_dateHired.resx">
+      <DependentUpon>201504151928337_dateHired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

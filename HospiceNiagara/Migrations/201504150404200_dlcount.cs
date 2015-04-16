@@ -1,0 +1,18 @@
+namespace HospiceNiagara.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class dlcount : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.Resource", "DownloadCount", c => c.Int(nullable: false));
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.Resource", "DownloadCount");
+        }
+    }
+}
