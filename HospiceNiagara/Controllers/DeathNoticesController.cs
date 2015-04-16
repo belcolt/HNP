@@ -20,6 +20,16 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles="Administrator,Staff,Board,Organizational,Volunteer,Day Hospice,Welcome Desk,Residential,New Volunteers,Community,Bereavement")]
         public ActionResult Index(bool? showModal)
         {
+            //Expiry date loop check
+            foreach(var dn in db.DeathNotices.ToList())
+            {
+                if(DateTime.Now > dn.ExpiryDate)
+                {
+                    db.DeathNotices.Remove(dn);
+                }
+            }
+            db.SaveChanges();
+
             return View(db.DeathNotices.OrderByDescending(dn => dn.Date).ToList());
         }
 
@@ -52,7 +62,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles="Administrator")]
-        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
+        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URLExpiryDate")] DeathNotice deathNotice)
         {
             if(!(deathNotice.URL.StartsWith("http://")))
                 deathNotice.URL = "http://" + deathNotice.URL;
@@ -91,9 +101,9 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles="Administrator")]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL")] DeathNotice deathNotice)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL,ExpiryDate")] DeathNotice deathNotice)
         {
-            if (!(deathNotice.URL.StartsWith("http://")))
+            if (!(deathNotice.URL == null) && !(deathNotice.URL.StartsWith("http://")))
                 deathNotice.URL = "http://" + deathNotice.URL;
 
             if (ModelState.IsValid)

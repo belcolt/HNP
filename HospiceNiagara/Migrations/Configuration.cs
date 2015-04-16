@@ -50,10 +50,10 @@ namespace HospiceNiagara.Migrations
         {
             var deathNotice = new List<DeathNotice>
                 {
-                    new DeathNotice{FirstName="Joe", MiddleName="T", LastName="Smith", Date=DateTime.Parse("2014-12-16"), Location="Bob's House", Notes="Volunteer: Ted Tennant"},
-                    new DeathNotice{FirstName="Rachel", LastName="Jones", Date=DateTime.Parse("2014-12-14"), Location="The Stabler Centre", Notes="Room 4"},
-                    new DeathNotice{FirstName="Mary", LastName="Brown", Date=DateTime.Parse("2014-12-08"), Location="NN Outreach Team"},
-                    new DeathNotice{FirstName="Sally", LastName="Williams", Date=DateTime.Parse("2014-11-30"), Location="NS Outreach Team"}
+                    new DeathNotice{FirstName="Joe", MiddleName="T", LastName="Smith", Date=DateTime.Parse("2014-12-16"), Location="Bob's House", Notes="Volunteer: Ted Tennant", ExpiryDate=DateTime.Parse("2015-5-16")},
+                    new DeathNotice{FirstName="Rachel", LastName="Jones", Date=DateTime.Parse("2014-12-14"), Location="The Stabler Centre", Notes="Room 4", ExpiryDate=DateTime.Parse("2015-5-16")},
+                    new DeathNotice{FirstName="Mary", LastName="Brown", Date=DateTime.Parse("2014-12-08"), Location="NN Outreach Team", ExpiryDate=DateTime.Parse("2015-5-16")},
+                    new DeathNotice{FirstName="Sally", LastName="Williams", Date=DateTime.Parse("2014-11-30"), Location="NS Outreach Team", ExpiryDate=DateTime.Parse("2015-5-16")}
                 };
             deathNotice.ForEach(dn => context.DeathNotices.Add((dn)));
             context.SaveChanges();
@@ -264,7 +264,7 @@ namespace HospiceNiagara.Migrations
                 }
             }
            var admin = newUsers.Where(u => u.UserName == "jestabrooks@hospiceniagara.ca").Single();
-           var b = newUsers.Where(u => u.UserName == "bBragg@gmail.com").Single();
+           var b = newUsers.Where(u => u.UserName == "rRhor@gmail.com").Single();
            manager.AddToRole(admin.Id, "Administrator");
            manager.AddToRole(b.Id, "Event");
            manager.AddToRole(b.Id, "Day Hospice");
