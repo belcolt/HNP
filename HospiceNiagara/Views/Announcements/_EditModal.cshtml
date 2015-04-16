@@ -49,6 +49,12 @@
                     @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1" } })
                     @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
                 </div>
+                <div class="form-group row">
+                        @Html.LabelFor(model => model.PostDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10 col-md-push-1">
+                            @Html.DisplayFor(model => model.PostDate)
+                        </div>
+                    </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

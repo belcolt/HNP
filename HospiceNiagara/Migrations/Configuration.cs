@@ -50,10 +50,10 @@ namespace HospiceNiagara.Migrations
         {
             var deathNotice = new List<DeathNotice>
                 {
-                    new DeathNotice{FirstName="Joe", MiddleName="T", LastName="Smith", Date=DateTime.Parse("2014-12-16"), Location="Bob's House", Notes="Volunteer: Ted Tennant", ExpiryDate=DateTime.Parse("2015-5-16")},
-                    new DeathNotice{FirstName="Rachel", LastName="Jones", Date=DateTime.Parse("2014-12-14"), Location="The Stabler Centre", Notes="Room 4", ExpiryDate=DateTime.Parse("2015-5-16")},
-                    new DeathNotice{FirstName="Mary", LastName="Brown", Date=DateTime.Parse("2014-12-08"), Location="NN Outreach Team", ExpiryDate=DateTime.Parse("2015-5-16")},
-                    new DeathNotice{FirstName="Sally", LastName="Williams", Date=DateTime.Parse("2014-11-30"), Location="NS Outreach Team", ExpiryDate=DateTime.Parse("2015-5-16")}
+                    new DeathNotice{FirstName="Joe", MiddleName="T", LastName="Smith", Date=DateTime.Parse("2014-12-16"), Location="Bob's House", Notes="Volunteer: Ted Tennant", ExpiryDate=DateTime.Parse("2015-5-16"), PostDate=DateTime.Now},
+                    new DeathNotice{FirstName="Rachel", LastName="Jones", Date=DateTime.Parse("2014-12-14"), Location="The Stabler Centre", Notes="Room 4", ExpiryDate=DateTime.Parse("2015-5-16"), PostDate=DateTime.Now},
+                    new DeathNotice{FirstName="Mary", LastName="Brown", Date=DateTime.Parse("2014-12-08"), Location="NN Outreach Team", ExpiryDate=DateTime.Parse("2015-5-16"), PostDate=DateTime.Now},
+                    new DeathNotice{FirstName="Sally", LastName="Williams", Date=DateTime.Parse("2014-11-30"), Location="NS Outreach Team", ExpiryDate=DateTime.Parse("2015-5-16"), PostDate=DateTime.Now}
                 };
             deathNotice.ForEach(dn => context.DeathNotices.Add((dn)));
             context.SaveChanges();
@@ -165,9 +165,9 @@ namespace HospiceNiagara.Migrations
             ///////////////
             var resourceSubCats = new List<ResourceSubCategory>
             {
-                 new ResourceSubCategory{Name="Health and Safety", ResourceCategoryID=1},
-                 new ResourceSubCategory{Name="Incident Report", ResourceCategoryID=1},
-                 new ResourceSubCategory{Name="Mileage & Expense",ResourceCategoryID=1},
+                new ResourceSubCategory{Name="Health and Safety", ResourceCategoryID=1},
+                new ResourceSubCategory{Name="Incident Report", ResourceCategoryID=1},
+                new ResourceSubCategory{Name="Mileage & Expense",ResourceCategoryID=1},
                 new ResourceSubCategory{Name="Residential",ResourceCategoryID=12},
                 new ResourceSubCategory{Name="Town", ResourceCategoryID=12},
                 new ResourceSubCategory{Name="Welcome Desk Schedule",ResourceCategoryID=8},
@@ -182,13 +182,13 @@ namespace HospiceNiagara.Migrations
             //USERS
             var newUsers = new List<ApplicationUser>
             {
-                new ApplicationUser{ContactID=1, UserName="bBragg@gmail.com"},
-                new ApplicationUser{ContactID=2, UserName="rRhor@gmail.com"},
-                new ApplicationUser{ContactID=3,UserName="kmurrell@hospiceniagara.ca"},
-                new ApplicationUser{ContactID=4, UserName="jestabrooks@hospiceniagara.ca"},
-                new ApplicationUser{ContactID=5, UserName="rj@gmail.com"},
-                new ApplicationUser{ContactID=6, UserName="jf@gmail.com"},
-                new ApplicationUser{ContactID=7, UserName="rl@gmail.com"},
+                new ApplicationUser{ContactID=1, UserName="bBragg@gmail.com", LastLoggedIn = DateTime.Now, LoggedIn = DateTime.Now},
+                new ApplicationUser{ContactID=2, UserName="rRhor@gmail.com", LastLoggedIn = DateTime.Now, LoggedIn = DateTime.Now},
+                new ApplicationUser{ContactID=3,UserName="kmurrell@hospiceniagara.ca", LastLoggedIn = DateTime.Now, LoggedIn = DateTime.Now},
+                new ApplicationUser{ContactID=4, UserName="jestabrooks@hospiceniagara.ca", LastLoggedIn = DateTime.Now, LoggedIn = DateTime.Now},
+                new ApplicationUser{ContactID=5, UserName="rj@gmail.com", LastLoggedIn = DateTime.Now, LoggedIn = DateTime.Now},
+                new ApplicationUser{ContactID=6, UserName="jf@gmail.com", LastLoggedIn = DateTime.Now, LoggedIn = DateTime.Now},
+                new ApplicationUser{ContactID=7, UserName="rl@gmail.com", LastLoggedIn = DateTime.Now, LoggedIn = DateTime.Now},
             };
             int vol = 1;
             int staff = 2;

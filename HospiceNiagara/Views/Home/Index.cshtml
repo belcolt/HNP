@@ -52,7 +52,7 @@
 
     <div class="panel panel-default col-md-6">
         <div class="panel-heading">
-            <h1 class="panel-title">@Html.ActionLink("Announcements", "Index", "Announcements") <span class="badge">3</span></h1>
+            <h1 class="panel-title">@Html.ActionLink("Announcements", "Index", "Announcements") @Html.Partial("_AnmtBadge")</h1>
         </div>
         <div class="panel-body">
             @Html.Partial("_AnnounceList")
@@ -72,7 +72,7 @@
 
     <div class="panel panel-default col-lg-6">
         <div class="panel-heading">
-            <h1 class="panel-title">@Html.ActionLink("Obituary", "Index", "DeathNotices") <span class="badge">1</span></h1>
+            <h1 class="panel-title">@Html.ActionLink("Obituary", "Index", "DeathNotices") @Html.Partial("_DNBadge")</h1>
         </div>
         <div class="panel-body">
             @Html.Partial("_DNList")

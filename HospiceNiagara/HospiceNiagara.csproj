@@ -181,10 +181,6 @@
     <Compile Include="Migrations\201504101506546_Initial.Designer.cs">
       <DependentUpon>201504101506546_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504131622106_announcementED.cs" />
-    <Compile Include="Migrations\201504131622106_announcementED.Designer.cs">
-      <DependentUpon>201504131622106_announcementED.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Announcement.cs" />
@@ -385,6 +381,9 @@
     <Content Include="Views\Meetings\_CreateMeetingModal.cshtml" />
     <Content Include="Views\Meetings\_EventIndexList.cshtml" />
     <Content Include="Views\Meetings\_UserInvites.cshtml" />
+    <Content Include="Views\Announcements\_Badge.cshtml" />
+    <Content Include="Views\Home\_DNBadge.cshtml" />
+    <Content Include="Views\Home\_AnmtBadge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -401,9 +400,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201504101506546_Initial.resx">
       <DependentUpon>201504101506546_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504131622106_announcementED.resx">
-      <DependentUpon>201504131622106_announcementED.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

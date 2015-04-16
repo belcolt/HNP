@@ -9,6 +9,10 @@ using System.Web.Mvc;
 using HospiceNiagara.DAL;
 using HospiceNiagara.Models;
 
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+
 namespace HospiceNiagara.Controllers
 {
     [Authorize]
@@ -20,12 +24,27 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles="Administrator,Staff,Board,Organizational,Volunteer,Day Hospice,Welcome Desk,Residential,New Volunteers,Community,Bereavement")]
         public ActionResult Index(bool? showModal)
         {
-            //Expiry date loop check
+            string username = User.Identity.Name;
+            var user = (from u in db.Users
+                        where u.UserName.ToString() == username
+                        select u).Single();   
+
             foreach(var dn in db.DeathNotices.ToList())
             {
+                //Expiry date check
                 if(DateTime.Now > dn.ExpiryDate)
                 {
                     db.DeathNotices.Remove(dn);
+                }
+
+                //Lets user know if a post is new
+                if ((user.LastLoggedIn <= dn.PostDate))
+                {
+                    dn.IsNew = true;
+                }
+                else
+                {
+                    dn.IsNew = false;
                 }
             }
             db.SaveChanges();
@@ -62,10 +81,12 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles="Administrator")]
-        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URLExpiryDate")] DeathNotice deathNotice)
+        public ActionResult Create([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL,ExpiryDate")] DeathNotice deathNotice)
         {
             if(!(deathNotice.URL.StartsWith("http://")))
                 deathNotice.URL = "http://" + deathNotice.URL;
+
+            deathNotice.PostDate = DateTime.Now;
 
             if (ModelState.IsValid)
             {

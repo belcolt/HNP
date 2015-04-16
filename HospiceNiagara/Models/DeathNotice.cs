@@ -54,5 +54,11 @@ namespace HospiceNiagara.Models
         [Display(Name = "Expiry Date of Post")]
         [DisplayFormat(DataFormatString = "{0:d}")]
         public DateTime ExpiryDate { get; set; }
+        
+        [Display(Name = "Posted On")]
+        [DisplayFormat(DataFormatString = "{0:D}")]
+        public DateTime PostDate { get; set; }
+
+        public bool IsNew { get; set; }
     }
 }
