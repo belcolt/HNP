@@ -3,7 +3,7 @@ namespace HospiceNiagara.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class YEAHHHHHHHH : DbMigration
     {
         public override void Up()
         {
@@ -12,8 +12,10 @@ namespace HospiceNiagara.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Content = c.String(nullable: false),
-                        Date = c.DateTime(nullable: false),
+                        Title = c.String(nullable: false),
+                        ExpiryDate = c.DateTime(nullable: false),
+                        PostDate = c.DateTime(nullable: false),
+                        IsNew = c.Boolean(nullable: false),
                         ResourceID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
@@ -27,6 +29,7 @@ namespace HospiceNiagara.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         FileDesc = c.String(nullable: false),
                         DateAdded = c.DateTime(nullable: false),
+                        DownloadCount = c.Int(nullable: false),
                         ResourceCategoryID = c.Int(nullable: false),
                         ResourceSubCategoryID = c.Int(),
                         FileStoreID = c.Int(nullable: false),
@@ -112,6 +115,7 @@ namespace HospiceNiagara.Migrations
                         LastName = c.String(nullable: false),
                         Phone = c.String(nullable: false, maxLength: 10),
                         Email = c.String(),
+                        DateHired = c.DateTime(nullable: false),
                         TeamDomainID = c.Int(nullable: false),
                         JobDescriptionID = c.Int(nullable: false),
                     })
@@ -202,6 +206,9 @@ namespace HospiceNiagara.Migrations
                         Location = c.String(maxLength: 50),
                         Notes = c.String(maxLength: 50),
                         URL = c.String(maxLength: 2048),
+                        ExpiryDate = c.DateTime(nullable: false),
+                        PostDate = c.DateTime(nullable: false),
+                        IsNew = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -254,6 +261,8 @@ namespace HospiceNiagara.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        LastLoggedIn = c.DateTime(nullable: false),
+                        LoggedIn = c.DateTime(nullable: false),
                         ContactID = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),

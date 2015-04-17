@@ -11,8 +11,9 @@ namespace HospiceNiagara.Models
     {
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "You cannot leave the title/description blank.")]
-        [DisplayName("Title or Description")]
+        [Required(ErrorMessage = "You cannot leave the title of the announcment blank.")]
+        public string Title { get; set; }
+
         public string Content { get; set; }
 
         [Required(ErrorMessage = "You cannot leave the expiry date of the post blank.")]

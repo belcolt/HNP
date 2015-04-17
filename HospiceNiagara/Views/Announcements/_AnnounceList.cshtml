@@ -15,7 +15,7 @@
             {
                 @:<b>*NEW*</b>
             }   
-            @Html.ActionLink(item.Content, "Download", new { id = item.Resource.FileStoreID })
+            @Html.ActionLink(item.Title, "Download", new { id = item.Resource.FileStoreID })
             if (User.IsInRole("Administrator"))
             {
                 @:(

@@ -49,7 +49,6 @@ namespace HospiceNiagara.Controllers
             }
             db.SaveChanges();
 
-            //ViewBag.AnnounceList = db.Announcements.OrderByDescending(anmt => anmt.Content).ToList();
             return View(db.Announcements.OrderByDescending(anmt => anmt.PostDate).ToList());
         }
 
@@ -71,7 +70,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content,ExpiryDate")] Announcement announcement, int ResourceCategoryID, string ResourceDescription)
+        public ActionResult Create([Bind(Include = "Title,ExpiryDate")] Announcement announcement, int ResourceCategoryID, string ResourceDescription)
         {
             announcement.PostDate = DateTime.Now;
 
@@ -145,7 +144,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content,ExpiryDate,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
+        public ActionResult Edit([Bind(Include = "ID,Title,ExpiryDate,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
         {
             //store user input before querying the object refreshes values
             string fileDesc = resource.FileDesc;

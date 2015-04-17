@@ -3,16 +3,16 @@ namespace HospiceNiagara.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class dlcount : DbMigration
+    public partial class AnmtContent : DbMigration
     {
         public override void Up()
         {
-            AddColumn("dbo.Resource", "DownloadCount", c => c.Int(nullable: false));
+            AddColumn("dbo.Announcement", "Content", c => c.String());
         }
         
         public override void Down()
         {
-            DropColumn("dbo.Resource", "DownloadCount");
+            DropColumn("dbo.Announcement", "Content");
         }
     }
 }

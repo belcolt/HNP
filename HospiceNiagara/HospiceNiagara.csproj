@@ -177,9 +177,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504101506546_Initial.cs" />
-    <Compile Include="Migrations\201504101506546_Initial.Designer.cs">
-      <DependentUpon>201504101506546_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201504171510288_YEAHHHHHHHH.cs" />
+    <Compile Include="Migrations\201504171510288_YEAHHHHHHHH.Designer.cs">
+      <DependentUpon>201504171510288_YEAHHHHHHHH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504171512283_AnmtContent.cs" />
+    <Compile Include="Migrations\201504171512283_AnmtContent.Designer.cs">
+      <DependentUpon>201504171512283_AnmtContent.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -208,6 +212,7 @@
     <Compile Include="Models\TeamDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionTracking\ActiveSessions.cs" />
+    <Compile Include="SessionTracking\Requests.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="HospiceUser\HospiceUserRole.cs" />
   </ItemGroup>
@@ -384,6 +389,7 @@
     <Content Include="Views\Announcements\_Badge.cshtml" />
     <Content Include="Views\Home\_DNBadge.cshtml" />
     <Content Include="Views\Home\_AnmtBadge.cshtml" />
+    <Content Include="Views\Announcements\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -398,8 +404,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504101506546_Initial.resx">
-      <DependentUpon>201504101506546_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504171510288_YEAHHHHHHHH.resx">
+      <DependentUpon>201504171510288_YEAHHHHHHHH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504171512283_AnmtContent.resx">
+      <DependentUpon>201504171512283_AnmtContent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
