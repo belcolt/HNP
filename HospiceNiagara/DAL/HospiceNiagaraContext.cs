@@ -13,7 +13,7 @@ namespace HospiceNiagara.DAL
         public class HospiceNiagaraContext : IdentityDbContext<ApplicationUser>
         {
         public HospiceNiagaraContext()
-            : base("HospiceNiagaraContext")
+            : base("HospiceNiagaraContext", throwIfV1Schema:false)
         {
         }
 

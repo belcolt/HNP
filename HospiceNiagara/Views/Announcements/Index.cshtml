@@ -19,7 +19,7 @@
             @Html.Partial("_Badge")
             @if (User.IsInRole("Administrator"))
             {
-                @Ajax.ActionLink("Add new...", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal btn btn-link" })
+                @Ajax.ActionLink("Add new...", "Create", new { showModal = true }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
             }
         </div>
         <div class="panel-body">
@@ -34,8 +34,7 @@
         <div class="panel-heading">
             <b>Details</b>
         </div>
-        <div class="panel-body">
-            
+        <div class="panel-body" id="details">
         </div>
     </div>    
 </div>
