@@ -169,27 +169,17 @@
     <Compile Include="Controllers\DeathNoticesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JobDescriptionsController.cs" />
-    <Compile Include="Controllers\Logging.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeetingsController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
     <Compile Include="Controllers\SchedulesController.cs" />
-    <Compile Include="Controllers\TrackDownload.cs" />
     <Compile Include="DAL\HospiceNiagaraContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504192318547_Initial.cs" />
-    <Compile Include="Migrations\201504192318547_Initial.Designer.cs">
-      <DependentUpon>201504192318547_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504150404200_dlcount.cs" />
-    <Compile Include="Migrations\201504150404200_dlcount.Designer.cs">
-      <DependentUpon>201504150404200_dlcount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504151928337_dateHired.cs" />
-    <Compile Include="Migrations\201504151928337_dateHired.Designer.cs">
-      <DependentUpon>201504151928337_dateHired.cs</DependentUpon>
+    <Compile Include="Migrations\201504192340451_Initial.cs" />
+    <Compile Include="Migrations\201504192340451_Initial.Designer.cs">
+      <DependentUpon>201504192340451_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -428,14 +418,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504192318547_Initial.resx">
-      <DependentUpon>201504192318547_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504150404200_dlcount.resx">
-      <DependentUpon>201504150404200_dlcount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504151928337_dateHired.resx">
-      <DependentUpon>201504151928337_dateHired.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504192340451_Initial.resx">
+      <DependentUpon>201504192340451_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

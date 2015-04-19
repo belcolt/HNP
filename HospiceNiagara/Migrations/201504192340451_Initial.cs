@@ -118,7 +118,7 @@ namespace HospiceNiagara.Migrations
                         LastName = c.String(nullable: false),
                         Phone = c.String(nullable: false, maxLength: 10),
                         Email = c.String(),
-                        DateHired = c.DateTime(),
+                        DateHired = c.DateTime(nullable: false),
                         TeamDomainID = c.Int(nullable: false),
                         JobDescriptionID = c.Int(nullable: false),
                     })

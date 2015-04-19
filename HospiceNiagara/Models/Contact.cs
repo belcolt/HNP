@@ -26,7 +26,7 @@ namespace HospiceNiagara.Models
         {
             get
             {
-                    return DateTime.Now.Year - DateHired.Value.Year;
+                return DateTime.Now.Year - DateHired.Year;
             }
         }
 
@@ -49,7 +49,7 @@ namespace HospiceNiagara.Models
         public string Email { get; set; }
 
         [DisplayName("Date Hired")]
-        public DateTime? DateHired
+        public DateTime DateHired
         {
             get;
             set;
