@@ -53,6 +53,20 @@ namespace HospiceNiagara.Controllers
             return View(db.Announcements.OrderByDescending(anmt => anmt.PostDate).ToList());
         }
 
+        public ActionResult ShowPdf(int id)
+        {
+            var fileTitle = db.Resources.Where(u => u.FileStoreID == id).SingleOrDefault();
+            ViewBag.Title = fileTitle.FileDesc;
+            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
+            var length = theFile.FileContent.Length;
+
+            string string64 = Convert.ToBase64String(theFile.FileContent);
+            ViewBag.Mime = theFile.MimeType;
+            ViewBag.Name = theFile.FileName;
+            ViewBag.FileBits = string64;
+            return PartialView("ShowPdf");
+        }
+
         // GET: Announcements/Create
         [Authorize(Roles="Administrator")]
         public ActionResult Create()
