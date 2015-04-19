@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administrator Index</h2>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">Manager User and Roles</h1>
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-default col-lg-5">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Manager Users</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">@Html.ActionLink("Register a new user", "UserRegister")</li>
+                            <li class="list-group-item">@Html.ActionLink("View User Index", "UserIndex")</li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="panel panel-default col-lg-5">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Manage Roles</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">@Html.ActionLink("Create a new user role", "RoleCreate")</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>

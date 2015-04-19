@@ -1,0 +1,461 @@
+﻿@model HospiceNiagara.Models.AdminViewModel
+@{
+    ViewBag.Title = "Admin";
+}
+
+@using (Html.BeginForm("Admin", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="panel panel-default col-lg-6">
+        <div class="panel-heading">Create A User</div>
+        <div class="panel-body">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+            <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseUserType" aria-expanded="false" aria-controls="collapseUserType">
+                Select User Type(s)
+            </button>
+            <div class="collapse" id="collapseUserType">
+                <div class="row">
+                    <h3>User Types</h3>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="admin">
+                            </span>
+                            <span class="input-group-addon">Admin</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>Staff</h4>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffLeadership">
+                            </span>
+                            <span class="input-group-addon">Leadership</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffAdmin">
+                            </span>
+                            <span class="input-group-addon">Admin</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffCommunity">
+                            </span>
+                            <span class="input-group-addon">Community</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffOutreach">
+                            </span>
+                            <span class="input-group-addon">Outreach</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffResidential">
+                            </span>
+                            <span class="input-group-addon">Residential</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffNew">
+                            </span>
+                            <span class="input-group-addon">New Staff</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>Board</h4>
+                    <div class="col-lg-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="boardAF">
+                            </span>
+                            <span class="input-group-addon">Audit & Finance Committee</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-3 col-lg-offset-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="boardCR">
+                            </span>
+                            <span class="input-group-addon">Community Relations Committee</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="boardG">
+                            </span>
+                            <span class="input-group-addon">Governance Committee</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-3 col-lg-offset-3">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="boardNew">
+                            </span>
+                            <span class="input-group-addon">New Board Members</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="boardOQI">
+                            </span>
+                            <span class="input-group-addon">Operations and Quality Improvement Committee</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="row">
+                    <h4>Volunteers</h4>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffLeadership">
+                            </span>
+                            <span class="input-group-addon">Bereavement</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffAdmin">
+                            </span>
+                            <span class="input-group-addon">Community</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffCommunity">
+                            </span>
+                            <span class="input-group-addon">Day Hospice</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffLeadership">
+                            </span>
+                            <span class="input-group-addon">Residential</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffAdmin">
+                            </span>
+                            <span class="input-group-addon">Welcome Desk</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffCommunity">
+                            </span>
+                            <span class="input-group-addon">Event</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffLeadership">
+                            </span>
+                            <span class="input-group-addon">Admin</span>
+                        </div><!-- /input-group -->
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input type="checkbox" aria-label="staffAdmin">
+                            </span>
+                            <span class="input-group-addon">New Volunteers</span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div class="btn btn-default" role="group" aria-label="createUsder">Create User</div>
+        </div>
+    </div>
+    <div class="panel panel-default col-lg-6">
+        <div class="panel-heading">Change User Status</div>
+        <div class="panel-body">
+            <div class="row">
+                <h4>Search A User</h4>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Search for a user...">
+                </div><!-- /input-group -->
+            </div><!-- /.row -->
+            <br />
+            <div class="row">
+                <div class="btn-group" role="group" aria-label="userMod">
+                    <button type="button" class="btn btn-default">Activate</button>
+                    <button type="button" class="btn btn-default">Deactivate</button>
+                    <button type="button" class="btn btn-default">Delete</button>
+                </div>
+            </div>
+            <br />
+            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#userRoles">
+                Modify User Roles
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="userRoles" tabindex="-1" role="dialog" aria-labelledby="userRolesLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Modifying User Roles</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Add A User Role</button>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Add role...">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h3>User Types</h3>
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="admin">
+                                        </span>
+                                        <span class="input-group-addon">Admin</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4>Staff</h4>
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffLeadership">
+                                        </span>
+                                        <span class="input-group-addon">Leadership</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffAdmin">
+                                        </span>
+                                        <span class="input-group-addon">Admin</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffCommunity">
+                                        </span>
+                                        <span class="input-group-addon">Community</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffOutreach">
+                                        </span>
+                                        <span class="input-group-addon">Outreach</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffResidential">
+                                        </span>
+                                        <span class="input-group-addon">Residential</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffNew">
+                                        </span>
+                                        <span class="input-group-addon">New Staff</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4>Board</h4>
+                                <div class="col-lg-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="boardAF">
+                                        </span>
+                                        <span class="input-group-addon">Audit & Finance Committee</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-3 col-lg-offset-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="boardCR">
+                                        </span>
+                                        <span class="input-group-addon">Community Relations Committee</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="boardG">
+                                        </span>
+                                        <span class="input-group-addon">Governance Committee</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-3 col-lg-offset-3">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="boardNew">
+                                        </span>
+                                        <span class="input-group-addon">New Board Members</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="boardOQI">
+                                        </span>
+                                        <span class="input-group-addon">Operations and Quality Improvement Committee</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h4>Volunteers</h4>
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffLeadership">
+                                        </span>
+                                        <span class="input-group-addon">Bereavement</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffAdmin">
+                                        </span>
+                                        <span class="input-group-addon">Community</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffCommunity">
+                                        </span>
+                                        <span class="input-group-addon">Day Hospice</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffLeadership">
+                                        </span>
+                                        <span class="input-group-addon">Residential</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffAdmin">
+                                        </span>
+                                        <span class="input-group-addon">Welcome Desk</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffCommunity">
+                                        </span>
+                                        <span class="input-group-addon">Event</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffLeadership">
+                                        </span>
+                                        <span class="input-group-addon">Admin</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                                <div class="col-lg-2 col-lg-offset-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="checkbox" aria-label="staffAdmin">
+                                        </span>
+                                        <span class="input-group-addon">New Volunteers</span>
+                                    </div><!-- /input-group -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default">Remove User Role</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->    
+        </div>
+    </div>
+    
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
