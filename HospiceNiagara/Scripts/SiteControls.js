@@ -16,7 +16,7 @@
     $(".btnRSVP").click(function () {
         $(this).hide();
         var $btn = $(this);
-        var select = "<select class='ddlAttend' name='attend'> <option value='Attending'>Attending</option><option value='Not Attending'>Not Attending</option></select>";
+        var select = "<select class='ddlAttend form-control col-lg-2' name='attend'> <option value='Attending'>Attending</option><option value='Not Attending'>Not Attending</option></select>";
         select+="<button type='button' class='btn btn-default, btnReply'>Reply</button>";
         
         $(this).parent().append(select);
@@ -66,18 +66,22 @@
         var $url = "/Admin/LoadRoles";
         $.getJSON($url, 'domain='+domainID, function (data) {
 
-            $(".chkDiv").remove();
+            $("#chkRoleList").remove();
+            $("#chkRoles").append("<ul id='chkRoleList' class='col-md-9'  style='list-style-type:none;' ></ul>");
             $.each(data, function (i, item) {
-                $("#chkRoles").append("<div class='col-md-10, chkDiv'><input type='checkbox' id='chkRole' name='chk_Roles[]' class='chksubRole' value=" + data[i].Name + ">" + data[i].Name + "</div>");
+                $("#chkRoleList").append("<li class='col-md-3'><span <label for='chk_Roles[]' class='checkbox-inline'><input type='checkbox' class='aria id='chkRole' name='chk_Roles[]' value='" + [data[i].Name] + "'/>" + data[i].Name + "</label></li>");
             });
         });
-            //$.ajax(
-            //    {
-            //        method: "GET",
-            //        url: $url,
-            //        type: JSON,
-            //        success: function (data) {
-            //        }
-            //    });
+   //     <div class="col-lg-2 col-lg-offset-2">
+//<div class="input-group">
+  //<span class="input-group-addon">
+      //  <input type="checkbox" aria-label="staffResidential">
+    //</span>
+  //  <span class="input-group-addon">Residential</span>
+//</div>
+        $("ddlMonth").on("change", function () {
+            var month = $(this).val();
+            var $url = "Meetings/LoadDays";
+        });
         }
 });

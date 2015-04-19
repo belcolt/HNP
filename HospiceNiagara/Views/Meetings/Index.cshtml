@@ -1,20 +1,23 @@
-﻿@model HospiceNiagara.Models.EventListViewModel
+﻿@model IEnumerable<HospiceNiagara.Models.EventListViewModel>
 
 @{
     ViewBag.Title = "Meetings";
     Layout = "~/Views/Shared/_Layout.cshtml";
     @Scripts.Render("~/Scripts/SiteControls.js")
 }
-
-<h2>Meetings</h2>
-@HospiceNiagara.SessionTracking.ActiveSessions.Count
+@if (ViewBag.NewUserMessage != null)
+{
+    <div class="alert alert-success" role="alert">
+        <span>@Html.Raw(ViewBag.NewUserMessage)</span>
+    </div>
+}
+<h2>Hospice Meetings and Events</h2>
 
 <div class="panel-heading">
    @* @Ajax.ActionLink("Add Meeting","CreateMeeting", new AjaxOptions { UpdateTargetId = "__CreateMeetingModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalCreateMeeting" })*@
     @if (User.IsInRole("Administrator"))
     { 
     @Html.ActionLink("Add new meeting","CreateMeeting")
-    @Html.ActionLink("Add new event", "CreateEvent")
     }
     @*<button type="button" class="btn btn-link" data-toggle="modal" data-target="#modalCreateEvent">
         Add new Meeting
@@ -38,17 +41,17 @@
         <th>RSVPs</th>
         <th></th>
     </tr>
-    @if (ViewBag.EventsList != null)
+    @if (Model != null)
     {
-        foreach (HospiceNiagara.Models.EventListViewModel item in ViewBag.EventsList)
-        {  
+        foreach (HospiceNiagara.Models.EventListViewModel item in Model)
+        {
             <tr>
                 <td>@item.Name</td>
                 <td>@item.StartDate</td>
                 <td>@item.EndDate</td>
                 <td>@item.Location</td>
-                <td>@Html.ActionLink(@item.AttendanceCount,"Invites",new{id=@item.ID})</td>
-                <td>@Html.ActionLink("Edit", "Edit", new { id = @item.ID })|@Html.ActionLink("Delete","Delete",new { id = @item.ID })</td>
+                <td>@Html.ActionLink(@item.AttendanceCount, "Invites", new { id = @item.ID })</td>
+                <td>@Html.ActionLink("Edit And Attach", "Edit"+@item.Type, new { id = @item.ID })|@Html.ActionLink("Delete", "Delete", new { id = @item.ID })</td>
             </tr>
         }
     }
@@ -58,12 +61,9 @@
     @if (ViewBag.UserInvitesList != null)
     {
         <div id="invites">
-            @Html.Partial("_UserInvites");
+            @Html.Partial("_UserInvites", (IEnumerable<HospiceNiagara.Models.UserInviteViewModel>)ViewBag.UserInvitesList)
         </div>
     }
-    @*<div id="eventList">
-            @Html.Partial("_EventIndexList")
-        </div>*@
     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#modal">
         Export
     </button>

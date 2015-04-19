@@ -177,9 +177,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504101506546_Initial.cs" />
-    <Compile Include="Migrations\201504101506546_Initial.Designer.cs">
-      <DependentUpon>201504101506546_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201504142311033_Initial.cs" />
+    <Compile Include="Migrations\201504142311033_Initial.Designer.cs">
+      <DependentUpon>201504142311033_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504152141096_Fix.cs" />
+    <Compile Include="Migrations\201504152141096_Fix.Designer.cs">
+      <DependentUpon>201504152141096_Fix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504171431104_TestPanel.cs" />
+    <Compile Include="Migrations\201504171431104_TestPanel.Designer.cs">
+      <DependentUpon>201504171431104_TestPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -197,12 +205,10 @@
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\MeetingResource.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\ResourceCategory.cs" />
     <Compile Include="Models\ResourceSubCategory.cs" />
-    <Compile Include="Models\ResourceType.cs" />
     <Compile Include="Models\ResourceViewModels.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\TeamDomain.cs" />
@@ -374,13 +380,28 @@
     <Content Include="Views\Meetings\ContactDropDown.cshtml" />
     <Content Include="Views\Meetings\CreateMeeting.cshtml" />
     <Content Include="Views\Meetings\Delete.cshtml" />
-    <Content Include="Views\Meetings\Edit.cshtml" />
+    <Content Include="Views\Meetings\EditMeeting.cshtml" />
     <Content Include="Views\Meetings\Index.cshtml" />
     <Content Include="Views\Meetings\Invites.cshtml" />
     <Content Include="Views\Meetings\NiceIndex.cshtml" />
     <Content Include="Views\Meetings\_CreateMeetingModal.cshtml" />
-    <Content Include="Views\Meetings\_EventIndexList.cshtml" />
     <Content Include="Views\Meetings\_UserInvites.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Meetings\EditEvent.cshtml" />
+    <Content Include="Views\Resources\CreateResourceCategory.cshtml" />
+    <Content Include="Views\Resources\ResourceCategoryIndex.cshtml" />
+    <Content Include="Views\Resources\EditResourceCategory.cshtml" />
+    <Content Include="Views\Resources\ResourceSubcategories.cshtml" />
+    <Content Include="Views\Shared\_ResourceAdminControls.cshtml" />
+    <Content Include="Views\Resources\ResourceAdminIndex.cshtml" />
+    <Content Include="Views\Resources\_ResAdminAll.cshtml" />
+    <Content Include="Views\Resources\_ResAdminOrganizational.cshtml" />
+    <Content Include="Views\Resources\_ResAdminVolunteer.cshtml" />
+    <Content Include="Views\Resources\_ResAdminBoard.cshtml" />
+    <Content Include="Views\Resources\_ResAdminStaff.cshtml" />
+    <Content Include="Views\Resources\Edit.cshtml" />
+    <Content Include="Views\Resources\Delete.cshtml" />
+    <Content Include="Views\Resources\DeleteResourceCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -395,8 +416,14 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504101506546_Initial.resx">
-      <DependentUpon>201504101506546_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504142311033_Initial.resx">
+      <DependentUpon>201504142311033_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504152141096_Fix.resx">
+      <DependentUpon>201504152141096_Fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504171431104_TestPanel.resx">
+      <DependentUpon>201504171431104_TestPanel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

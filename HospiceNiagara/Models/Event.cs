@@ -8,61 +8,56 @@ using System.Web;
 
 namespace HospiceNiagara.Models
 {
-    public class Event
+    public abstract class HospiceDate
     {
         public int ID { get; set; }
 
+        [Required(ErrorMessage = "Please enter a title for this meeting.")]
         [DisplayName("Event")]
         public string Name { get; set; }
 
         //Dates
-        [Required]
+        [Required(ErrorMessage = "Please enter a start time for this meeting.")]
         [DisplayName("Starts")]
         public DateTime? StartDateTime { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter an end time for this meeting.")]
         [DisplayName("Ends")]
         public DateTime? EndDateTime { get; set; }
 
-        //[DisplayFormat(DataFormatString = "{0:t}")]
-        //[DisplayName("Start Time")]
-        //public string StartTime { get { return Convert.ToString(StartDateTime.TimeOfDay); } }
-
-        //[DisplayName("Start Day")]
-        //public string StartDay { get { return Convert.ToString(StartDateTime.DayOfYear); } }
-
-
-        //[DisplayName("End Time")]
-        //[DisplayFormat(DataFormatString = "{0:t}")]
-        //public string EndTime { get { return Convert.ToString(EndDateTime.TimeOfDay); } }
-
-        [Required]
+        [Required(ErrorMessage = "Please enter a location for this meeting.")]
         public string Location { get; set; }
-
-        [DefaultValue(false)]
-        public bool VolunteersNeeded { get; set; }
-
-        [ForeignKey("Brochure")]
-        public int? BrochureID { get; set; }
-        public Resource Brochure { get; set; }
-
-        public virtual ICollection<Invitation> Invitations { get; set; }
-
-        //Meeting properties
-        public string Requirements { get; set; }
 
         public string Notes { get; set; }
 
-        public int? AgendaId { get; set; }
-        public Resource Agenda { get; set; }
+        [DisplayName("Staff Lead")]
+        [Column(Order=6)]
+        public string StaffLead { get; set; }
+
+        public virtual ICollection<Invitation> Invitations { get; set; }
+    }
+    public class Meeting : HospiceDate
+    {
+
+        //Meeting Resources
+        public int? AgendaID { get; set; }
+        public MeetingResource Agenda { get; set; }
 
         public int? MinutesID { get; set; }
         public MeetingResource Minutes { get; set; }
 
-        [DisplayName("Staff Lead")]
-        public string StaffLead { get; set; }
-
         public int? AttendanceID { get; set; }
         public MeetingResource Attendance { get; set; }
+
+        public string Requirements { get; set; }
+    }
+    public class Event:HospiceDate
+    {
+        [DefaultValue(false)]
+        public bool VolunteersNeeded { get; set; }
+
+        public int? BrochureId { get; set; }
+        public MeetingResource Brochure { get; set; }
+
     }
 }

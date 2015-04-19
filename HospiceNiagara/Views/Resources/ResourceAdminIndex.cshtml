@@ -1,0 +1,78 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Resource>
+@{
+    ViewBag.Title = "Resources";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    @*SRCH]*@
+    <div class="col-lg-offset-1">
+        @*<div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Go!</button>
+            </span>
+            <input type="text" class="form-control" placeholder="Search for a resource...">*@
+        @*</div>*@<!-- /input-group -->
+
+            <div class="row">
+                @*<h4>Admin Resource Controls</h4>*@
+                <ul>
+                    <li role="presentation" style="display:inline;padding:5px"><strong>Admin Controls:</strong></li>
+                    <li role="presentation" style="display:inline;padding:5px">@Html.ActionLink("Add Resource", "Create")</li>
+                    <li role="presentation" style="display:inline;padding:5px">@Html.ActionLink("Manage Resource Categories", "ResourceCategoryIndex")</li>
+                </ul>
+            </div>
+    </div>
+</div><!-- /.row -->
+<br />
+
+<div role="tabpanel">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#AllRsrc" aria-controls="AllRsrc" role="tab" data-toggle="tab">All Resources</a></li>
+
+        <li role="presentation"><a href="#OrgRsrc" aria-controls="OrgRsrc" role="tab" data-toggle="tab">Organizational Resources</a></li>
+
+        <li role="presentation"><a href="#StfRsrc" aria-controls="StfRsrc" role="tab" data-toggle="tab">Staff Resources</a></li>
+
+        <li role="presentation"><a href="#BrdRsrc" aria-controls="BrdRsrc" role="tab" data-toggle="tab">Board Resources</a></li>
+
+        <li role="presentation"><a href="#VlntRsrc" aria-controls="VlntRsrc" role="tab" data-toggle="tab">Volunteer Resources</a></li>
+    </ul>
+</div>
+<div class="row"></div>
+
+@*[ORG_RSC]*@
+<!-- Tab panes -->
+<div class="tab-content">
+
+    <div role="tabpanel" class="tab-pane active" id="AllRsrc">
+        <div class="row">
+            @Html.Partial("_ResAdminAll")
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="OrgRsrc">
+        <div class="row">
+            @Html.Partial("_ResAdminOrganizational")
+        </div>
+    </div>
+
+    @*[STF_RSC]*@
+
+    <div role="tabpanel" class="tab-pane" id="StfRsrc">
+        <div class="row">
+            @Html.Partial("_ResAdminStaff")
+        </div>
+    </div>
+
+    @*[BRD_RSC]*@
+    <div role="tabpanel" class="tab-pane" id="BrdRsrc">
+        <div class="row">
+            @Html.Partial("_ResAdminBoard")
+        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="VlntRsrc">
+        <div class="row">
+            @Html.Partial("_ResAdminVolunteer")
+        </div>
+    </div>
+</div>

@@ -11,23 +11,68 @@ using HospiceNiagara.Models;
 using System.IO;
 using System.Web.Services;
 using Microsoft.AspNet.Identity;
+using HospiceNiagara.HospiceUserExtensions;
+
 namespace HospiceNiagara.Controllers
 {
     [Authorize]
     public class ResourcesController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
-
         //Enumeration for quick matching of Domain IDs as in the Hospice Database.
         //Example: Check for specific DomainID on the ResourceCategory with db.ResourceCategories.Where(rc=>rc.TeamDomainID==(int)Domains.[nameOfDomain] and so forth
-        private string volunteerRoles;
-
+        //enum Domains { Volunteer = 1, Staff = 2, Board = 3, Organizational = 4 };
         // GET: Resources
         
         [Authorize]
-        public ActionResult Index(string SearchString)
+        public ActionResult Index(bool? newUser)
         {
-            //Need to cascade for active pane
+            //Collect Categories that are "panel" categories
+            var categories = db.ResourceCategories.ToList();
+            var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
+            var panelResources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory).ToList();
+            ResourcePanelsCollection rPC = new ResourcePanelsCollection();
+            foreach(var cat in categories)
+            {
+                if (cat.Panel)
+                {
+                    string domain = ((Domains)cat.TeamDomainID).ToString();
+                    ResourcePanel rpVM = new ResourcePanel(cat.Name,domain);
+                    var temp = panelResources.Where(pr => pr.ResourceCategoryID == cat.ID).ToList();
+                    foreach (var resource in temp)
+                    {
+                        if (resource.Panel)
+                        {
+                            var fileSource = resource.FileStore;
+                            ResourcePanelItem rpI = new ResourcePanelItem{FileName=fileSource.FileName,Description=resource.FileDesc,FileID=fileSource.ID};
+                            rpVM.AddItem(rpI);
+                        }
+                    }
+                    rPC.Add(rpVM);
+                    //get rid of temp resources, already handled
+                    //if (temp.Count != 0)
+                    //{
+                    //    panelResources = (List<Resource>)panelResources.Except(temp);
+                    //}
+                }
+            }
+            ViewBag.PanelCollection = rPC;
+            if (newUser.HasValue)
+            {
+                if (newUser.Value)
+                {
+                    int team = User.GetHospiceContact().TeamDomainID;
+                string teamName = ((Domains)team).ToString();
+                string clickHere = "This is the resource panel. Listed below are Organizational Resources and Links. Clicking on a file name in the resources tab will download the resource file listed. These resources contain important information for all members of Hospice Niagara. Clicking on the "+teamName+" Resources tab will display further documents and links relevant to you and your role at Hospice Niagara. You can come back to this screen at any time by logging in and clicking the Resources navigation link located on top of your screen.";
+                ViewBag.NewUserMessage = clickHere;
+                }
+            }
+            //ViewBag.VolunteerResources = vRes;
+            return View(resources);
+        }
+        [Authorize(Roles="Administrator")]
+        public ActionResult ResourceAdminIndex(string SearchString)
+        {
             var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
             ViewBag.VolunteerResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 1).ToList();
             ViewBag.StaffResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 2).ToList();
@@ -40,14 +85,7 @@ namespace HospiceNiagara.Controllers
                 return View(resources);
             }
             ViewBag.Resources = resources.ToList();
-            //ViewBag.VolunteerResources = vRes;
             return View(resources);
-        }
-
-        public FileContentResult Download(int id)
-        {
-            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
-            return File(theFile.FileContent, theFile.MimeType, theFile.FileName);
         }
         //Details Views
 
@@ -70,15 +108,7 @@ namespace HospiceNiagara.Controllers
         [Authorize(Roles="Administrator")]
         public ActionResult Create()
         {
-            var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
-            var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
-            ViewBag.AllSubCats = db.ResourceSubCategories.ToList();
-            List<ResourceCatDD> rcats = new List<ResourceCatDD>();
-            foreach (var rc in rcs)
-            {
-                rcats.Add(new ResourceCatDD { ResourceCategoryID = rc.ID, RCatName = rc.Name, TeamDomainName = teamNames[rc.TeamDomainID - 1] });
-            }
-            ViewBag.ResourceCategoryID = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", null, null, null);
+            PopulateCategoryDropdown(null);
             return View();
         }
 
@@ -95,8 +125,9 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator")]
-        public ActionResult Create([Bind(Include = "ID,FileDesc,ResourceCategoryID,ResourceSubCategoryID")] Resource resource)
+        public ActionResult Create([Bind(Include = "ID,FileDesc,Panel,ResourceCategoryID,ResourceSubCategoryID")] Resource resource)
         {
+            var files = Request.Files;
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
             int fileLength = Request.Files[0].ContentLength;
@@ -127,44 +158,6 @@ namespace HospiceNiagara.Controllers
             ViewBag.ResourceCategoryD = new SelectList(db.ResourceCategories, "ID", "Name", resource.ResourceCategoryID);
             return View(resource);
         }
-
-        // GET: Resources/Edit/5
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Resource resource = db.Resources.Find(id);
-            if (resource == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
-            ViewBag.ResourceCategoryID = new SelectList(db.ResourceCategories, "ID", "Name", resource.ResourceCategoryID);
-            return View(resource);
-        }
-
-        // POST: Resources/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator")]
-        public ActionResult Edit([Bind(Include = "ID,FileDesc,ResourceTypeID,FileStoreID")] Resource resource)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(resource).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.FileStoreID = new SelectList(db.FileStores, "ID", "MimeType", resource.FileStoreID);
-            ViewBag.ResourceTypeID = new SelectList(db.ResourceCategories, "ID", "Name", resource.ResourceCategoryID);
-            return View(resource);
-        }
-
         // GET: Resources/Delete/5
         [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
@@ -181,32 +174,6 @@ namespace HospiceNiagara.Controllers
             return View(resource);
         }
 
-        //public string VolunteerRoles
-        //{
-        //    get
-        //    {
-        //        List<String> roles = new List<String>();
-        //        string rolesSingle = "";
-        //        db.Roles.Where(r => r.TeamDomainID == (int)Domain.Volunteer).Select(r => r.Name).ToList().ForEach(s=>roles.Add(s));
-        //        foreach(string s in roles)
-        //        {
-        //            rolesSingle += s + ",";
-        //        }
-        //        return rolesSingle;
-        //    }
-        //}
-        //        public string HospiceSubRoles(Domain domain)
-        //{
-        //    List<String> roles = new List<String>();
-        //    string rolesSingle = "";
-        //    db.Roles.Where(r => r.TeamDomainID == (int)domain).Select(r => r.Name).ToList().ForEach(s=>roles.Add(s));
-        //    foreach(string s in roles)
-        //    {
-        //        rolesSingle += s + ",";
-        //    }
-        //    return rolesSingle;
-        //}
-
         // POST: Resources/Delete/5
         [Authorize(Roles = "Administrator")]
         [HttpPost, ActionName("Delete")]
@@ -218,8 +185,204 @@ namespace HospiceNiagara.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        // GET: Resources/Edit/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Resource resource = db.Resources.Find(id);
+            if (resource == null)
+            {
+                return HttpNotFound();
+            }
+            PopulateCategoryDropdown(resource.ResourceCategoryID);
+            return View(resource);
+        }
+
+        // POST: Resources/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Edit([Bind(Include = "ID,FileDesc,ResourceCategoryID,ResourceSubCategoryID,FileStoreID,Panel,DateAdded")] Resource resource)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(resource).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            PopulateCategoryDropdown(null);
+            return View(resource);
+        }
+
+        //Resource Category Action Methods
+        ////////////////////////////////////////////////////////////////////
+        public ActionResult ResourceCategoryIndex(int? domID)
+        {
+            var resourceCats = db.ResourceCategories.ToList();
+            if (TempData["CategoryAdded"] != null)
+            {
+                bool success = (bool)TempData["CategoryAdded"];
+                if (success)
+                {
+                    ViewBag.CategoryStatus = "<span class='text-success'>Category successfully added.</span>";
+                }
+                else
+                    ViewBag.CategoryStatus = "<span class='text-success'>Category did not success fully add.</span>";
+            }
+            List<ResourceCategoryViewModel> rCV = new List<ResourceCategoryViewModel>();
+            if (domID!=null)
+            {
+                resourceCats.Where(rc => rc.TeamDomainID == domID);
+            }
+            foreach (var rc in resourceCats)
+            {
+                rCV.Add(new ResourceCategoryViewModel { CategoryID = rc.ID, Panel = rc.Panel, Name = rc.Name, TeamDomain = ((Domains)rc.TeamDomainID).ToString() });
+            }
+            return View(rCV);
+        }
+        public ActionResult CreateResourceCategory()
+        {
+            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateResourceCategory([Bind(Include = "ID,TeamDomainID,Name,Panel")]ResourceCategory rCat)
+        {
+            if (ModelState.IsValid)
+            {
+                db.ResourceCategories.Add(rCat);
+                db.SaveChanges();
+                TempData["CategoryAdded"] = true;
+                return RedirectToAction("ResourceCategoryIndex");
+            }
+            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
+            return View(rCat);
+        }
         
-       
+
+        // GET: Resources/EditResourceCategory/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult EditResourceCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ResourceCategory rCat= db.ResourceCategories.Find(id);
+            if (rCat == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
+            return View(rCat);
+        }
+
+        // POST: Resources/EditResourceCategory/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult EditResourceCategory([Bind(Include = "ID,Name,TeamDomainID,Panel")] ResourceCategory rCat)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(rCat).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ResourceCategoryIndex");
+            }
+            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
+            return View(rCat);
+        }
+
+        // GET: Resources/Delete/5
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteResourceCategory(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ResourceCategory rCat = db.ResourceCategories.Find(id);
+            var resources = db.Resources.Where(r => r.ResourceCategoryID == id).ToList();
+            if (resources.Count!=0)
+            {
+                ViewBag.DisableDelete = true;
+                ViewBag.DeleteCategoryMessage = "<span class='text-warning'>There are currently resources with this category type. Please edit them before removing this category.</span>";
+                return View(rCat);
+            }
+            ViewBag.DisableDelete = false;
+            ViewBag.DeleteCategoryMessage = "Are you sure you want to delete this?";
+            if (rCat == null)
+            {
+                return HttpNotFound();
+            }
+            return View(rCat);
+        }
+
+        // POST: Resources/Delete/5
+        [Authorize(Roles = "Administrator")]
+        [HttpPost, ActionName("DeleteResourceCategory")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteResourceCategoryConfirmed(int id)
+        {
+            ResourceCategory rc = db.ResourceCategories.Find(id);
+            db.ResourceCategories.Remove(rc);
+            db.SaveChanges();
+            return RedirectToAction("ResourceCategoryIndex");
+        }
+        //Resource Subcategories
+        /////////////////////////////////////////
+        public ActionResult ResourceSubcategories(int? catID)
+        {
+            var subcats = catID != null ? db.ResourceSubCategories.Where(sc => sc.ResourceCategoryID == catID).ToList() : db.ResourceSubCategories.ToList() ;
+            //if (catID!=null)
+            //{
+            //    subcats.Where(sc => sc.ResourceCategoryID == catID);
+            //}
+            if (catID!=null)
+            {
+                string catName = db.ResourceCategories.Where(rc => rc.ID == catID).Select(rc => rc.Name).Single().ToString();
+                string message;
+                if (subcats.Count == 0)
+                {
+                    message = "<span class='text-warning'>No subcategories found for " + catName + "</span>";
+                }
+                else
+                {
+                    message = "<span class='text-success'>Displaying subcategories for " + catName + "</span>";
+                }
+                ViewBag.Message = message;
+            }
+            
+            return View(subcats.ToList());
+        }
+        
+        //////////////Resource Controller Methods
+        public void PopulateCategoryDropdown(int? id)
+        {
+            var rcs = db.ResourceCategories.OrderBy(rc => rc.TeamDomainID).ToList();
+            var teamNames = db.TeamDomains.OrderBy(td => td.ID).Select(td => td.Description).ToList();
+            ViewBag.AllSubCats = db.ResourceSubCategories.ToList();
+            List<ResourceCatDD> rcats = new List<ResourceCatDD>();
+            foreach (var rc in rcs)
+            {
+                rcats.Add(new ResourceCatDD { ResourceCategoryID = rc.ID, RCatName = rc.Name, TeamDomainName = teamNames[rc.TeamDomainID - 1] });
+            }
+            ViewBag.ResourceCategories = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", id, null, null);
+        }
+        public FileContentResult Download(int id)
+        {
+            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
+            return File(theFile.FileContent, theFile.MimeType, theFile.FileName);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

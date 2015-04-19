@@ -1,41 +1,26 @@
 ﻿@model IEnumerable<HospiceNiagara.Models.Resource>
 <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading"><b>Board Resources</b></div>
-    <table class="table table-hover">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.FileDesc)</th>
-            <th>@Html.DisplayNameFor(model => model.DateAdded)</th>
-            <th>@Html.DisplayNameFor(model => model.ResourceSubCategory)</th>
-            <th>@Html.DisplayNameFor(model => model.ResourceCategory)</th>
-            <th>File</th>
-        </tr>
-        @if (ViewBag.VolunteerResources != null)
+    <div class="panel-heading">
+        <h3 class="panel-title">Board Resources</h3>
+    </div>
+    @{IEnumerable<HospiceNiagara.Models.ResourcePanel> rP = ((HospiceNiagara.Models.ResourcePanelsCollection)ViewBag.PanelCollection).Panels; }
+    @foreach (HospiceNiagara.Models.ResourcePanel panel in rP)
+    {
+        if (@panel.PanelDomain == "Board")
         {
-            foreach (HospiceNiagara.Models.Resource item in ViewBag.BoardResources)
-            {
-                <tr>
-                    <td>
-                        @item.FileDesc
-                    </td>
-                    <td>
-                        @item.DateAdded
-                    </td>
-                    <td>
-                        @if (item.ResourceSubCategory != null)
+            <div class="panel panel-default col-lg-6">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@panel.PanelCategory</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group text-success">
+                        @foreach (HospiceNiagara.Models.ResourcePanelItem item in @panel.PanelItems)
                         {
-                            @item.ResourceSubCategory.Name
+                            <li class="list-group-item"><label class="col-lg-4">@item.Description</label><span>@Html.ActionLink(@item.FileName, "Download", new { @id = @item.FileID })</span></li>
                         }
-                    </td>
-                    <td>
-                        @item.ResourceCategory.Name
-                    </td>
-                    <td>
-                        @Html.ActionLink(item.FileStore.FileName, "Download", new { id = @item.FileStoreID })
-                    </td>
-                    @*@Html.ActionLink(@description, "Download", new { ID = @fileID });*@
-                </tr>
-            }
+                    </ul>
+                </div>
+            </div>
         }
-    </table>
+    }
 </div>

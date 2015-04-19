@@ -1,0 +1,67 @@
+﻿@model IEnumerable<HospiceNiagara.Models.ResourceCategoryViewModel>
+
+@{
+    ViewBag.Title = "ResourceCategoryIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Resource Category Index</h2>
+<span class="text-success">@Html.Raw(ViewBag.CategoryStatus)</span>
+@*<p>
+    @Html.ActionLink("Resource Main","ResourceAdminIndex")
+    @Html.ActionLink("Create New", "CreateResourceCategory")
+    @Html.ActionLink("View Subcategories", "ResourceSubcategories")
+</p>*@
+<div class="row">
+    @*<h4>Admin Resource Controls</h4>*@
+    <ul>
+        <li role="presentation" style="display:inline;padding:5px"><strong>Admin Controls:</strong></li>
+        <li role="presentation" style="display:inline;padding:5px">@Html.ActionLink("Create New Category", "CreateResourceCategory")</li>
+        <li role="presentation" style="display:inline;padding:5px">@Html.ActionLink("View Subcategories", "ResourceSubcategories")</li>
+        <li role="presentation" style="display:inline;padding:5px">@Html.ActionLink("Resource Main", "ResourceAdminIndex")</li>
+    </ul>
+</div>
+<div class="panel panel-default">
+    @*<div class="panel-body">
+        <p>...</p>
+    </div>*@
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Team Domain
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Panel)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeamDomain)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Panel)
+                </td>
+                <td>
+                    @Html.ActionLink("View Subcategories", "ResourceSubcategories", new { catID = item.CategoryID }) 
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditResourceCategory", new { ID = item.CategoryID }) |
+                    @Html.ActionLink("Details", "Details", new { ID = item.CategoryID }) |
+                    @Html.ActionLink("Delete", "DeleteResourceCategory", new { ID = item.CategoryID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

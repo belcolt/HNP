@@ -101,9 +101,11 @@ namespace HospiceNiagara.Controllers
         public ActionResult ShowDesc(int id)
         {
             JobDescription job = db.JobDescriptions.Where(j => j.ID == id).Single();
+            JobDescriptionViewModel jVM = new JobDescriptionViewModel { JobName = job.JobName, HtmlFormattedDescription = job.Description };
+            ViewBag.JobViewModel = jVM;
             ViewBag.JobName = job.JobName;
             ViewBag.Desc = job.Description.Replace("-","");
-            return PartialView("ShowDesc");
+            return PartialView("ShowDesc",jVM);
         }
 
         // GET: JobDescriptions/Edit/5

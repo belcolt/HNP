@@ -35,7 +35,56 @@ namespace HospiceNiagara.Models
         public int FileStoreID { get; set; }
         public virtual FileStore FileStore { get; set; }
 
-        
+        [DisplayName("Display in Panel")]
+        [DefaultValue(false)]
+        public bool Panel { get; set; }
 
     }
+
+    //Resource View Models
+    public class ResourcePanelItem
+    {
+        public string Description {get; set;}
+        public string FileName{get; set;}
+        public int FileID { get; set; }
+    }
+    public class ResourcePanel
+    {
+        private List<ResourcePanelItem> rPanelItems = new List<ResourcePanelItem>();
+
+        public ResourcePanel(string panelName, string panelDomain)
+        {
+            PanelCategory = panelName;
+            PanelDomain = panelDomain;
+        }
+        public string PanelCategory { get; set; }
+
+        public string PanelDomain { get; set; }
+        public List<ResourcePanelItem> PanelItems
+        {
+            get { return rPanelItems; }
+        }
+        public void AddItem(ResourcePanelItem panelItem)
+        {
+            rPanelItems.Add(panelItem);
+        }
+
+    }
+
+    public class ResourcePanelsCollection
+    {
+        private List<ResourcePanel> panels = new List<ResourcePanel>();
+
+        public IEnumerable<ResourcePanel> Panels
+        {
+            get { return panels; }
+        }
+
+        public void Add(ResourcePanel rpV)
+        {
+            panels.Add(rpV);
+        }
+    }
+
+    //Resouce Category View Models
 }

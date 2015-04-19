@@ -22,9 +22,9 @@ namespace HospiceNiagara.Models
         [Required]
         public int ContactID { get; set; }
         [Required]
-        public int EventID { get; set; }
+        public int EventMeetingID { get; set; }
         //navigation property
         public virtual Contact Contact { get; set; }
-        public virtual Event Event { get; set; }
+        public virtual HospiceDate EventMeeting{ get; set; }
     }
 }

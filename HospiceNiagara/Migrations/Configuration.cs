@@ -60,7 +60,9 @@ namespace HospiceNiagara.Migrations
 
             var jobDescriptions = new List<JobDescription>
             {
-                new JobDescription{JobName = "Finance and Operations Manager", Description = "This is a description" }
+                new JobDescription{JobName = "Finance and Operations Manager", Description = "-Leadership Team Member -Finance Lead -IT Lead -Facilities Lead - Administration Lead -Coordinator of Volunteers: -Scheduling of Welcome Desk, Residential and Kitchen Helper Volunteer Roles - Communication, recognition and ongoing support of all Volunteers -Supervises Administrative Assistant, Financial Associate, Chef, and Maintenance contract" },
+                new JobDescription{JobName = "Administrative Assitant", Description="-Assitant for administrative needs"  },
+                new JobDescription{JobName = "Executive Director",Description="-Big smiles"}
             };
             jobDescriptions.ForEach(jd => context.JobDescriptions.Add(jd));
             context.SaveChanges();
@@ -75,7 +77,7 @@ namespace HospiceNiagara.Migrations
             resourceDomains.ForEach(rd => context.TeamDomains.Add(rd));
             context.SaveChanges();
             
-            var events = new List<Event>
+            var events = new List<HospiceDate>
                 {
                     new Event {Name = "Event 1", Location="Townhall", StartDateTime=DateTime.Parse("2008-01-01T09:30:00"),EndDateTime= DateTime.Parse("2008-01-01T11:30:00")},
                     new Event {Name = "Event 2", Location="Downtown",StartDateTime=DateTime.Parse("2009-06-06T09:30:00"),EndDateTime= DateTime.Parse("2009-06-06T11:30:00")},
@@ -101,7 +103,7 @@ namespace HospiceNiagara.Migrations
 
             var invitations = new List<Invitation>
                 {
-                    new Invitation{EventID = 1, ContactID=1}
+                    new Invitation{EventMeetingID = 1, ContactID=1}
                 };
             invitations.ForEach(i => context.Invitations.Add((i)));
             context.SaveChanges();
@@ -124,8 +126,8 @@ namespace HospiceNiagara.Migrations
             var resourceCatStaff = new List<ResourceCategory>
             {
                 //main categories
-                new ResourceCategory{ID=9,Name="Operational Policies",TeamDomainID=2},
-                new ResourceCategory{ID=10,Name="Orientation Documents",TeamDomainID=2},
+                new ResourceCategory{ID=9,Name="Operational Policies",TeamDomainID=2, Panel=true},
+                new ResourceCategory{ID=10,Name="Orientation Documents",TeamDomainID=2, Panel=true},
                 new ResourceCategory{ID=11,Name="Memos",TeamDomainID=2},
                 new ResourceCategory{ID=12,Name="Staff Meeting Minutes",TeamDomainID=2},
                 new ResourceCategory{ID=13,Name="Emergency Call Chart",TeamDomainID=2},
@@ -137,8 +139,8 @@ namespace HospiceNiagara.Migrations
             var resourceCatBoard = new List<ResourceCategory>
             {
                 new ResourceCategory{ID=15,Name="Board Minutes",TeamDomainID=3},
-                new ResourceCategory{ID=16,Name="Board Packages",TeamDomainID=3},
-                new ResourceCategory{ID=17,Name="Board Orientation",TeamDomainID=3},
+                new ResourceCategory{ID=16,Name="Board Packages",TeamDomainID=3, Panel=true},
+                new ResourceCategory{ID=17,Name="Board Orientation",TeamDomainID=3, Panel=true},
                 new ResourceCategory{ID=18,Name="Board Contact List",TeamDomainID=3},
                 new ResourceCategory{ID=19,Name="Governance Policies",TeamDomainID=3},
                 new ResourceCategory{ID=20,Name="Audited Financials",TeamDomainID=3},
@@ -152,7 +154,7 @@ namespace HospiceNiagara.Migrations
                 new ResourceCategory{ID=22,Name="Town Hall Meeting Minutes",TeamDomainID=1},
                 new ResourceCategory{ID=23,Name="Memos",TeamDomainID=1},
                 new ResourceCategory{ID=24,Name="Volunteer Updates",TeamDomainID=1},
-                new ResourceCategory{ID=25,Name="Orientation Documents",TeamDomainID=1},
+                new ResourceCategory{ID=25,Name="Orientation Documents",TeamDomainID=1, Panel=true},
                 new ResourceCategory{ID=26,Name="Application",TeamDomainID=1},
                 new ResourceCategory{ID=27,Name="Presentation",TeamDomainID=1},
                 new ResourceCategory{ID=28,Name="Volunteer Related Policies",TeamDomainID=1},
@@ -202,7 +204,7 @@ namespace HospiceNiagara.Migrations
                 new ApplicationRole{Name="Welcome Desk",TeamDomainID=vol},
                 new ApplicationRole{Name="Event",TeamDomainID=vol,NonClient=true},
                 new ApplicationRole{Name="Admin-Vol",TeamDomainID=vol,NonClient=true},
-                new ApplicationRole{Name="New Volunteers",TeamDomainID=vol},
+                new ApplicationRole{Name="New Volunteer",TeamDomainID=vol},
             };
 
             var newStaffRoles = new List<ApplicationRole>
@@ -221,7 +223,7 @@ namespace HospiceNiagara.Migrations
                 new ApplicationRole{Name="Community Relations Committee",TeamDomainID=board},
                 new ApplicationRole{Name="Governance Committee",TeamDomainID=board},
                 new ApplicationRole{Name="Operations & Quality Improvement Committee",TeamDomainID=board},
-                new ApplicationRole{Name="New Board Members",TeamDomainID=board}
+                new ApplicationRole{Name="New Board Member",TeamDomainID=board}
             };
             //Dave's Video
 
