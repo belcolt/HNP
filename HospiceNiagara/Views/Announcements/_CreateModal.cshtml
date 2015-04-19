@@ -15,14 +15,18 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Add New Announcement</h4>
             </div>
-            @using (Ajax.BeginForm("Create",null, new AjaxOptions { Url = "Index", UpdateTargetId = "showModal", HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
+            @using (Ajax.BeginForm(null, null, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "POST" }, new { enctype = "multipart/form-data" }))
             {
             <div class="modal-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group row">
+                        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter title here..." } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group row">
                         @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter title/description here..." } })
-                        @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                        @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter content here..." } })
                     </div>
                     <hr />
                     <h4><b>Attach a resource:</b></h4>
@@ -39,6 +43,11 @@
                     <div class="form-group row">
                         @Html.Label("Upload", htmlAttributes: new { @class = "control-label col-md-2" })
                         <input class="form-control col-md-10 col-md-push-1" type="file" name="FileUpload1" />
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.ExpiryDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.ExpiryDate, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter title/description here..." } })
+                        @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="modal-footer">

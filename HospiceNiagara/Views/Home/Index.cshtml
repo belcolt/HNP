@@ -3,13 +3,15 @@
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
-@if (User.IsInRole("New Volunteer") || User.IsInRole("New Board Member") || User.IsInRole("New Staff"))
+<div class="alert alert-info" role="alert">Welcome New Staff/Volunteer/Board member! Click <a>here</a> for some information </div>
+@if (ViewBag.Anniversary != null)
 {
-    <div class="alert alert-info" role="alert">
-         @Html.ActionLink("Welcome New Staff/Volunteer/Board member! Click here for some information", "Index", "Resources", new { newUser = true },null)
-         </div>
+    <div class="alert alert-info" role="alert">@ViewBag.Anniversary</div>
 }
+
+
 <div class="row">
     
     
@@ -53,10 +55,9 @@
             </a>
         </div>
     </div>
-
     <div class="panel panel-default col-md-6">
         <div class="panel-heading">
-            <h1 class="panel-title">@Html.ActionLink("Announcements", "Index", "Announcements") <span class="badge">3</span></h1>
+            <h1 class="panel-title">@Html.ActionLink("Announcements", "Index", "Announcements") @Html.Partial("_AnmtBadge")</h1>
         </div>
         <div class="panel-body">
             @Html.Partial("_AnnounceList")
@@ -76,7 +77,7 @@
 
     <div class="panel panel-default col-lg-6">
         <div class="panel-heading">
-            <h1 class="panel-title">@Html.ActionLink("Obituary", "Index", "DeathNotices") <span class="badge">1</span></h1>
+            <h1 class="panel-title">@Html.ActionLink("Obituary", "Index", "DeathNotices") @Html.Partial("_DNBadge")</h1>
         </div>
         <div class="panel-body">
             @Html.Partial("_DNList")

@@ -21,18 +21,50 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
 
         // GET: Announcements
+        [SessionTracking.Logging]
         public ActionResult Index()
         {
-            //var roles = new List<string> { "Admin", "Author", "Super" };
-            //var userRoles = Roles.GetRolesForUser(User.Identity.Name);
+            string username = User.Identity.Name;
+            var user = (from u in db.Users
+                        where u.UserName.ToString() == username
+                        select u).Single();
 
-            //if (userRoles.Any(u => roles.Contains(u)))
-            //{
-            //    //do something
-            //}
+            foreach (var anmt in db.Announcements.ToList())
+            {
+                //Expiry date check
+                if (DateTime.Now > anmt.ExpiryDate)
+                {
+                    db.Announcements.Remove(anmt);
+                }
 
-            ViewBag.AnnounceList = db.Announcements.OrderByDescending(anmt => anmt.Content).ToList();
-            return View();
+                //Lets user know if a post is new
+                if ((user.LastLoggedIn <= anmt.PostDate))
+                {
+                    anmt.IsNew = true;
+                }
+                else
+                {
+                    anmt.IsNew = false;
+                }
+            }
+            db.SaveChanges();
+
+            return View(db.Announcements.OrderByDescending(anmt => anmt.PostDate).ToList());
+        }
+
+        // GET: ResourceSubCategories/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Announcement anmt = db.Announcements.Find(id);
+            if (anmt == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_Details", anmt);
         }
 
         // GET: Announcements/Create
@@ -53,12 +85,13 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content")] Announcement announcement, int ResourceCategoryID, string ResourceDescription)
+        public ActionResult Create([Bind(Include = "Title,Content,ExpiryDate")] Announcement announcement, int ResourceCategoryID, string ResourceDescription)
         {
+            announcement.PostDate = DateTime.Now;
+
             string mimeType = Request.Files[0].ContentType;
             string fileName = Path.GetFileName(Request.Files[0].FileName);
             int fileLength = Request.Files[0].ContentLength;
-            announcement.Date = DateTime.Now;
             byte[] fileData = new byte[fileLength];
             //hard coded until select list added
             var rCat = (from rc in db.ResourceCategories
@@ -126,7 +159,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content,Date,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
+        public ActionResult Edit([Bind(Include = "ID,Title,Content,ExpiryDate,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
         {
             //store user input before querying the object refreshes values
             string fileDesc = resource.FileDesc;

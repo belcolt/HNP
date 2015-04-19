@@ -21,6 +21,15 @@ namespace HospiceNiagara.Models
             }
         }
 
+        [DisplayName("Years of Service")]
+        public int YearsOfService
+        {
+            get
+            {
+                return DateTime.Now.Year - DateHired.Year;
+            }
+        }
+
         [Required]
         [DisplayName("First Name")]
         public string FirstName { get; set; }
@@ -39,6 +48,14 @@ namespace HospiceNiagara.Models
 
         public string Email { get; set; }
 
+        [DisplayName("Date Hired")]
+        public DateTime DateHired
+        {
+            get;
+            set;
+        }
+
+        
         //[DefaultValue(false)]
         //[DisplayName("Board Director")]
         //public bool IsBoardDirector { get; set; }

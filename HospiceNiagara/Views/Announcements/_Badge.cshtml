@@ -1,0 +1,8 @@
+﻿@model IEnumerable<HospiceNiagara.Models.Announcement>
+
+@if(!(Model==null))
+{
+    <span class="badge">
+        @Model.Where(model => model.IsNew == true).Count()
+    </span>
+}

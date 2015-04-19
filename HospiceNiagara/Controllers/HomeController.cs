@@ -15,17 +15,22 @@ namespace HospiceNiagara.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            //Change to pull viewbag from resources
             ViewBag.Images = Directory.EnumerateFiles(Server.MapPath("~/Content/Image/"))
                               .Select(fn => "~/Content/Image/" + Path.GetFileName(fn));
 
-            ViewBag.AnnounceList = db.Announcements.OrderByDescending(anmt => anmt.Content).ToList();
+            ViewBag.AnnounceList = db.Announcements.OrderByDescending(anmt => anmt.PostDate).ToList();
             ViewBag.MeetingList = db.Events.OrderByDescending(mtg => mtg.StartDateTime).ToList();
             ViewBag.DNList = db.DeathNotices.OrderByDescending(dn => dn.Date).ToList();
+
+            ViewBag.DNBadge = db.DeathNotices.Where(dn => dn.IsNew == true).Count();
+            ViewBag.AnmtBadge = db.Announcements.Where(anmt => anmt.IsNew == true).Count();
+
             return View();
         }
 
         //[HttpPost]
-        //public ActionResult Index(Picture picture)
+        //public ActionResult Upload(Picture picture)
         //{
         //    if (picture.File.ContentLength > 0)
         //    {

@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     @Scripts.Render("~/bundles/jqueryval")
 }
+
 <div id="indexList">
     <div class="row">
         @Html.ActionLink("Back To Announcements", "Index", "Announcements")
@@ -34,6 +35,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.URL)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpiryDate)
+            </th>
             @if (User.IsInRole("Administrator"))
             { 
                 <th></th>
@@ -42,7 +46,14 @@
 
         @foreach (var item in Model)
         {
-            <tr>
+            if(item.IsNew)
+            {
+                @:<tr style="background-color:#c98fb5;">
+            }
+            else
+            {
+                @:<tr>
+            }
                 <td>
                     @Html.DisplayFor(modelItem => item.FullName)
                 </td>
@@ -58,14 +69,17 @@
                 <td>
                     <a target="_blank" href="@item.URL">@item.URL</a>
                 </td>
-                @if (User.IsInRole("Administrator"))
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpiryDate)
+                </td>
+                if (User.IsInRole("Administrator"))
                 { 
                     <td>
                         @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" }) |
                         @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
                     </td>
                 }
-            </tr>
+            @:</tr>
         }
     </table>
 </div>

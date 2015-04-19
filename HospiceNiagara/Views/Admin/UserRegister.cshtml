@@ -2,7 +2,10 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.ActionLink("Create a new role","RoleCreate")
+@Html.ActionLink("Create a new role","RoleCreate")<br />
+@Html.ActionLink("Active Users", "TrackUsers")<br />
+@Html.ActionLink("Resource Downloads","TrackDownloads")
+<h2>UserRegister</h2>
 <div id="registerForm">
     @Html.Partial("_RegisterUserForm")
 </div>

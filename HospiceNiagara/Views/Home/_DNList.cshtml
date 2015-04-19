@@ -4,9 +4,15 @@
     
     @foreach (HospiceNiagara.Models.DeathNotice item in ViewBag.DNList)
     {
-        <li class="list-group-item">
+        if (item.IsNew)
+        {
+            @:<li class="list-group-item" style="background-color:#c98fb5;">
+        }
+        else
+        {
+            @:<li class="list-group-item">
+        }
             @item.Date.ToLongDateString()
-        </li>
+        @:</li>
     }
-
 </ul>

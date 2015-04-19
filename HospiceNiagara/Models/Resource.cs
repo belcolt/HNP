@@ -20,6 +20,9 @@ namespace HospiceNiagara.Models
         [DisplayName("Date Added")]
         public DateTime DateAdded { get; set; }
 
+        [DisplayName("Download Count")]
+        public int DownloadCount { get; set; }
+
         //ResourceType
         [Required]
         [DisplayName("Category")]

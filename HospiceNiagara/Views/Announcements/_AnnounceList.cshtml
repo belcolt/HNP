@@ -1,18 +1,29 @@
 ﻿@model IEnumerable<HospiceNiagara.Models.Announcement>
+
 <ul class="list-group">
-    @if (ViewBag.AnnounceList != null)
+    @foreach (var item in Model)
     {
-        foreach (HospiceNiagara.Models.Announcement item in ViewBag.AnnounceList)
+        if(item.IsNew)
+            {
+                @:<li class="list-group-item" style="background-color:#c98fb5;">
+            }
+        else
         {
-            <li class="list-group-item">
-                @item.Content
-                @if (User.IsInRole("Administrator"))
-                { 
-                    @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" }); @:|
-                    @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
-                }
-            </li>
+            @:<li class="list-group-item">
         }
+            if(item.IsNew)
+            {
+                @:<b>*NEW*</b>
+            }
+            @Ajax.ActionLink(item.Title, "Details", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "details", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+            if (User.IsInRole("Administrator"))
+            {
+                @:(
+                @Ajax.ActionLink("Edit", "Edit", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" }); @:|
+                @Ajax.ActionLink("Delete", "Delete", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "showModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "showModal" })
+                @:)
+            }
+        @:</li>
     }
 </ul>
 

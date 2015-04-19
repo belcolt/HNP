@@ -25,6 +25,7 @@ namespace HospiceNiagara.Controllers
         // GET: Resources
         
         [Authorize]
+<<<<<<< HEAD
         public ActionResult Index(bool? newUser)
         {
             //Collect Categories that are "panel" categories
@@ -72,6 +73,10 @@ namespace HospiceNiagara.Controllers
         }
         [Authorize(Roles="Administrator")]
         public ActionResult ResourceAdminIndex(string SearchString)
+=======
+        [SessionTracking.Logging]
+        public ActionResult Index(string SearchString)
+>>>>>>> 4e20666185f230189deb750ec26dd1298ca3a52c
         {
             var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
             ViewBag.VolunteerResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 1).ToList();
@@ -87,6 +92,15 @@ namespace HospiceNiagara.Controllers
             ViewBag.Resources = resources.ToList();
             return View(resources);
         }
+<<<<<<< HEAD
+=======
+        [SessionTracking.TrackDownload]
+        public FileContentResult Download(int id)
+        {
+            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
+            return File(theFile.FileContent, theFile.MimeType, theFile.FileName);
+        }
+>>>>>>> 4e20666185f230189deb750ec26dd1298ca3a52c
         //Details Views
 
         // GET: Resources/Details/5

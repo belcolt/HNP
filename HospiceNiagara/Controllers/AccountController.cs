@@ -9,12 +9,16 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HospiceNiagara.Models;
+using HospiceNiagara.DAL;
+using System.Data.Entity;
 
 namespace HospiceNiagara.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private HospiceNiagaraContext db = new HospiceNiagaraContext();
+
         private ApplicationUserManager _userManager;
 
         public AccountController()
@@ -77,6 +81,15 @@ namespace HospiceNiagara.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //track the LastLoggedIn and LoggedIn fields relating to the user who's logging in
+                    var user = (from u in db.Users
+                                where u.UserName.ToString() == model.Email
+                                select u).Single();   
+                    user.LastLoggedIn = user.LoggedIn;
+                    user.LoggedIn = DateTime.Now;
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -140,7 +153,7 @@ namespace HospiceNiagara.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Admiistrator()
+        public ActionResult Administrator()
         {
             return View();
         }

@@ -16,11 +16,14 @@ namespace HospiceNiagara.Controllers
     [Authorize]
     public class MeetingsController : Controller
     {
+       
         enum Domains { Volunteer = 1, Staff = 2, Board = 3, Organizational = 4 };
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
         // GET: Meetings
+        [SessionTracking.Logging]
         public ActionResult Index()
         {
+            
             var invites = db.Invitations.ToList();
             var events = db.Events.ToList();
             var elists = new List<EventListViewModel>();
@@ -43,7 +46,9 @@ namespace HospiceNiagara.Controllers
             string id = User.Identity.GetUserId();
             if (id != null)
             {
-                int contactID = db.Users.Find(id).ContactID;
+                
+                var contactID = db.Users.Find(id).ContactID;
+
                 var singleInvites = new List<UserInviteViewModel>();
                 var eventIDs = invites.Where(i => i.ContactID == contactID).ToList();
                 foreach (var invite in eventIDs)
