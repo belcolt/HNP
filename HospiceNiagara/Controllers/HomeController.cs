@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using HospiceNiagara.Models;
 
 namespace HospiceNiagara.Controllers
 {
@@ -15,6 +16,27 @@ namespace HospiceNiagara.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            if(User.Identity.Name!="")
+            {
+                int cID = db.Users.Where(u => u.UserName == User.Identity.Name).Select(u => u.ContactID).SingleOrDefault();
+                Contact c = db.Contacts.Find(cID);
+                if (c.DateHired.Date.Month == DateTime.Now.Date.Month & c.DateHired.Date.Day == DateTime.Now.Date.Day)
+                {
+                    if (c.YearsOfService > 1)
+                    {
+                        ViewBag.Anniversary = "Congratulations on your " + c.YearsOfService.ToString() + " years of service!  Our success would not be possible without dedicated people such as yourself. Thank you.";
+                    }
+                    else if (c.YearsOfService == 1)
+                    {
+                        ViewBag.Anniversary = "Congratulations on your " + c.YearsOfService.ToString() + "st year of service!  Our success would not be possible without dedicated people such as yourself. Thank you.";
+                    }
+                    else
+                    {
+                        ViewBag.Anniversary = "Congratulations on joining Hospice Niagara!  We all look forward to working with you!";
+                    }
+                }
+            }
+                
             //Change to pull viewbag from resources
             ViewBag.Images = Directory.EnumerateFiles(Server.MapPath("~/Content/Image/"))
                               .Select(fn => "~/Content/Image/" + Path.GetFileName(fn));

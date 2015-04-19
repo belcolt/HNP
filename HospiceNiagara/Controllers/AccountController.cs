@@ -81,6 +81,9 @@ namespace HospiceNiagara.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    Session.Abandon();
+                    Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+
                     //track the LastLoggedIn and LoggedIn fields relating to the user who's logging in
                     var user = (from u in db.Users
                                 where u.UserName.ToString() == model.Email
@@ -408,6 +411,9 @@ namespace HospiceNiagara.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+            Session.Abandon();
+
+            Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
             return RedirectToAction("Index", "Home");
         }
 
