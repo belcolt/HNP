@@ -5,7 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
-<div class="alert alert-info" role="alert">Welcome New Staff/Volunteer/Board member! Click <a>here</a> for some information </div>
+@if (User.IsInRole("New Volunteer") || User.IsInRole("New Board Member") || User.IsInRole("New Staff"))
+{
+    <div class="alert alert-info" role="alert">
+        @Html.ActionLink("Welcome New Staff/Volunteer/Board member! Click here for some information", "Index", "Resources", new { newUser = true }, null)
+    </div>
+}
 @if (ViewBag.Anniversary != null)
 {
     <div class="alert alert-info" role="alert">@ViewBag.Anniversary</div>

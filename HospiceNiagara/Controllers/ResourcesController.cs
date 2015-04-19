@@ -25,7 +25,6 @@ namespace HospiceNiagara.Controllers
         // GET: Resources
         
         [Authorize]
-<<<<<<< HEAD
         public ActionResult Index(bool? newUser)
         {
             //Collect Categories that are "panel" categories
@@ -71,12 +70,10 @@ namespace HospiceNiagara.Controllers
             //ViewBag.VolunteerResources = vRes;
             return View(resources);
         }
-        [Authorize(Roles="Administrator")]
-        public ActionResult ResourceAdminIndex(string SearchString)
-=======
+
+        [Authorize(Roles = "Administrator")]
         [SessionTracking.Logging]
-        public ActionResult Index(string SearchString)
->>>>>>> 4e20666185f230189deb750ec26dd1298ca3a52c
+        public ActionResult ResourceAdminIndex(string SearchString)
         {
             var resources = db.Resources.Include(r => r.FileStore).Include(r => r.ResourceCategory);
             ViewBag.VolunteerResources = resources.Where(r => r.ResourceCategory.TeamDomainID == 1).ToList();
@@ -92,15 +89,7 @@ namespace HospiceNiagara.Controllers
             ViewBag.Resources = resources.ToList();
             return View(resources);
         }
-<<<<<<< HEAD
-=======
-        [SessionTracking.TrackDownload]
-        public FileContentResult Download(int id)
-        {
-            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
-            return File(theFile.FileContent, theFile.MimeType, theFile.FileName);
-        }
->>>>>>> 4e20666185f230189deb750ec26dd1298ca3a52c
+        
         //Details Views
 
         // GET: Resources/Details/5
@@ -294,7 +283,7 @@ namespace HospiceNiagara.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
+            PopulateDomainDropdown(id);
             return View(rCat);
         }
 
@@ -312,7 +301,7 @@ namespace HospiceNiagara.Controllers
                 db.SaveChanges();
                 return RedirectToAction("ResourceCategoryIndex");
             }
-            ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
+            PopulateDomainDropdown(rCat.ID);
             return View(rCat);
         }
 
@@ -392,6 +381,12 @@ namespace HospiceNiagara.Controllers
             }
             ViewBag.ResourceCategories = new SelectList(rcats, "ResourceCategoryID", "RCatName", "TeamDomainName", id, null, null);
         }
+        public void PopulateDomainDropdown(int?id)
+        {
+            var teams = db.TeamDomains.OrderBy(td => td.Description).ToList();
+            ViewBag.TeamDomains = new SelectList(teams, "ID", "Description", id);
+        }
+        [SessionTracking.TrackDownload]
         public FileContentResult Download(int id)
         {
             var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();

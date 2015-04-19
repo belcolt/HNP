@@ -177,13 +177,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504171510288_YEAHHHHHHHH.cs" />
-    <Compile Include="Migrations\201504171510288_YEAHHHHHHHH.Designer.cs">
-      <DependentUpon>201504171510288_YEAHHHHHHHH.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201504171512283_AnmtContent.cs" />
-    <Compile Include="Migrations\201504171512283_AnmtContent.Designer.cs">
-      <DependentUpon>201504171512283_AnmtContent.cs</DependentUpon>
+    <Compile Include="Migrations\201504192148175_Initial.cs" />
+    <Compile Include="Migrations\201504192148175_Initial.Designer.cs">
+      <DependentUpon>201504192148175_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -201,12 +197,10 @@
     <Compile Include="Models\Invitation.cs" />
     <Compile Include="Models\JobDescription.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Meeting.cs" />
     <Compile Include="Models\MeetingResource.cs" />
     <Compile Include="Models\Resource.cs" />
     <Compile Include="Models\ResourceCategory.cs" />
     <Compile Include="Models\ResourceSubCategory.cs" />
-    <Compile Include="Models\ResourceType.cs" />
     <Compile Include="Models\ResourceViewModels.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\TeamDomain.cs" />
@@ -390,6 +384,25 @@
     <Content Include="Views\Home\_DNBadge.cshtml" />
     <Content Include="Views\Home\_AnmtBadge.cshtml" />
     <Content Include="Views\Announcements\_Details.cshtml" />
+    <Content Include="Views\Meetings\EditEvent.cshtml" />
+    <Content Include="Views\Meetings\EditMeeting.cshtml" />
+    <Content Include="Views\Admin\TrackUsers.cshtml" />
+    <Content Include="Views\Admin\TrackDownloads.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Admin.cshtml" />
+    <Content Include="Views\Resources\_ResAdminAll.cshtml" />
+    <Content Include="Views\Resources\_ResAdminBoard.cshtml" />
+    <Content Include="Views\Resources\_ResAdminOrganizational.cshtml" />
+    <Content Include="Views\Resources\_ResAdminStaff.cshtml" />
+    <Content Include="Views\Resources\_ResAdminVolunteer.cshtml" />
+    <Content Include="Views\Resources\CreateResourceCategory.cshtml" />
+    <Content Include="Views\Resources\Delete.cshtml" />
+    <Content Include="Views\Resources\DeleteResourceCategory.cshtml" />
+    <Content Include="Views\Resources\Edit.cshtml" />
+    <Content Include="Views\Resources\EditResourceCategory.cshtml" />
+    <Content Include="Views\Resources\ResourceAdminIndex.cshtml" />
+    <Content Include="Views\Resources\ResourceCategoryIndex.cshtml" />
+    <Content Include="Views\Resources\ResourceSubcategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -404,11 +417,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504171510288_YEAHHHHHHHH.resx">
-      <DependentUpon>201504171510288_YEAHHHHHHHH.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504171512283_AnmtContent.resx">
-      <DependentUpon>201504171512283_AnmtContent.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504192148175_Initial.resx">
+      <DependentUpon>201504192148175_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

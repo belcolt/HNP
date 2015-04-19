@@ -31,7 +31,6 @@ namespace HospiceNiagara.Models
         public string Notes { get; set; }
 
         [DisplayName("Staff Lead")]
-        [Column(Order=6)]
         public string StaffLead { get; set; }
 
         public virtual ICollection<Invitation> Invitations { get; set; }

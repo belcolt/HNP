@@ -15,14 +15,10 @@ namespace HospiceNiagara.Controllers
     public class AdminController : Controller
     {
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
-
-        public ActionResult TrackUsers()
+        
+        public ActionResult Index()
         {
             return View();
-        }
-        public ActionResult TrackDownloads()
-        {
-            return View(db.Resources.ToList());
         }
         // GET: Admin
         public ActionResult UserRegister()
@@ -36,8 +32,6 @@ namespace HospiceNiagara.Controllers
         {
             var roles = db.Roles.ToList();
             List<ApplicationRole> aRoles = new List<ApplicationRole>();
-            //if (filterID != null)
-            //{
             foreach (var role in roles)
             {
                 ApplicationRole aRole = (ApplicationRole)role;
@@ -47,7 +41,7 @@ namespace HospiceNiagara.Controllers
                 }
             }
             var sCats = aRoles.Select(sc => new { sc.Id, sc.Name }).ToList();
-            return Json(aRoles, JsonRequestBehavior.AllowGet);
+            return Json(sCats, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public async Task<ActionResult> NewUserForm([Bind(Include = "ID,FirstName,LastName,JobDescriptionID,Phone,Email,TeamDomainID,Password,ConfirmPassword")]RegisterNewUserViewModel regUser, FormCollection fc)
@@ -86,7 +80,7 @@ namespace HospiceNiagara.Controllers
                         db.SaveChanges();
                     }
                     
-                    return View("UserRegister");
+                    return RedirectToAction("UserRegister");
                 }
                 catch
                 {
@@ -134,6 +128,16 @@ namespace HospiceNiagara.Controllers
                 return View("RoleCreate");
             }
             
+        }
+
+        public ActionResult TrackUsers()
+        {
+            return View();
+        }
+
+        public ActionResult TrackDownloads()
+        {
+            return View(db.Resources.ToList());
         }
     }
 }

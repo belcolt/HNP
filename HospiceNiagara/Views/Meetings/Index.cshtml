@@ -5,19 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     @Scripts.Render("~/Scripts/SiteControls.js")
 }
-<<<<<<< HEAD
-@if (ViewBag.NewUserMessage != null)
+@if (User.IsInRole("New Volunteer") || User.IsInRole("New Board Member") || User.IsInRole("New Staff"))
 {
-    <div class="alert alert-success" role="alert">
-        <span>@Html.Raw(ViewBag.NewUserMessage)</span>
+    <div class="alert alert-info" role="alert">
+        @Html.ActionLink("Welcome New Staff/Volunteer/Board member! Click here for some information", "Index", "Resources", new { newUser = true },null)
     </div>
 }
 <h2>Hospice Meetings and Events</h2>
 
-=======
 
 <h2>Meetings</h2>
->>>>>>> 4e20666185f230189deb750ec26dd1298ca3a52c
 <div class="panel-heading">
    @* @Ajax.ActionLink("Add Meeting","CreateMeeting", new AjaxOptions { UpdateTargetId = "__CreateMeetingModal", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, htmlAttributes: new { @data_toggle = "modal", @data_target = "#modalCreateMeeting" })*@
     @if (User.IsInRole("Administrator"))

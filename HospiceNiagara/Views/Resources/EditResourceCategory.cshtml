@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TeamDomainID, "Team Domain", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TeamDomainID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("TeamDomainID",(SelectList)ViewBag.TeamDomains, null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TeamDomainID, "", new { @class = "text-danger" })
             </div>
         </div>

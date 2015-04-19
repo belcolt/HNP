@@ -40,7 +40,7 @@ namespace HospiceNiagara.Controllers
         // GET: JobDescriptions/Create
         public ActionResult Create()
         {
-            
+
             return View();
         }
 
@@ -56,10 +56,10 @@ namespace HospiceNiagara.Controllers
                 List<string> points = new List<string>();
                 //int subItemLength = 0;
 
-                List<string> lines = Text.Split(new string[] {"\n", "\r\n"}, StringSplitOptions.RemoveEmptyEntries).ToList();
-                
+                List<string> lines = Text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
                 //int x = 0;
-                foreach(string s in lines)
+                foreach (string s in lines)
                 {
                     //if (subItemLength > 0)
                     //{
@@ -69,7 +69,7 @@ namespace HospiceNiagara.Controllers
                     //}
                     //if (s.IndexOf("-") == 0)
                     //{
-                       
+
                     //    int i = x;
                     //    string subItems = "";
                     //    while (lines[i].IndexOf("-") == 0)
@@ -87,9 +87,9 @@ namespace HospiceNiagara.Controllers
                     //}
                     points.Add("<li>" + s + "</li>");
                     //x++;
-                    
+
                 }
-                string test = "<ul>"+String.Join("",points)+"</ul>";
+                string test = "<ul>" + String.Join("", points) + "</ul>";
                 jobDescription.Description = test;
                 db.JobDescriptions.Add(jobDescription);
                 db.SaveChanges();
@@ -102,11 +102,9 @@ namespace HospiceNiagara.Controllers
         public ActionResult ShowDesc(int id)
         {
             JobDescription job = db.JobDescriptions.Where(j => j.ID == id).Single();
-            JobDescriptionViewModel jVM = new JobDescriptionViewModel { JobName = job.JobName, HtmlFormattedDescription = job.Description };
-            ViewBag.JobViewModel = jVM;
             ViewBag.JobName = job.JobName;
-            ViewBag.Desc = job.Description.Replace("-","");
-            return PartialView("ShowDesc",jVM);
+            ViewBag.Desc = job.Description.Replace("-", "");
+            return PartialView("ShowDesc");
         }
 
         // GET: JobDescriptions/Edit/5
@@ -118,7 +116,7 @@ namespace HospiceNiagara.Controllers
             }
             JobDescription jobDescription = db.JobDescriptions.Find(id);
             ViewBag.Words = jobDescription.Description.Replace("\n\n", "\n").Replace("<ul>", "").Replace("</ul>", "").Replace("<li>", System.Environment.NewLine).Replace("</li>", "").Trim();
-            
+
             if (jobDescription == null)
             {
                 return HttpNotFound();
@@ -136,10 +134,10 @@ namespace HospiceNiagara.Controllers
             if (ModelState.IsValid)
             {
                 List<string> points = new List<string>();
-                 //int subItemLength = 0;
+                //int subItemLength = 0;
 
-                List<string> lines = Text.Split(new string[] {"\n", "\r\n"}, StringSplitOptions.RemoveEmptyEntries).ToList();
-                
+                List<string> lines = Text.Split(new string[] { "\n", "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
                 //int x = 0;
                 foreach (string s in lines)
                 {
