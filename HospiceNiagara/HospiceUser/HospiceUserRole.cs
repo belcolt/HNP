@@ -20,17 +20,22 @@ namespace HospiceNiagara.HospiceUserExtensions
             
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             string id = User.Identity.GetUserId();
-            int contactID = manager.FindById(id).ContactID;
-            var contact = db.Contacts.Find(contactID);
-            int userDomID = contact.TeamDomainID;
+            var user = manager.FindById(id);
+            if (user != null)
+            {
+                int contactID = user.ContactID;
+                var contact = db.Contacts.Find(contactID);
+                int userDomID = contact.TeamDomainID;
                 Domains ud = (Domains)userDomID;
                 string domain = ud.ToString();
                 if (checkDomain == domain)
                 {
                     return true;
                 }
-                else
-                    return false;
+                return false;
+            }
+            else
+                return false;
         }
 
         public static bool HasDNView(this IPrincipal User)
@@ -62,6 +67,16 @@ namespace HospiceNiagara.HospiceUserExtensions
                 return false;
             }
             return true;
+        }
+
+        public static Contact GetHospiceContact(this IPrincipal User)
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            string id = User.Identity.GetUserId();
+            var user = manager.FindById(id);
+            int contactID = user.ContactID;
+            var contact = db.Contacts.Find(contactID);
+            return contact;
         }
     }
 }

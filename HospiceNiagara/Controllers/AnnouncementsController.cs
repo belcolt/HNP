@@ -49,22 +49,22 @@ namespace HospiceNiagara.Controllers
             }
             db.SaveChanges();
 
-            //ViewBag.AnnounceList = db.Announcements.OrderByDescending(anmt => anmt.Content).ToList();
             return View(db.Announcements.OrderByDescending(anmt => anmt.PostDate).ToList());
         }
 
-        public ActionResult ShowPdf(int id)
+        // GET: ResourceSubCategories/Details/5
+        public ActionResult Details(int? id)
         {
-            var fileTitle = db.Resources.Where(u => u.FileStoreID == id).SingleOrDefault();
-            ViewBag.Title = fileTitle.FileDesc;
-            var theFile = db.FileStores.Where(f => f.ID == id).SingleOrDefault();
-            var length = theFile.FileContent.Length;
-
-            string string64 = Convert.ToBase64String(theFile.FileContent);
-            ViewBag.Mime = theFile.MimeType;
-            ViewBag.Name = theFile.FileName;
-            ViewBag.FileBits = string64;
-            return PartialView("ShowPdf");
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Announcement anmt = db.Announcements.Find(id);
+            if (anmt == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_Details", anmt);
         }
 
         // GET: Announcements/Create
@@ -85,7 +85,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Content,ExpiryDate")] Announcement announcement, int ResourceCategoryID, string ResourceDescription)
+        public ActionResult Create([Bind(Include = "Title,Content,ExpiryDate")] Announcement announcement, int ResourceCategoryID, string ResourceDescription)
         {
             announcement.PostDate = DateTime.Now;
 
@@ -159,7 +159,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Content,ExpiryDate,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
+        public ActionResult Edit([Bind(Include = "ID,Title,Content,ExpiryDate,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
         {
             //store user input before querying the object refreshes values
             string fileDesc = resource.FileDesc;

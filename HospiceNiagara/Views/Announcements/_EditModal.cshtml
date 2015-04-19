@@ -16,17 +16,20 @@
                 <h4 class="modal-title">Edit Announcement</h4>
             </div>
             <div class="modal-body">
-            @using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace }, new { enctype = "multipart/form-data"}))
+            @using (Ajax.BeginForm(null, null new AjaxOptions { HttpMethod = "Post", InsertionMode = InsertionMode.Replace }, new { enctype = "multipart/form-data"}))
             {
                 @*@Html.AntiForgeryToken()*@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.ID)
-                @Html.HiddenFor(model => model.Date)
                 @Html.HiddenFor(model => model.ResourceID)
                 <div class="form-group row">
-                    @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1" } })
-                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group row">
+                        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextAreaFor(model => model.Content, new { htmlAttributes = new { @class = "form-control col-md-10 col-md-push-1", @placeholder = "Enter content here..." } })
                 </div>
                 <hr />
                 <h4><b>Attach a resource:</b></h4>

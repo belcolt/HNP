@@ -1,46 +1,71 @@
 ﻿@model IEnumerable<HospiceNiagara.Models.Resource>
 <div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading"><b>Organizational Resources</b></div>
-
-   
-
-    <table class="table table-hover">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.FileDesc)</th>
-            <th>@Html.DisplayNameFor(model => model.DateAdded)</th>
-            <th>@Html.DisplayNameFor(model => model.ResourceSubCategory)</th>
-            <th>@Html.DisplayNameFor(model => model.ResourceCategory)</th>
-            <th>File</th>
-        </tr>
-        @if (ViewBag.VolunteerResources != null)
+    <div class="panel-heading">
+        <h3 class="panel-title">Organizational Resources</h3>
+    </div>
+    @{IEnumerable<HospiceNiagara.Models.ResourcePanel> rP = ((HospiceNiagara.Models.ResourcePanelsCollection)ViewBag.PanelCollection).Panels; }
+    @foreach (HospiceNiagara.Models.ResourcePanel panel in rP)
+    {
+        if (@panel.PanelDomain == "Organizational")
         {
-            foreach (HospiceNiagara.Models.Resource item in ViewBag.OrgResources)
-            {
-                <tr>
-                    <td>
-                        @item.FileDesc
-                    </td>
-                    <td>
-                        @item.DateAdded
-                    </td>
-                    <td>
-                        @if (item.ResourceSubCategory != null)
+            <div class="panel panel-default col-lg-6">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@panel.PanelCategory</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group text-success">
+                        @foreach (HospiceNiagara.Models.ResourcePanelItem item in @panel.PanelItems)
                         {
-                            @item.ResourceSubCategory.Name
+                            <li class="list-group-item"><label class="col-lg-4">@item.Description</label><span>@Html.ActionLink(@item.FileName, "Download", new { @id = @item.FileID })</span></li>
                         }
-                    </td>
-                    <td>
-                        @item.ResourceCategory.Name
-                    </td>
-                    <td>
-                        @Html.ActionLink(item.FileStore.FileName, "Download", new { id = @item.FileStoreID })
-                    </td>
-                   
-                    @*@Html.ActionLink(@description, "Download", new { ID = @fileID });*@
-                </tr>
-            }
+                    </ul>
+                </div>
+            </div>
         }
-    </table>
+    }
+</div>
+<div class="row"></div>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading"><b>Organizational Links</b></div>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">Links to Hospice Niagara Related Websites</h1>
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-default col-lg-6">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Hospice Niagara Sites</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a href="http://www.hospiceniagara.ca" class="list-group-item">Hospice Niagara Website</a>
+                            <a href="http://www.hospiceniagara.ca/resources/default/index/" class="list-group-item">Hospice Niagara Newsletter</a>
+                            <a href="http://www.hpceducation.ca" class="list-group-item">HPC Education Website</a>
+                            <a href="https://www.hospiceniagara.ca/donations/donate.php" class="list-group-item">Hospice Niagara Online Donation Website</a>
+                            <a href="https://www.facebook.com/pages/Hospice-Niagara/157424072710?ref=ts" class="list-group-item">Facebook Account</a>
+                            <a href="https://twitter.com/HospiceNiagara" class="list-group-item">Twitter Account</a>
+                            <a href="http://www.hikeforhospiceniagara.ca" class="list-group-item">HN Hike for Hospice Website</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default col-lg-6">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Community Partner Sites</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="list-group">
+                            <a href="http://www.hpco.ca" class="list-group-item">Hospice Palliative Care Ontario</a>
+                            <a href="http://www.hnhblhin.on.ca/home.aspx" class="list-group-item">HNHB LHIN</a>
+                            <a href="http://www.health.gov.on.ca/en/" class="list-group-item">MOHLTC</a>
+                            <a href="http://healthcareathome.ca/hnhb/en" class="list-group-item">HNHB CCAC</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 

@@ -8,12 +8,12 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace HospiceNiagara.DAL
 {
-        public enum Domain { Volunteer, Staff, Board, Organizational };
+        enum Domains { Volunteer = 1, Staff = 2, Board = 3, Organizational = 4 };
         
         public class HospiceNiagaraContext : IdentityDbContext<ApplicationUser>
         {
         public HospiceNiagaraContext()
-            : base("HospiceNiagaraContext")
+            : base("HospiceNiagaraContext", throwIfV1Schema:false)
         {
         }
 
@@ -28,7 +28,7 @@ namespace HospiceNiagara.DAL
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
 
-        public DbSet<Event> Events { get; set; }
+        public DbSet<HospiceDate> Events { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
         public DbSet<Announcement> Announcements { get; set; }

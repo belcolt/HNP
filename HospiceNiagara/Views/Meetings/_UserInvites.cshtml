@@ -9,7 +9,7 @@
         <th>@Html.DisplayNameFor(model => model.Location)</th>
         <th>RSVP</th>
     </tr>
-    @if (ViewBag.UserInvitesList != null)
+    @if (Model != null)
     {
         foreach (HospiceNiagara.Models.UserInviteViewModel item in ViewBag.UserInvitesList)
         {
@@ -18,7 +18,7 @@
                 <td>@item.StartDate</td>
                 <td>@item.EndDate</td>
                 <td>@item.Location</td>
-                <td><input type="button" class="btn btn-default, btnRSVP" value="@item.Attend" /><input type="hidden" value='@item.InviteID'></td>
+                <td><input type="button" class="btn btnk- btnRSVP" value="@item.Attend" /><input type="hidden" value='@item.InviteID' ></td>
             </tr>
         }
     }

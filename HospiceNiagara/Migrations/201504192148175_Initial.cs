@@ -12,8 +12,11 @@ namespace HospiceNiagara.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Content = c.String(nullable: false),
-                        Date = c.DateTime(nullable: false),
+                        Title = c.String(nullable: false),
+                        Content = c.String(),
+                        ExpiryDate = c.DateTime(nullable: false),
+                        PostDate = c.DateTime(nullable: false),
+                        IsNew = c.Boolean(nullable: false),
                         ResourceID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
@@ -27,9 +30,11 @@ namespace HospiceNiagara.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         FileDesc = c.String(nullable: false),
                         DateAdded = c.DateTime(nullable: false),
+                        DownloadCount = c.Int(nullable: false),
                         ResourceCategoryID = c.Int(nullable: false),
                         ResourceSubCategoryID = c.Int(),
                         FileStoreID = c.Int(nullable: false),
+                        Panel = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.FileStore", t => t.FileStoreID, cascadeDelete: true)
@@ -57,6 +62,7 @@ namespace HospiceNiagara.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false, maxLength: 50),
                         TeamDomainID = c.Int(nullable: false),
+                        Panel = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.TeamDomain", t => t.TeamDomainID, cascadeDelete: true)
@@ -112,6 +118,7 @@ namespace HospiceNiagara.Migrations
                         LastName = c.String(nullable: false),
                         Phone = c.String(nullable: false, maxLength: 10),
                         Email = c.String(),
+                        DateHired = c.DateTime(nullable: false),
                         TeamDomainID = c.Int(nullable: false),
                         JobDescriptionID = c.Int(nullable: false),
                     })
@@ -129,40 +136,40 @@ namespace HospiceNiagara.Migrations
                         RSVP = c.Boolean(nullable: false),
                         HasResponded = c.Boolean(nullable: false),
                         ContactID = c.Int(nullable: false),
-                        EventID = c.Int(nullable: false),
+                        EventMeetingID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Contact", t => t.ContactID, cascadeDelete: true)
-                .ForeignKey("dbo.Event", t => t.EventID, cascadeDelete: true)
+                .ForeignKey("dbo.HospiceDate", t => t.EventMeetingID, cascadeDelete: true)
                 .Index(t => t.ContactID)
-                .Index(t => t.EventID);
+                .Index(t => t.EventMeetingID);
             
             CreateTable(
-                "dbo.Event",
+                "dbo.HospiceDate",
                 c => new
                     {
+                        StaffLead = c.String(),
                         ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String(nullable: false),
                         StartDateTime = c.DateTime(nullable: false),
                         EndDateTime = c.DateTime(nullable: false),
                         Location = c.String(nullable: false),
-                        VolunteersNeeded = c.Boolean(nullable: false),
-                        BrochureID = c.Int(),
-                        Requirements = c.String(),
                         Notes = c.String(),
-                        AgendaId = c.Int(),
+                        VolunteersNeeded = c.Boolean(),
+                        BrochureId = c.Int(),
+                        AgendaID = c.Int(),
                         MinutesID = c.Int(),
-                        StaffLead = c.String(),
                         AttendanceID = c.Int(),
+                        Requirements = c.String(),
                         Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Resource", t => t.AgendaId)
+                .ForeignKey("dbo.MeetingResource", t => t.AgendaID)
                 .ForeignKey("dbo.MeetingResource", t => t.AttendanceID)
-                .ForeignKey("dbo.Resource", t => t.BrochureID)
                 .ForeignKey("dbo.MeetingResource", t => t.MinutesID)
-                .Index(t => t.BrochureID)
-                .Index(t => t.AgendaId)
+                .ForeignKey("dbo.MeetingResource", t => t.BrochureId)
+                .Index(t => t.BrochureId)
+                .Index(t => t.AgendaID)
                 .Index(t => t.MinutesID)
                 .Index(t => t.AttendanceID);
             
@@ -175,7 +182,7 @@ namespace HospiceNiagara.Migrations
                         ResourceID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Event", t => t.MeetingID, cascadeDelete: true)
+                .ForeignKey("dbo.HospiceDate", t => t.MeetingID, cascadeDelete: true)
                 .ForeignKey("dbo.Resource", t => t.ResourceID, cascadeDelete: true)
                 .Index(t => t.MeetingID)
                 .Index(t => t.ResourceID);
@@ -202,6 +209,9 @@ namespace HospiceNiagara.Migrations
                         Location = c.String(maxLength: 50),
                         Notes = c.String(maxLength: 50),
                         URL = c.String(maxLength: 2048),
+                        ExpiryDate = c.DateTime(nullable: false),
+                        PostDate = c.DateTime(nullable: false),
+                        IsNew = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -254,6 +264,8 @@ namespace HospiceNiagara.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        LastLoggedIn = c.DateTime(nullable: false),
+                        LoggedIn = c.DateTime(nullable: false),
                         ContactID = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -310,13 +322,13 @@ namespace HospiceNiagara.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Contact", "TeamDomainID", "dbo.TeamDomain");
             DropForeignKey("dbo.Contact", "JobDescriptionID", "dbo.JobDescription");
-            DropForeignKey("dbo.Event", "MinutesID", "dbo.MeetingResource");
-            DropForeignKey("dbo.Invitation", "EventID", "dbo.Event");
-            DropForeignKey("dbo.Event", "BrochureID", "dbo.Resource");
-            DropForeignKey("dbo.Event", "AttendanceID", "dbo.MeetingResource");
+            DropForeignKey("dbo.HospiceDate", "BrochureId", "dbo.MeetingResource");
             DropForeignKey("dbo.MeetingResource", "ResourceID", "dbo.Resource");
-            DropForeignKey("dbo.MeetingResource", "MeetingID", "dbo.Event");
-            DropForeignKey("dbo.Event", "AgendaId", "dbo.Resource");
+            DropForeignKey("dbo.MeetingResource", "MeetingID", "dbo.HospiceDate");
+            DropForeignKey("dbo.HospiceDate", "MinutesID", "dbo.MeetingResource");
+            DropForeignKey("dbo.HospiceDate", "AttendanceID", "dbo.MeetingResource");
+            DropForeignKey("dbo.HospiceDate", "AgendaID", "dbo.MeetingResource");
+            DropForeignKey("dbo.Invitation", "EventMeetingID", "dbo.HospiceDate");
             DropForeignKey("dbo.Invitation", "ContactID", "dbo.Contact");
             DropForeignKey("dbo.Announcement", "ResourceID", "dbo.Resource");
             DropForeignKey("dbo.Resource", "ResourceSubCategoryID", "dbo.ResourceSubCategory");
@@ -335,11 +347,11 @@ namespace HospiceNiagara.Migrations
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.MeetingResource", new[] { "ResourceID" });
             DropIndex("dbo.MeetingResource", new[] { "MeetingID" });
-            DropIndex("dbo.Event", new[] { "AttendanceID" });
-            DropIndex("dbo.Event", new[] { "MinutesID" });
-            DropIndex("dbo.Event", new[] { "AgendaId" });
-            DropIndex("dbo.Event", new[] { "BrochureID" });
-            DropIndex("dbo.Invitation", new[] { "EventID" });
+            DropIndex("dbo.HospiceDate", new[] { "AttendanceID" });
+            DropIndex("dbo.HospiceDate", new[] { "MinutesID" });
+            DropIndex("dbo.HospiceDate", new[] { "AgendaID" });
+            DropIndex("dbo.HospiceDate", new[] { "BrochureId" });
+            DropIndex("dbo.Invitation", new[] { "EventMeetingID" });
             DropIndex("dbo.Invitation", new[] { "ContactID" });
             DropIndex("dbo.Contact", new[] { "JobDescriptionID" });
             DropIndex("dbo.Contact", new[] { "TeamDomainID" });
@@ -360,7 +372,7 @@ namespace HospiceNiagara.Migrations
             DropTable("dbo.DeathNotice");
             DropTable("dbo.JobDescription");
             DropTable("dbo.MeetingResource");
-            DropTable("dbo.Event");
+            DropTable("dbo.HospiceDate");
             DropTable("dbo.Invitation");
             DropTable("dbo.Contact");
             DropTable("dbo.BoardMember");

@@ -1,4 +1,4 @@
-﻿@model HospiceNiagara.Models.Event
+﻿  @model HospiceNiagara.Models.EditMeetingViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -48,16 +48,6 @@
                 @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.VolunteersNeeded, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.VolunteersNeeded)
-                    @Html.ValidationMessageFor(model => model.VolunteersNeeded, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Requirements, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -83,11 +73,56 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <label class="control-label col-md-2" for="AgendaUpload">Agenda:</label>
+            @if (Model.Agenda != "")
+            {
+                @Model.Agenda
+            }
+            else
+            {
+                <div class="col-md-10">
+                    <input class="form-control" type="file" name="AgendaUpload" /><br />
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="MinutesUpload">Minutes:</label>
+            @if (Model.Minutes != "")
+            {
+                <div class="col-md-10">
+                    @Model.Minutes
+                </div>
+            }
+            else
+            {
+                <div class="col-md-10">
+                    <input class="form-control" type="file" name="MinutesUpload" /><br />
+                </div>
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2" for="AttendanceUpload">Attendance:</label>
+            @if (Model.Attendance != "")
+            {
+                <div class="col-md-10">
+                    @Model.Attendance
+                </div>
+            }
+            else
+            {
+                <div class="col-md-10">
+                    <input class="form-control" type="file" name="AttendanceUpload" /><br />
+                </div>
+            }
+         </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
             </div>
         </div>
-    </div>
 }
 
 <div>

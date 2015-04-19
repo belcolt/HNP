@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -21,6 +23,8 @@ namespace HospiceNiagara.Models
         public string Location { get; set; }
         [DisplayName("RSVPs")]
         public string AttendanceCount { get; set; }
+
+        public string Type { get; set; }
     }
     public class UserInviteViewModel
     {
@@ -59,5 +63,40 @@ namespace HospiceNiagara.Models
         public List<string> NotResponded { get { return noresp; } set { noresp.Add(value.ToString()); } }
 
         public string EventName { get; set; }
+    }
+
+    //almost the same as meeting, but with strings in place of the MeetingResource nav properties
+    public class EditMeetingViewModel
+    {
+        public int ID;
+        [Required(ErrorMessage = "Please enter a title for this meeting.")]
+        [DisplayName("Event")]
+        public string Name { get; set; }
+
+        //Dates
+        [Required(ErrorMessage = "Please enter a start time for this meeting.")]
+        [DisplayName("Starts")]
+        public DateTime? StartDateTime { get; set; }
+
+        [Required(ErrorMessage = "Please enter an end time for this meeting.")]
+        [DisplayName("Ends")]
+        public DateTime? EndDateTime { get; set; }
+
+        [Required(ErrorMessage = "Please enter a location for this meeting.")]
+        public string Location { get; set; }
+
+        public string Notes { get; set; }
+
+        public string Requirements { get; set; }
+
+        [DisplayName("Staff Lead")]
+        public string StaffLead { get; set; }
+
+        public string Agenda { get; set; }
+
+        public string Minutes { get; set; }
+
+        public string Attendance { get; set; }
+
     }
 }

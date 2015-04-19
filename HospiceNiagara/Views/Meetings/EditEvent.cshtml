@@ -1,14 +1,13 @@
-﻿@model HospiceNiagara.Models.Meeting
+﻿@model HospiceNiagara.Models.Event
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Edit Event</h2>
 
-
-@using (Html.BeginForm("CreateMeeting", "Meetings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -16,6 +15,8 @@
         <h4>Meeting</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -47,11 +48,29 @@
                 @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VolunteersNeeded, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.VolunteersNeeded)
+                    @Html.ValidationMessageFor(model => model.VolunteersNeeded, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Requirements, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Requirements, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Requirements, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -62,61 +81,10 @@
                 @Html.ValidationMessageFor(model => model.StaffLead, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <h4>Invitations</h4>
-        <div class="form-group">
-            <label class="control-label col-md-2">Team to add</label>
-            <div class="col-md-10">
-                @Html.DropDownList("ContactsAddID", null, "All Teams", htmlAttributes: new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group" id="someDiv">
-
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-2">Current invitations</label>
-            <div class="col-md-10">
-                @Html.DropDownList("ChoosenID", null, htmlAttributes: new { @class = "form-control", @multiple = "multiple" })
-                <a id="remove">Remove</a>
-            </div>
-        </div>
-        <h4>Add Resources</h4>
-        @*Add listbox to input selected contacts from the above listbox using jquery, then submit this listbox on submit.
-            Also needs an intersection table...I think*@
-        @*<h5>Upload Agenda</h5>*@
-        @*For now this item will just be categorized under Organizational/TestAgenda*@
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="AgendaUpload">Agenda:</label>
-            <div class="col-md-10">
-                <input class="form-control" type="file" name="AgendaUpload" /><br />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="MinutesUpload">Minutes:</label>
-            <div class="col-md-10">
-                <input class="form-control" type="file" name="MinutesUpload" /><br />
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label col-md-2" for="AttendanceUpload">Attendance:</label>
-            <div class="col-md-10">
-                <input class="form-control" type="file" name="AttendanceUpload" /><br />
-            </div>
-        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default " />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -125,7 +93,3 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

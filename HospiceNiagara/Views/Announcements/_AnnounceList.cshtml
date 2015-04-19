@@ -14,8 +14,8 @@
             if(item.IsNew)
             {
                 @:<b>*NEW*</b>
-            }   
-            @Html.ActionLink(item.Content, "Download", new { id = item.Resource.FileStoreID })
+            }
+            @Ajax.ActionLink(item.Title, "Details", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "details", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
             if (User.IsInRole("Administrator"))
             {
                 @:(

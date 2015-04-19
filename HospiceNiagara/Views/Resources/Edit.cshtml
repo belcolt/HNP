@@ -1,21 +1,24 @@
 ﻿@model HospiceNiagara.Models.Resource
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit Resource";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     @Scripts.Render("~/Scripts/SiteControls.js")
 }
 
-<h2>Create</h2>
+<h2>Edit</h2>
 
-
-@using (Html.BeginForm("Create", "Resources", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
-        <h4>Resource</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model=>model.FileStoreID)
+        @Html.HiddenFor(model=>model.DateAdded)
+
         <div class="form-group">
             @Html.LabelFor(model => model.FileDesc, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -23,20 +26,24 @@
                 @Html.ValidationMessageFor(model => model.FileDesc, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+
         <div class="form-group">
-            <label class="control-label col-md-2" for="ddlDoms">Resource Category</label>
+            @Html.LabelFor(model => model.ResourceCategoryID, "Resource Category", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ResourceCategoryID, (SelectList)ViewBag.ResourceCategories, htmlAttributes: new { id = "resCatDD", @class="form-control" })
+                @Html.DropDownListFor(model => model.ResourceCategoryID, (SelectList)ViewBag.ResourceCategories, htmlAttributes: new { id = "resCatDD", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ResourceCategoryID, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="ddlDoms">Resource SubCategory</label>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.ResourceSubCategoryID, "ResourceSubCategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <select name="ResourceSubCategoryID" id="resSubCatDD" class="form-control">
-                    <option value="-1">No Subcategory</option>
-                </select>
+                @Html.DropDownList("ResourceSubCategoryID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ResourceSubCategoryID, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
+
         <div class="form-group">
             @Html.LabelFor(model => model.Panel, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -46,13 +53,10 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-2" for="FileUpload1">Attach File:</label>
-            <input class="form-control" type="file" name="FileUpload1" /><br />
-        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>

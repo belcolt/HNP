@@ -1,6 +1,6 @@
 ﻿$(function () {
     
-    $('#pop-up').hide().css({ 'background-color': 'green', 'color': 'white', 'text-align':'center', 'vertical-align': 'middle' });
+    //$('#pop-up').hide().css({ 'background-color': 'green', 'color': 'white', 'text-align':'center', 'vertical-align': 'middle' });
     $('#pop-up').css("position", "absolute");
     var moveLeft = 20;
     var moveDown = 20;
