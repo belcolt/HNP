@@ -38,7 +38,7 @@ namespace HospiceNiagara.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.FileStore", t => t.FileStoreID, cascadeDelete: true)
-                .ForeignKey("dbo.ResourceCategory", t => t.ResourceCategoryID, cascadeDelete: true)
+                .ForeignKey("dbo.ResourceCategory", t => t.ResourceCategoryID, cascadeDelete: false)
                 .ForeignKey("dbo.ResourceSubCategory", t => t.ResourceSubCategoryID)
                 .Index(t => t.ResourceCategoryID)
                 .Index(t => t.ResourceSubCategoryID)
@@ -65,7 +65,7 @@ namespace HospiceNiagara.Migrations
                         Panel = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.TeamDomain", t => t.TeamDomainID, cascadeDelete: true)
+                .ForeignKey("dbo.TeamDomain", t => t.TeamDomainID, cascadeDelete: false)
                 .Index(t => new { t.Name, t.TeamDomainID }, unique: true, name: "IX_ResouceDomCat_Unique");
             
             CreateTable(
@@ -118,7 +118,7 @@ namespace HospiceNiagara.Migrations
                         LastName = c.String(nullable: false),
                         Phone = c.String(nullable: false, maxLength: 10),
                         Email = c.String(),
-                        DateHired = c.DateTime(nullable: false),
+                        DateHired = c.DateTime(),
                         TeamDomainID = c.Int(nullable: false),
                         JobDescriptionID = c.Int(nullable: false),
                     })
@@ -148,13 +148,13 @@ namespace HospiceNiagara.Migrations
                 "dbo.HospiceDate",
                 c => new
                     {
-                        StaffLead = c.String(),
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(nullable: false),
                         StartDateTime = c.DateTime(nullable: false),
                         EndDateTime = c.DateTime(nullable: false),
                         Location = c.String(nullable: false),
                         Notes = c.String(),
+                        StaffLead = c.String(),
                         VolunteersNeeded = c.Boolean(),
                         BrochureId = c.Int(),
                         AgendaID = c.Int(),
@@ -264,8 +264,8 @@ namespace HospiceNiagara.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        LastLoggedIn = c.DateTime(nullable: false),
-                        LoggedIn = c.DateTime(nullable: false),
+                        LastLoggedIn = c.DateTime(),
+                        LoggedIn = c.DateTime(),
                         ContactID = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
