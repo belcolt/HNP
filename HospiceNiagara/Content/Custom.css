@@ -93,6 +93,11 @@ body{
     padding-top:0px;
 }
 
+.right{
+    position: absolute;
+    right: 0;
+}
+
 /*.carousel-inner > .item > img, .carousel-inner > .item > a > img{
     height:400px;
 }
