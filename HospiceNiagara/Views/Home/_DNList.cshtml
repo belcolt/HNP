@@ -4,7 +4,7 @@
     
     @foreach (HospiceNiagara.Models.DeathNotice item in ViewBag.DNList)
     {
-        if (item.IsNew)
+        if (item.IsNew && User.Identity.IsAuthenticated)
         {
             @:<li class="list-group-item" style="background-color:#c98fb5;">
         }

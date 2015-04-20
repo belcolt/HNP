@@ -122,7 +122,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles="Administrator")]
-        public ActionResult Edit([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL,ExpiryDate")] DeathNotice deathNotice)
+        public ActionResult Edit([Bind(Include = "ID,FirstName,MiddleName,LastName,Date,Location,Notes,URL,ExpiryDate,PostDate")] DeathNotice deathNotice)
         {
             if (!(deathNotice.URL == null) && !(deathNotice.URL.StartsWith("http://")))
                 deathNotice.URL = "http://" + deathNotice.URL;

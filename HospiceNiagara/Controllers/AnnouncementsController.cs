@@ -38,7 +38,7 @@ namespace HospiceNiagara.Controllers
                 }
 
                 //Lets user know if a post is new
-                if ((user.LastLoggedIn <= anmt.PostDate))
+                if (user.LastLoggedIn <= anmt.PostDate)
                 {
                     anmt.IsNew = true;
                 }
@@ -159,7 +159,7 @@ namespace HospiceNiagara.Controllers
         [HttpPost]
         [Authorize(Roles = "Administrator")]
         //[ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,Content,ExpiryDate,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
+        public ActionResult Edit([Bind(Include = "ID,Title,Content,ExpiryDate,PostDate,ResourceID")]Announcement announcement, [Bind(Include = "FileDesc")]Resource resource, int ResourceCategoryID)
         {
             //store user input before querying the object refreshes values
             string fileDesc = resource.FileDesc;

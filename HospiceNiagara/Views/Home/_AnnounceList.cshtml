@@ -4,7 +4,7 @@
 
     @foreach (HospiceNiagara.Models.Announcement item in ViewBag.AnnounceList)
     {
-        if (item.IsNew)
+        if (item.IsNew && User.Identity.IsAuthenticated)
         {
             @:<li class="list-group-item" style="background-color:#c98fb5;">
         }
@@ -12,7 +12,7 @@
         {
             @:<li class="list-group-item">
         }
-        if (item.IsNew)
+        if (item.IsNew && User.Identity.IsAuthenticated)
         {
             @:<b>*NEW*</b>
         }

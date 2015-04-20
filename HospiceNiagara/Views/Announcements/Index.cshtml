@@ -2,6 +2,12 @@
     ViewBag.Title = "Announcements";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    textarea{
+        max-width: 100%;
+        width: 100%;
+    }
+</style>
 <div class="col-md-12">
     @*@if (User.IsInDomain("Staff") || User.IsInDomain("Board") || User.IsInDomain("Organizational") || User.IsInRole("Volunteer") || User.IsInRole("Day Hospice") || User.IsInRole("Welcome Desk") || User.IsInRole("Residential") || User.IsInRole("New Volunteers") || User.IsInRole("Community") || User.IsInRole("Bereavement"))*@
     @if(User.HasDNView())
@@ -34,7 +40,7 @@
         <div class="panel-heading">
             <b>Details</b>
         </div>
-        <div class="panel-body" id="details">
+        <div class="panel-body" id="someDiv">
         </div>
     </div>    
 </div>

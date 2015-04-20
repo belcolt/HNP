@@ -3,7 +3,7 @@
 <ul class="list-group">
     @foreach (var item in Model)
     {
-        if(item.IsNew)
+        if (item.IsNew && User.Identity.IsAuthenticated)
             {
                 @:<li class="list-group-item" style="background-color:#c98fb5;">
             }
@@ -11,11 +11,11 @@
         {
             @:<li class="list-group-item">
         }
-            if(item.IsNew)
+        if (item.IsNew && User.Identity.IsAuthenticated)
             {
                 @:<b>*NEW*</b>
             }
-            @Ajax.ActionLink(item.Title, "Details", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "details", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+            @Ajax.ActionLink(item.Title, "Details", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "someDiv", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" }, new { @class = "details" })
             if (User.IsInRole("Administrator"))
             {
                 @:(
