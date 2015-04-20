@@ -22,7 +22,7 @@ namespace HospiceNiagara.Controllers
 
         // GET: Announcements
         [SessionTracking.Logging]
-        public ActionResult Index()
+        public ActionResult Index(bool? newUser)
         {
             string username = User.Identity.Name;
             var user = (from u in db.Users
@@ -48,7 +48,16 @@ namespace HospiceNiagara.Controllers
                 }
             }
             db.SaveChanges();
-
+            if (newUser.HasValue)
+            {
+                if (newUser.Value)
+                {
+                    int team = User.GetHospiceContact().TeamDomainID;
+                    string teamName = ((Domains)team).ToString();
+                    string clickHere = "This is the annoucements page. This page will serve as a heads-up for any releveant Hospice Niagara updates and news.";
+                    ViewBag.NewUserMessage = clickHere;
+                }
+            }
             return View(db.Announcements.OrderByDescending(anmt => anmt.PostDate).ToList());
         }
 

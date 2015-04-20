@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using HospiceNiagara.HospiceUserExtensions;
 
 namespace HospiceNiagara.Controllers
 {
@@ -21,7 +22,7 @@ namespace HospiceNiagara.Controllers
         private HospiceNiagaraContext db = new HospiceNiagaraContext();
         // GET: Meetings
         [SessionTracking.Logging]
-        public ActionResult Index()
+        public ActionResult Index(bool? newUser)
         {
             
             var invites = db.Invitations.ToList();
@@ -43,12 +44,10 @@ namespace HospiceNiagara.Controllers
                 ViewBag.EventsList = elists;
             }
             //Invitation index for any user
-            string id = User.Identity.GetUserId();
-            if (id != null)
-            {
-                
-                var contactID = db.Users.Find(id).ContactID;
 
+            int contactID = User.GetHospiceContact().ID;
+            if (contactID != null)
+            {
                 var singleInvites = new List<UserInviteViewModel>();
                 var eventIDs = invites.Where(i => i.ContactID == contactID).ToList();
                 foreach (var invite in eventIDs)
@@ -70,6 +69,16 @@ namespace HospiceNiagara.Controllers
                     singleInvites.Add(userInvite);
                 }
                 ViewBag.UserInvitesList = singleInvites;
+            }
+            if (newUser.HasValue)
+            {
+                if (newUser.Value)
+                {
+                    int team = User.GetHospiceContact().TeamDomainID;
+                    string teamName = ((Domains)team).ToString();
+                    string clickHere = "This is the meeting and events page. This page will display events and meetings that you have been asked to attend. On the right hand side you will see an RSVP button. Clicking on that will allow you to RSVP for a particular event or meeting.";
+                    ViewBag.NewUserMessage = clickHere;
+                }
             }
             return View(elists);
         }

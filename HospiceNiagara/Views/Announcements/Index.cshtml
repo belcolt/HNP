@@ -11,6 +11,12 @@
     </div>
     }
     <h2>Announcements</h2>
+    @if (ViewBag.NewUserMessage != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <span>@Html.Raw(ViewBag.NewUserMessage)@Html.ActionLink("Click here to continue the new user tour", "Index", "Resources", new { newUser = true }, null)</span>
+        </div>
+    }
     <br />
     <div class="panel panel-default col-lg-6">
         <!-- Default panel contents -->

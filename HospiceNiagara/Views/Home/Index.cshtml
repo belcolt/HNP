@@ -8,7 +8,7 @@
 @if (User.IsInRole("New Volunteer") || User.IsInRole("New Board Member") || User.IsInRole("New Staff"))
 {
     <div class="alert alert-info" role="alert">
-        @Html.ActionLink("Welcome New Staff/Volunteer/Board member! Click here for some information", "Index", "Resources", new { newUser = true }, null)
+        @Html.ActionLink("Welcome New Staff/Volunteer/Board member! Click here for some information", "Index", "Announcements", new { newUser = true }, null)
     </div>
 }
 @if (ViewBag.Anniversary != null)
