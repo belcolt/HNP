@@ -26,7 +26,11 @@ namespace HospiceNiagara
             {
                 TrackInfo tI = new TrackInfo();
                 tI.User = this.User.Identity.Name;
+                string id = Session.SessionID;
+                if (!(ActiveSessions.Sessions.ContainsKey(id)))
+                {
                 ActiveSessions.Sessions.Add(Session.SessionID, tI);
+                }
             }
             else
             {

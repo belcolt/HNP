@@ -24,7 +24,7 @@ namespace HospiceNiagara.Controllers
         public ActionResult UserRegister()
         {
             ViewBag.TeamDomainID = new SelectList(db.TeamDomains, "ID", "Description");
-            ViewBag.JobDescriptionID = new SelectList(db.JobDescriptions, "ID", "JobName");
+            ViewBag.JobDescriptions = new SelectList(db.JobDescriptions.ToList(), "ID", "JobName");
             return View();
         }
         [HttpGet]
@@ -63,11 +63,13 @@ namespace HospiceNiagara.Controllers
                     JobDescriptionID = regUser.JobDescriptionID,
                     Phone = regUser.Phone,
                     Email = regUser.Email,
-                    TeamDomainID = regUser.TeamDomainID
+                    TeamDomainID = regUser.TeamDomainID,
+                    DateHired = DateTime.Now
                 });
 
                 try
                 {
+                    db.Contacts.Add(contact); ;
                     ApplicationUser newUser = new ApplicationUser { ContactID = contact.ID, Email = regUser.Email, UserName = regUser.Email };
                     var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
                     var result = await manager.CreateAsync(newUser, regUser.Password);
@@ -79,12 +81,12 @@ namespace HospiceNiagara.Controllers
                         }
                         db.SaveChanges();
                     }
-                    
                     return RedirectToAction("UserRegister");
                 }
-                catch
+                catch(Exception ex)
                 {
-                    return PartialView("UserRegister", regUser);
+                    ViewBag.Error = ex.InnerException.InnerException.Message.ToString();
+                    return RedirectToAction("UserRegister");
                 }
             }
             else
@@ -130,6 +132,10 @@ namespace HospiceNiagara.Controllers
             
         }
 
+        public ActionResult UsersLastLoggedIn()
+        {
+            return View(db.Users.ToList());
+        }
         public ActionResult TrackUsers()
         {
             return View();

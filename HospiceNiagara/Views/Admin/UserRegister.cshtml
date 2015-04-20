@@ -2,6 +2,12 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if(ViewBag.Error!=null)
+{
+    <div class="alert alert-warning" role="alert">
+        <span>ViewBag.Error</span>
+    </div>
+}
 <div id="registerForm">
     @Html.Partial("_RegisterUserForm")
 </div>
